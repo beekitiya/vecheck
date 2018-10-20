@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Questionnaire3Page } from '../questionnaire3/questionnaire3'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the Questionnaire2Page page.
@@ -15,18 +15,25 @@ import { Questionnaire3Page } from '../questionnaire3/questionnaire3'
   templateUrl: 'questionnaire2.html',
 })
 export class Questionnaire2Page {
+    questionnaireForm: FormGroup;
 
-    questionnaire3Page: Questionnaire3Page;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+      fb: FormBuilder) {
+        this.questionnaireForm = fb.group({
+          car_mile: ['',Validators.required],
+          last_visit: ['',Validators.required],
+          service_center: ['',Validators.required],
+          engine_oil: ['',Validators.required]
+    });
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Questionnaire2Page');
   }
 
   goToQuestionnaire3() {
-      this.navCtrl.push('Questionnaire3Page');
+      let data = Object.assign({}, this.navParams.data,this.questionnaireForm.value);
+      this.navCtrl.push('Questionnaire3Page',data);
   }
 
 

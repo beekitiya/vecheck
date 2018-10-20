@@ -1,15 +1,15 @@
 <ion-content padding class="app-background">
-    <form class="car-questionnaire">
+    <form class="car-questionnaire" [formGroup]="questionnaireForm">
         <h3 text-center>ข้อมูลในการบำรุงรักษารถยนต์</h3>
         <ion-item class="regis-input">
             <ion-label>เลขไมล์ปัจจุบัน</ion-label>
-            <ion-input style="margin-bottom: -15px;" type="text" required text-right></ion-input>
+            <ion-input style="margin-bottom: -15px;" type="text" required text-right formControlName="car_mile"></ion-input>
         </ion-item>
         <ion-item class="regis-input">
             <ion-label>วันที่เข้าศูนย์บริการล่าสุด</ion-label>
-            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right></ion-datetime>
+            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right formControlName="last_visit"></ion-datetime>
         </ion-item>
-        <ion-grid radio-group>
+        <ion-grid radio-group formControlName="service_center">
             <ion-row>
                 <ion-item class="group-radio">
                     ประเภทศูนย์บริการ
@@ -34,7 +34,7 @@
                 </ion-item>
             </ion-row>
         </ion-grid>
-        <ion-grid radio-group>
+        <ion-grid radio-group formControlName="engine_oil">
             <ion-row>
                 <ion-item class="group-radio">
                     ประเภทน้ำมันเครื่องที่ใช้

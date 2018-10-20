@@ -1,14 +1,14 @@
 webpackJsonp([0],{
 
-/***/ 547:
+/***/ 560:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainPageModule", function() { return MainPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main__ = __webpack_require__(565);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main__ = __webpack_require__(573);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var MainPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 554:
+/***/ 567:
 /***/ (function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -347,7 +347,7 @@ function isUndefined(arg) {
 
 /***/ }),
 
-/***/ 556:
+/***/ 568:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -875,7 +875,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(571);
+exports.isBuffer = __webpack_require__(579);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -919,7 +919,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(572);
+exports.inherits = __webpack_require__(580);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -937,11 +937,11 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45), __webpack_require__(300)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42), __webpack_require__(165)))
 
 /***/ }),
 
-/***/ 557:
+/***/ 569:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, __filename) {
@@ -949,8 +949,8 @@ function hasOwnProperty(obj, prop) {
  * Module dependencies.
  */
 
-var fs = __webpack_require__(574)
-  , path = __webpack_require__(575)
+var fs = __webpack_require__(582)
+  , path = __webpack_require__(583)
   , join = path.join
   , dirname = path.dirname
   , exists = fs.existsSync || path.existsSync
@@ -1111,11 +1111,11 @@ exports.getRoot = function getRoot (file) {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(300), "/index.js"))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(165), "/index.js"))
 
 /***/ }),
 
-/***/ 561:
+/***/ 570:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*
@@ -1135,10 +1135,10 @@ exports.getRoot = function getRoot (file) {
 (function () {
     "use strict";
 
-    var util = __webpack_require__(556),
-        EventEmitter = __webpack_require__(554).EventEmitter,
-        btSerial = __webpack_require__(557)('BluetoothSerialPort.node'),
-        DeviceINQ = __webpack_require__(576).DeviceINQ;
+    var util = __webpack_require__(568),
+        EventEmitter = __webpack_require__(567).EventEmitter,
+        btSerial = __webpack_require__(569)('BluetoothSerialPort.node'),
+        DeviceINQ = __webpack_require__(584).DeviceINQ;
 
     /**
      * Creates an instance of the bluetooth-serial object.
@@ -1263,9 +1263,9 @@ exports.getRoot = function getRoot (file) {
         return;
     }
 
-    var util = __webpack_require__(556),
-        EventEmitter = __webpack_require__(554).EventEmitter,
-        btSerial = __webpack_require__(557)('BluetoothSerialPortServer.node'),
+    var util = __webpack_require__(568),
+        EventEmitter = __webpack_require__(567).EventEmitter,
+        btSerial = __webpack_require__(569)('BluetoothSerialPortServer.node'),
         _SERIAL_PORT_PROFILE_UUID = '1101',
         _DEFAULT_SERVER_CHANNEL = 1,
         _ERROR_CLIENT_CLOSED_CONNECTION = 'Error: Connection closed by the client';
@@ -1359,11 +1359,11 @@ exports.getRoot = function getRoot (file) {
     };
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(300)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(165)))
 
 /***/ }),
 
-/***/ 562:
+/***/ 571:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -1372,17 +1372,17 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 562;
+webpackEmptyContext.id = 571;
 
 /***/ }),
 
-/***/ 565:
+/***/ 573:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1410,7 +1410,7 @@ var MainPage = /** @class */ (function () {
         this.speed = "";
         this.temp = "";
         this.Distance = "";
-        var OBDReader = __webpack_require__(566);
+        var OBDReader = __webpack_require__(574);
         wifiOBDReader = new OBDReader();
         var instance = this;
         this.counter = 0;
@@ -1482,7 +1482,7 @@ var MainPage = /** @class */ (function () {
     };
     MainPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-main',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/main/main.html"*/'<ion-content class="app-background" padding>\n    <ion-header>\n        <ion-toolbar color="font-color">\n            <ion-buttons left>\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-notifications"></ion-icon>\n                </button>\n            </ion-buttons>\n            <ion-buttons right>\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-contact"></ion-icon>\n                </button>\n            </ion-buttons>\n        </ion-toolbar>\n    </ion-header>\n    <br><br><br>\n\n    <ion-grid>\n        <ion-row>\n            <ion-col col-6 class="speed-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/speed.png">\n                        <p style="margin-top:31px;color:#98999c">ความเร็ว</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km/h</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n            <ion-col col-6 class="distance-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/distance.png">\n                        <p style="margin-top:31px;color:#98999c">ระยะทาง</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Distance}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n    <ion-grid>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันเครื่อง\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ผ้าเบรค\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ยางล้อรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ต่อภาษีรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        กรองอากาศเครื่องยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <br>\n    <div class="fix-button">\n        <ion-row style="margin-left:-5px;margin-right:-15px;margin-bottom:-6px;">\n            <ion-col col-6>\n                <button ion-button full class="start-button" (click)="start()">เริ่ม</button>\n            </ion-col>\n            <ion-col col-6>\n                <button ion-button full class="stop-button" (click)="stop()" color="danger">หยุด</button>\n            </ion-col>\n        </ion-row>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/main/main.html"*/,
+            selector: 'page-main',template:/*ion-inline-start:"/Users/prince/vecheck/src/pages/main/main.html"*/'<ion-content class="app-background" padding>\n    <ion-header>\n        <ion-toolbar color="font-color">\n            <ion-buttons left>\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-notifications"></ion-icon>\n                </button>\n            </ion-buttons>\n            <ion-buttons right>\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-contact"></ion-icon>\n                </button>\n            </ion-buttons>\n        </ion-toolbar>\n    </ion-header>\n    <br><br><br>\n\n    <ion-grid>\n        <ion-row>\n            <ion-col col-6 class="speed-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/speed.png">\n                        <p style="margin-top:31px;color:#98999c">ความเร็ว</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km/h</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n            <ion-col col-6 class="distance-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/distance.png">\n                        <p style="margin-top:31px;color:#98999c">ระยะทาง</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Distance}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n    <ion-grid>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันเครื่อง\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ผ้าเบรค\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ยางล้อรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ต่อภาษีรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        กรองอากาศเครื่องยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <br>\n    <div class="fix-button">\n        <ion-row style="margin-left:-5px;margin-right:-15px;margin-bottom:-6px;">\n            <ion-col col-6>\n                <button ion-button full class="start-button" (click)="start()">เริ่ม</button>\n            </ion-col>\n            <ion-col col-6>\n                <button ion-button full class="stop-button" (click)="stop()" color="danger">หยุด</button>\n            </ion-col>\n        </ion-row>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/prince/vecheck/src/pages/main/main.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]])
     ], MainPage);
@@ -1493,7 +1493,7 @@ var MainPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 566:
+/***/ 574:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1520,14 +1520,14 @@ var MainPage = /** @class */ (function () {
 
 
 //Used for event emitting.
-var EventEmitter = __webpack_require__(554).EventEmitter;
-var util = __webpack_require__(556);
+var EventEmitter = __webpack_require__(567).EventEmitter;
+var util = __webpack_require__(568);
 
 /**
  * obdInfo.js for all PIDS.
  * @type {*}
  */
-var PIDS = __webpack_require__(573);
+var PIDS = __webpack_require__(581);
 
 /**
  * Constant for defining delay between writes.
@@ -1911,7 +1911,7 @@ OBDReader.prototype.autoconnect = function (type='bluetooth', parameter) {
 OBDReader.prototype.autoconnectBluetooth = function (query, instance) {
     console.log("Autoconnect bluetooth called");
     var self = instance; //Enclosure
-    var btSerial = new(__webpack_require__(561)).BluetoothSerialPort();
+    var btSerial = new(__webpack_require__(570)).BluetoothSerialPort();
     var search = new RegExp(query.replace(/\W/g, ''), 'gi');
 
     btSerial.on('found', function (address, name) {
@@ -1948,7 +1948,7 @@ OBDReader.prototype.autoconnectBluetooth = function (query, instance) {
  */
 OBDReader.prototype.connect = function (address, channel) {
     var self = this; //Enclosure
-    var btSerial = new(__webpack_require__(561)).BluetoothSerialPort();
+    var btSerial = new(__webpack_require__(570)).BluetoothSerialPort();
 
     btSerial.connect(address, channel, function () {
         self.connected = true;
@@ -2158,11 +2158,11 @@ OBDReader.prototype.stopPolling = function () {
 };
 
 var exports = module.exports = OBDReader;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(567).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(575).Buffer))
 
 /***/ }),
 
-/***/ 567:
+/***/ 575:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2176,9 +2176,9 @@ var exports = module.exports = OBDReader;
 
 
 
-var base64 = __webpack_require__(568)
-var ieee754 = __webpack_require__(569)
-var isArray = __webpack_require__(570)
+var base64 = __webpack_require__(576)
+var ieee754 = __webpack_require__(577)
+var isArray = __webpack_require__(578)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -3956,11 +3956,11 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
 
-/***/ 568:
+/***/ 576:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4119,7 +4119,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 569:
+/***/ 577:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -4210,7 +4210,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 570:
+/***/ 578:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -4222,7 +4222,7 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ 571:
+/***/ 579:
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -4234,7 +4234,7 @@ module.exports = function isBuffer(arg) {
 
 /***/ }),
 
-/***/ 572:
+/***/ 580:
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -4264,7 +4264,7 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 
-/***/ 573:
+/***/ 581:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4663,14 +4663,14 @@ var exports = module.exports = responsePIDS;
 
 /***/ }),
 
-/***/ 574:
+/***/ 582:
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
 
-/***/ 575:
+/***/ 583:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -4898,11 +4898,11 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(300)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(165)))
 
 /***/ }),
 
-/***/ 576:
+/***/ 584:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -4923,8 +4923,8 @@ var substr = 'ab'.substr(-1) === 'b'
     "use strict";
 
     // javascript shim that lets our object inherit from EventEmitter
-    var DeviceINQ = __webpack_require__(557)('BluetoothSerialPort.node').DeviceINQ,
-        events = __webpack_require__(554);
+    var DeviceINQ = __webpack_require__(569)('BluetoothSerialPort.node').DeviceINQ,
+        events = __webpack_require__(567);
 
     // extend prototype
     function inherits(target, source) {

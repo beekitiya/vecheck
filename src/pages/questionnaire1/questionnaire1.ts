@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Questionnaire2Page } from '../questionnaire2/questionnaire2'
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /**
  * Generated class for the Questionnaire1Page page.
  *
@@ -15,10 +14,21 @@ import { Questionnaire2Page } from '../questionnaire2/questionnaire2'
   templateUrl: 'questionnaire1.html',
 })
 export class Questionnaire1Page {
+    questionnaireForm: FormGroup;
+  
 
-    questionnaire2Page: Questionnaire2Page;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    fb: FormBuilder) {
+      this.questionnaireForm = fb.group({
+        brand: ['',Validators.required],
+        model: ['',Validators.required],
+        model_year: ['',Validators.required],
+        model_color: ['',Validators.required],
+        model_engine: ['',Validators.required],
+        model_gear: ['',Validators.required],
+        model_country: ['',Validators.required],
+        model_license: ['',Validators.required]
+  });
   }
 
   ionViewDidLoad() {
@@ -26,7 +36,10 @@ export class Questionnaire1Page {
   }
 
   goToQuestionnaire2() {
-      this.navCtrl.push('Questionnaire2Page');
+      let data = this.questionnaireForm.value;
+      this.navCtrl.push('Questionnaire2Page',data);
   }
+
+
 
 }

@@ -22,6 +22,12 @@ export class AuthService {
 		return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
 	}
 
+
+	getcurrentUser(){
+		return this.afAuth.auth.currentUser;
+  }
+
+
 	get authenticated(): boolean {
   		return this.user !== null;
 	}

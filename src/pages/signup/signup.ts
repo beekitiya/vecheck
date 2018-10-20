@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, AlertController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 import { User } from '../../providers';
 //import { StartQuestionnairePage } from '../start-questionnaire/start-questionnaire';
@@ -44,8 +45,9 @@ export class SignupPage {
     ) {
 
         this.signupForm = fb.group({
+            username: [''],
             email: ['',Validators.required],
-			password: ['',Validators.required],
+			      password: ['',Validators.required],
             lineid: [''],
             phonenumber: [''],
             gender: ['']
@@ -69,11 +71,12 @@ export class SignupPage {
 
   createProfile(value){
      return new Promise<any>((resolve, reject) => {
-       let currentUser = this.auth.currentUser;
-       this.afs.collection('Users').doc(currentUser.uid).collection('profile').add({
-         gender: value.gender,
+       let currentUser = this.auth.getcurrentUser();
+       this.afs.collection('Users').doc(currentUser.uid).set({
+         gender: value.gender,  
          lineid: value.lineid,
-         phonenumber: value.phonenumber
+         phonenumber: value.phonenumber,
+         username: value.username
        })
        .then(
          res => {

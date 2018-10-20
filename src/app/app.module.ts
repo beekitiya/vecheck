@@ -14,10 +14,10 @@ import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
 
-import { environment } from '../environments/environment';
+//import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestore,AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from '../config';
 import { AuthService } from '../services/auth.service';
 //import { LoginPage } from '../pages/login/login';
@@ -88,7 +88,7 @@ export function provideSettings(storage: Storage) {
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     AngularFireAuth,
-    //AngularFirestore
+    AngularFirestore
   ]
 })
 export class AppModule { }

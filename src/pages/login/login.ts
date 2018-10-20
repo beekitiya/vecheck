@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../providers/user/user';
 import { SignupPage } from '../signup/signup';
 import { MainPage } from '../main/main';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @IonicPage()
 @Component({
@@ -40,7 +41,8 @@ export class LoginPage {
     public translateService: TranslateService,
     public viewCtrl: ViewController,
     private auth: AuthService,
-    fb: FormBuilder
+    fb: FormBuilder,
+    private readonly afs: AngularFirestore
     ) {
 
     /*this.translateService.get('LOGIN_ERROR').subscribe((value) => {
@@ -97,7 +99,7 @@ export class LoginPage {
           password: data.password
       };
       this.auth.signInWithEmail(credentials) .then(
-          () => this.navCtrl.push('MainPage'),
+          () => this.gotoMainPage(),
           error => this.loginError = error.message
       );
   }
@@ -113,7 +115,18 @@ export class LoginPage {
   }*/
 
   gotoMainPage () {
-    this.navCtrl.push('MainPage');
+    let currentUser = this.auth.getcurrentUser();
+    this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()
+    .then( (query)=>
+
+      {
+        if(query.size>0){
+            this.navCtrl.push('MainPage');
+        }else{
+            this.navCtrl.push('StartQuestionnairePage');
+        }
+      
+    });
   }
   // Attempt to login in through our User service
   gotoSignUp() {
