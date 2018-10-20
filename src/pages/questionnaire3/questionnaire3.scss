@@ -1,0 +1,56 @@
+page-questionnaire3 {
+    .app-background {
+        background-color: white;
+    }
+
+    .car-questionnaire {
+        margin-top: 4em;
+        h3 {
+            color: color($colors,font-color);
+            margin-bottom: 20px;
+        }
+        .regis-input {
+            background-color: transparent;
+            border-bottom: color($colors,font-color);
+            font-size: 14px;
+            font-weight: 400;
+            color: color($colors,font-color);
+            margin-top: 2px;
+            margin-left: -10px;
+            ion-label {
+                color: color($colors,font-color);
+                font-size: 14px;
+                margin-bottom: -10px;
+            }
+            .select-md {
+                padding: 15px 3px 0px 16px;
+            }
+            .select-md .select-icon .select-icon-inner {
+                color: color($colors,font-color);
+                margin-top: 2px;
+            }
+            .select-text {
+                margin-top: 5px;
+                margin-right: 5px;
+            }
+        }
+        button[type=submit] {
+            background-color: color($colors,button-color);
+            font-size: 14px;
+            height: 40px;
+            bottom: -0.3em;
+            box-shadow: none;
+            font-weight: 400;
+        }
+        button[type=submit]:hover {
+            background-color: color($colors,button-color);
+        }
+    }
+
+    .fix-button {
+        position: fixed;
+        left: 0;
+        bottom: 0px;
+        right: 0;
+    }
+}

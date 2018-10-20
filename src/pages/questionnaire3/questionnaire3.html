@@ -1,0 +1,53 @@
+<ion-content padding class="app-background">
+    <form class="car-questionnaire">
+        <h3 text-center>ภาษีรถยนต์</h3>
+        <ion-item class="regis-input">
+            <ion-label>วันหมดอายุภาษีประจำปี</ion-label>
+            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right></ion-datetime>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>วันสิ้นสุดประกันภัยภาคบังคับ (พรบ.)</ion-label>
+            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right></ion-datetime>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>บริษัทประกันภัยภาคสมัครใจ</ion-label>
+            <ion-select>
+                <ion-option >กรุงเทพประกันภัย</ion-option>
+                <ion-option >ไทยไพบูลย์</ion-option>
+                <ion-option >สินมั่นคง</ion-option>
+                <ion-option >กรุงไทยพานิชประกันภัย</ion-option>
+                <ion-option >ไทยวิวัฒน์</ion-option>
+                <ion-option >อลิอันซ์</ion-option>
+                <ion-option >คุ้มภัย</ion-option>
+                <ion-option >ไทยศรี</ion-option>
+                <ion-option >อาคเนย์ประกันภัย</ion-option>
+                <ion-option >เคเอสเค ประกันภัย</ion-option>
+                <ion-option >ไทยเศรษฐ</ion-option>
+                <ion-option >อินทรประกันภัย</ion-option>
+                <ion-option >เจพี ประกันภัย</ion-option>
+                <ion-option >นวกิจประกันภัย</ion-option>
+                <ion-option >เอเชียประกันภัย</ion-option>
+                <ion-option >ชับบ์สามัคคีประกันภัย</ion-option>
+                <ion-option >แปซิฟิก ครอส</ion-option>
+                <ion-option >เอ็มเอสไอจี</ion-option>
+                <ion-option >โตเกียวมารีน</ion-option>
+                <ion-option >เมืองไทยประกันภัย</ion-option>
+                <ion-option >แอกซ่าประกันภัย</ion-option>
+                <ion-option >แอกซ่าประกันภัย</ion-option>
+                <ion-option >ทิพยประกันภัย</ion-option>
+                <ion-option >วิริยะประกันภัย</ion-option>
+                <ion-option >แอลเอ็มจี ประกันภัย</ion-option>
+                <ion-option >เทเวศประกันภัย</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>วันสิ้นสุดประกันภัยภาคสมัครใจ</ion-label>
+            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right></ion-datetime>
+        </ion-item>
+        <div class="fix-button">
+            <button ion-button block type="submit" (click)="gotoMainPage()">
+                สิ้นสุดแบบสอบถาม
+            </button>
+        </div>
+    </form>
+</ion-content>

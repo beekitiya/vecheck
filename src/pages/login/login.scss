@@ -1,0 +1,71 @@
+page-login {
+    .app-background {
+        background-color: white;
+        //background-image: url(../assets/imgs/BG.png);
+        //background-size: cover;
+    }
+
+    .app-logo {
+        height: 130px;
+        width: auto;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+
+    .login-form {
+        ion-list.list {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        ion-item:first-child {
+            margin-top: 21em;
+            //border-radius: 50px;
+            //border-radius: 50px;
+        }
+        ion-item:last-child {
+            margin-top: 10px;
+            //border-radius: 50px;
+            //border-radius: 50px;
+        }
+        ion-item.item {
+            height: 40px;
+            left: 50%;
+            transform: translate(-50%);
+            border: none;
+            padding-left: 0px;
+            //background-color: rgba(207, 237, 216, 0.2);
+            color: color($colors,font-color);
+            .label {
+                width: 10%;
+                color: color($colors,font-color);
+                font-size: 1.2em;
+                margin-left: 10px;
+            }
+            ::placeholder {
+                color: color($colors,font-color);
+                font-size: 14px;
+            }
+        }
+        button[type=submit] {
+            background-color: color($colors,button-color);
+            font-size: 15px;
+            height: 40px;
+            left: 50%;
+            transform: translate(-50%);
+            box-shadow: none;
+            font-weight: bold;
+            border-radius: 50px;
+            margin-top: 10px;
+        }
+        button[type=submit]:hover {
+            background-color: color($colors,button-color);
+        }
+        .signup-button {
+            font-size: 14px;
+            padding-bottom: 10px;
+            padding-left: 1px;
+        }
+    }
+}

@@ -1,0 +1,103 @@
+page-signup {
+    .app-background {
+        background-color: white;
+    }
+
+    .app-logo {
+        height: 90px;
+        width: auto;
+        position: absolute;
+        margin-top: 30px;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .signup-form {
+        margin-top: 10em;
+        fieldset {
+            border-radius: 5px;
+            border-color: color($colors,font-color);
+            legend {
+                font-size: 14px;
+                color: color($colors,font-color);
+            }
+        }
+        .regis-input {
+            background-color: transparent;
+            border-bottom: color($colors,font-color);
+            font-size: 14px;
+            font-weight: 400;
+            color: color($colors,font-color);
+            margin-top: 2px;
+            margin-left: -10px;
+            ion-label {
+                color: color($colors,font-color);
+                font-size: 14px;
+                margin-bottom: -10px;
+            }
+            .select-md {
+                padding: 15px 3px 0px 16px;
+            }
+            .select-md .select-icon .select-icon-inner {
+                color: #cfedd8;
+                margin-top: 2px;
+            }
+            .select-text {
+                margin-top: 5px;
+                margin-right: 5px;
+            }
+        }
+        button[type=submit] {
+            background-color: color($colors,button-color);
+            font-size: 15px;
+            height: 40px;
+            top: 1.5em;
+            left: 50%;
+            transform: translate(-50%);
+            box-shadow: none;
+            font-weight: bold;
+            border-radius: 50px;
+        }
+        button[type=submit]:hover {
+            background-color: color($colors,button-color);
+        }
+        .signin-button {
+            font-size: 14px;
+            padding-bottom: 10px;
+            padding-left: 1px;
+        }
+        .swiper-wrapper {
+            margin-bottom: 30px;
+        }
+        .swiper-pagination-bullet-active {
+            background: color($colors,font-color);
+        }
+
+        .swiper-pagination-fraction,
+        .swiper-pagination-custom,
+        .swiper-container-horizontal > .swiper-pagination-bullets {
+            bottom: 0em;
+        }
+        .group-radio {
+            padding-left: 3px;
+            padding-top: 10px;
+            background-color: transparent;
+            color: color($colors,font-color);
+            font-size: 14px;
+            div.item-inner {
+                border-bottom: none;
+            }
+            div.radio-icon {
+                width: 16px;
+                height: 16px;
+                border-width: 2px;
+                border-color: color($colors,font-color);
+            }
+            .radio-md {
+                margin: 9px 10px 9px 0;
+            }
+        }
+        .grid {
+            padding: 0px;
+        }
+    }
+}

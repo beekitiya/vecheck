@@ -1,0 +1,13 @@
+{
+  "name": "vcare-project",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+      {
+          "path":"/service",
+          "proxyUrl": "http://206.189.90.152/~omjqfva123/service"
+      }
+  ],
+  "type": "ionic-angular"
+}

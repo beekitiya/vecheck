@@ -1,0 +1,52 @@
+page-start-questionnaire {
+    .app-background {
+        background-color: white;
+    }
+
+    .app-logo {
+        height: 60px;
+        width: auto;
+        position: absolute;
+        //margin-top: 10px;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+
+    .start-survey {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        fieldset {
+            border-radius: 5px;
+            border-color: color($colors,button-color);
+            padding-top: 5em;
+            padding-bottom: 5em;
+            button[type=submit] {
+                background-color: color($colors,button-color);
+                font-size: 15px;
+                height: 40px;
+                top: 15px;
+                box-shadow: none;
+                font-weight: bold;
+                border-radius: 50px;
+            }
+            button[type=submit]:hover {
+                background-color: color($colors,button-color);
+            }
+            h3 {
+                color: color($colors,button-color);
+                font-size: 20px;
+                font-weight: bold;
+                letter-spacing: 2px;
+            }
+            p {
+                color: #000000;
+                font-size: 16px;
+                letter-spacing: 1.5px;
+            }
+        }
+    }
+}

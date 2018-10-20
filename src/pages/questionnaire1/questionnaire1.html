@@ -1,0 +1,94 @@
+<ion-content padding class="app-background">
+    <form class="car-questionnaire">
+        <h3 text-center>รถยนต์</h3>
+        <ion-item class="regis-input">
+            <ion-label>ยี่ห้อ</ion-label>
+            <ion-select>
+                <ion-option >Honda</ion-option>
+                <ion-option >Toyota</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>รุ่น</ion-label>
+            <ion-select>
+                <ion-option >Honda Brio</ion-option>
+                <ion-option >Honda City</ion-option>
+                <ion-option >Honda HR-V</ion-option>
+                <ion-option >Honda Jazz</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>ปี</ion-label>
+            <ion-select>
+                <ion-option >2005</ion-option>
+                <ion-option >2006</ion-option>
+                <ion-option >2007</ion-option>
+                <ion-option >2008</ion-option>
+                <ion-option >2009</ion-option>
+                <ion-option >2010</ion-option>
+                <ion-option >2011</ion-option>
+                <ion-option >2012</ion-option>
+                <ion-option >2013</ion-option>
+                <ion-option >2014</ion-option>
+                <ion-option >2015</ion-option>
+                <ion-option >2016</ion-option>
+                <ion-option >2017</ion-option>
+                <ion-option >2018</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>สีรถยนต์</ion-label>
+            <ion-select>
+                <ion-option >ดำ</ion-option>
+                <ion-option >ขาว</ion-option>
+                <ion-option >เทา</ion-option>
+                <ion-option >น้ำเงิน</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-row radio-group>
+            <ion-col col-3>
+                <ion-item class="group-radio">
+                    เกียร์
+                </ion-item>
+            </ion-col>
+            <ion-col col-5>
+                <ion-item class="group-radio">
+                    <ion-radio value="1" item-left></ion-radio>
+                    <ion-label>ธรรมดา</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col col-4>
+                <ion-item class="group-radio">
+                    <ion-radio value="2" item-left></ion-radio>
+                    <ion-label>ออโต้</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-item class="regis-input">
+            <ion-label>ขนาดเครื่องยนต์ (CC.)</ion-label>
+            <ion-select>
+                <ion-option >1,500 CC</ion-option>
+                <ion-option >1,800 CC</ion-option>
+                <ion-option >2,000 CC</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>ประเทศที่จดทะเบียน</ion-label>
+            <ion-select>
+                <ion-option >England</ion-option>
+                <ion-option >Japan</ion-option>
+                <ion-option >Thailand</ion-option>
+                <ion-option >USA</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>ทะเบียนรถยนต์</ion-label>
+            <ion-input style="margin-bottom: -15px;" type="text" required text-right></ion-input>
+        </ion-item>
+        <div class="fix-button">
+            <button ion-button full type="submit" (click)="goToQuestionnaire2()">
+                ถัดไป
+            </button>
+        </div>
+    </form>
+</ion-content>

@@ -1,0 +1,4 @@
+#Mon Oct 08 04:33:22 ICT 2018
+base.0=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/transforms/dexMerger/debug/114
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,116 @@
+<ion-content class="app-background" padding>
+    <ion-header>
+        <ion-toolbar color="font-color">
+            <ion-buttons left>
+                <button ion-button icon-only color="icon-color">
+                    <ion-icon name="ios-notifications"></ion-icon>
+                </button>
+            </ion-buttons>
+            <ion-buttons right>
+                <button ion-button icon-only color="icon-color">
+                    <ion-icon name="ios-contact"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+    <br><br><br>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6 class="speed-col">
+                <ion-card class="question-card">
+                    <ion-card-content text-center>
+                        <img class="main-icon" src="../assets/imgs/speed.png">
+                        <p style="margin-top:31px;color:#98999c">ความเร็ว</p>
+                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>
+                        <p style="margin-top:-5px;color:#98999c">km/h</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col col-6 class="distance-col">
+                <ion-card class="question-card">
+                    <ion-card-content text-center>
+                        <img class="main-icon" src="../assets/imgs/distance.png">
+                        <p style="margin-top:31px;color:#98999c">ระยะทาง</p>
+                        <p style="margin-top:7px;font-size:25px;">{{Distance}}</p>
+                        <p style="margin-top:-5px;color:#98999c">km</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+        <ion-row class="list-row">
+            <ion-col col-12 class="list-col">
+                <ion-card class="list-card">
+                    <ion-card-title text-left>
+                        น้ำมันเครื่อง
+                    </ion-card-title>
+                    <ion-card-content>
+                        <p></p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="list-row">
+            <ion-col col-12 class="list-col">
+                <ion-card class="list-card">
+                    <ion-card-title text-left>
+                        ผ้าเบรค
+                    </ion-card-title>
+                    <ion-card-content>
+                        <p></p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="list-row">
+            <ion-col col-12 class="list-col">
+                <ion-card class="list-card">
+                    <ion-card-title text-left>
+                        ยางล้อรถยนต์
+                    </ion-card-title>
+                    <ion-card-content>
+                        <p></p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="list-row">
+            <ion-col col-12 class="list-col">
+                <ion-card class="list-card">
+                    <ion-card-title text-left>
+                        ต่อภาษีรถยนต์
+                    </ion-card-title>
+                    <ion-card-content>
+                        <p></p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row class="list-row">
+            <ion-col col-12 class="list-col">
+                <ion-card class="list-card">
+                    <ion-card-title text-left>
+                        กรองอากาศเครื่องยนต์
+                    </ion-card-title>
+                    <ion-card-content>
+                        <p></p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <br>
+    <div class="fix-button">
+        <ion-row style="margin-left:-5px;margin-right:-15px;margin-bottom:-6px;">
+            <ion-col col-6>
+                <button ion-button full class="start-button" (click)="start()">เริ่ม</button>
+            </ion-col>
+            <ion-col col-6>
+                <button ion-button full class="stop-button" (click)="stop()" color="danger">หยุด</button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

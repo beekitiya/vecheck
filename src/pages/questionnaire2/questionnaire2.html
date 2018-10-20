@@ -1,0 +1,68 @@
+<ion-content padding class="app-background">
+    <form class="car-questionnaire">
+        <h3 text-center>ข้อมูลในการบำรุงรักษารถยนต์</h3>
+        <ion-item class="regis-input">
+            <ion-label>เลขไมล์ปัจจุบัน</ion-label>
+            <ion-input style="margin-bottom: -15px;" type="text" required text-right></ion-input>
+        </ion-item>
+        <ion-item class="regis-input">
+            <ion-label>วันที่เข้าศูนย์บริการล่าสุด</ion-label>
+            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right></ion-datetime>
+        </ion-item>
+        <ion-grid radio-group>
+            <ion-row>
+                <ion-item class="group-radio">
+                    ประเภทศูนย์บริการ
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-item class="group-radio" style="padding-left:20px;">
+                    <ion-radio value="1" item-left></ion-radio>
+                    <ion-label>ศูนย์บริการรถยนต์ (เช่น โตโยต้า)</ion-label>
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-item class="group-radio" style="padding-left:20px;">
+                    <ion-radio value="2" item-left></ion-radio>
+                    <ion-label>อู่ซ่อมรถ</ion-label>
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-item class="group-radio" style="padding-left:20px;">
+                    <ion-radio value="0" item-left></ion-radio>
+                    <ion-label>ศูนย์บริการเฉพาะทาง (เช่น B-Quik)</ion-label>
+                </ion-item>
+            </ion-row>
+        </ion-grid>
+        <ion-grid radio-group>
+            <ion-row>
+                <ion-item class="group-radio">
+                    ประเภทน้ำมันเครื่องที่ใช้
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-item class="group-radio" style="padding-left:20px;">
+                    <ion-radio value="1" item-left></ion-radio>
+                    <ion-label>ทุก 5,000 กิโลเมตร</ion-label>
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-item class="group-radio" style="padding-left:20px;">
+                    <ion-radio value="2" item-left></ion-radio>
+                    <ion-label>ทุก 10,000 กิโลเมตร</ion-label>
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-item class="group-radio" style="padding-left:20px;">
+                    <ion-radio value="0" item-left></ion-radio>
+                    <ion-label>ไม่แน่ใจ</ion-label>
+                </ion-item>
+            </ion-row>
+        </ion-grid>
+        <div class="fix-button">
+            <button ion-button full type="submit" (click)="goToQuestionnaire3()">
+                ถัดไป
+            </button>
+        </div>
+    </form>
+</ion-content>
