@@ -9,7 +9,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(572);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(567);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,7 +44,7 @@ var LoginPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 572:
+/***/ 567:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53,7 +53,7 @@ var LoginPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_user__ = __webpack_require__(307);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2_firestore__ = __webpack_require__(306);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2_firestore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_angularfire2_firestore__);
@@ -177,7 +177,7 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"/Users/prince/vecheck/src/pages/login/login.html"*/'<ion-content class="app-background" padding>\n    <img class="app-logo" src="../assets/imgs/app-logo.png">\n\n    <div class="login-form">\n        <form (ngSubmit)="login()" [formGroup]="loginForm">\n            <ion-list>\n                <ion-item>\n                    <ion-label><ion-icon name="ios-mail-outline" item-left></ion-icon></ion-label>\n                    <ion-input type="text" placeholder="Email" formControlName="email" class="form-control"></ion-input>\n                </ion-item>\n\n                <ion-item>\n                    <ion-label><ion-icon name="ios-lock-outline" item-left></ion-icon></ion-label>\n                    <ion-input type="password" placeholder="รหัสผ่าน" formControlName="password" class="form-control" ></ion-input>\n                </ion-item>\n            </ion-list>\n            <ion-row>\n                <ion-col text-center>\n                    <button ion-button block type="submit">\n                        เข้าสู่ระบบ\n                    </button>\n                </ion-col>\n            </ion-row>\n            <ion-row style="margin-top:-20px">\n                <ion-col text-center>\n                    <p style="color:#000000">\n                        ยังไม่มีบัญชีผู้ใช้?\n                        <button ion-button clear class="signup-button" type="button" color="button-color" (click)="gotoSignUp()"><u>ลงทะเบียน!</u></button>\n                    </p>\n                </ion-col>\n            </ion-row>\n        </form>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/prince/vecheck/src/pages/login/login.html"*/
+            selector: 'page-login',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/login/login.html"*/'<ion-content class="app-background" padding>\n    <img class="app-logo" src="../assets/imgs/app-logo.png">\n\n    <div class="login-form">\n        <form (ngSubmit)="login()" [formGroup]="loginForm">\n            <ion-list>\n                <ion-item>\n                    <ion-label><ion-icon name="ios-mail-outline" item-left></ion-icon></ion-label>\n                    <ion-input type="text" placeholder="Email" formControlName="email" class="form-control"></ion-input>\n                </ion-item>\n\n                <ion-item>\n                    <ion-label><ion-icon name="ios-lock-outline" item-left></ion-icon></ion-label>\n                    <ion-input type="password" placeholder="รหัสผ่าน" formControlName="password" class="form-control" ></ion-input>\n                </ion-item>\n            </ion-list>\n            <ion-row>\n                <ion-col text-center>\n                    <button ion-button block type="submit">\n                        เข้าสู่ระบบ\n                    </button>\n                </ion-col>\n            </ion-row>\n            <ion-row style="margin-top:-20px">\n                <ion-col text-center>\n                    <p style="color:#000000">\n                        ยังไม่มีบัญชีผู้ใช้?\n                        <button ion-button clear class="signup-button" type="button" color="button-color" (click)="gotoSignUp()"><u>ลงทะเบียน!</u></button>\n                    </p>\n                </ion-col>\n            </ion-row>\n        </form>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/login/login.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_5__providers_user_user__["a" /* User */],

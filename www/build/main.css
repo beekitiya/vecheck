@@ -33454,6 +33454,11 @@ page-main .main-icon {
   transform: translate(-60%);
 }
 
+page-main .bt-icon {
+  height: 23px;
+  width: auto;
+}
+
 page-main .question-card {
   margin-top: 0.5em;
   width: 100%;
@@ -33462,14 +33467,22 @@ page-main .question-card {
 
 page-main .question-card .card-title-md {
   color: #364D9E;
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 15px;
   margin-top: 10px;
 }
 
 page-main .question-card p {
   color: #364D9E;
-  font-size: 14px;
+  font-size: 12px;
+}
+
+page-main .question-card button {
+  font-size: 12px;
+  right: -52%;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #FDB411;
 }
 
 page-main .list-card {
@@ -33494,24 +33507,30 @@ page-main .list-card p {
 
 page-main .speed-col {
   padding: 0px;
-  margin-left: -15px;
+  margin-left: -20px;
   margin-right: 5px;
 }
 
 page-main .distance-col {
+  padding: 0px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+page-main .odometer-col {
   padding: 0px;
   margin-right: -15px;
   margin-left: 5px;
 }
 
 page-main .list-row {
-  margin-right: -10px;
+  margin-right: -20px;
 }
 
 page-main .list-col {
   padding: 0px;
   margin-top: -5px;
-  margin-left: -15px;
+  margin-left: -20px;
 }
 
 page-main .fix-button {
@@ -33549,8 +33568,16 @@ page-questionnaire1 .app-background {
   background-color: white;
 }
 
+page-questionnaire1 .car-progress {
+  margin-top: 5em;
+  height: 70px;
+  left: 50%;
+  -webkit-transform: translate(10%);
+  transform: translate(10%);
+}
+
 page-questionnaire1 .car-questionnaire {
-  margin-top: 4em;
+  margin-top: 1.5em;
 }
 
 page-questionnaire1 .car-questionnaire h3 {
@@ -33633,8 +33660,104 @@ page-questionnaire1 .fix-button {
   right: 0;
 }
 
+page-questionnaire1 .orderStatus {
+  padding: 10px;
+  overflow: hidden;
+}
+
+page-questionnaire1 .orderStatus .row {
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+  width: 100%;
+}
+
+page-questionnaire1 .orderStatus .row .col {
+  display: block;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 0;
+  -ms-flex: 1 1 0px;
+  flex: 1 1 0;
+  padding: 5px;
+  width: 100%;
+  ine-height: 12px;
+  position: relative;
+  text-align: center;
+  padding-top: 15px;
+  color: #aaa;
+}
+
+page-questionnaire1 .orderStatus .row .col:before {
+  content: '';
+  width: 100%;
+  height: 5px;
+  background: #ccc;
+  top: 0px;
+  left: 0;
+  position: absolute;
+  margin: 0 0 0 -50%;
+}
+
+page-questionnaire1 .orderStatus .row .col.done:before {
+  background: #FDB411;
+}
+
+page-questionnaire1 .orderStatus .row .col:first-child:before {
+  background: none;
+}
+
+page-questionnaire1 .orderStatus .row .col:after {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  content: "\f119";
+  color: #ccc;
+  font-size: 24px;
+  line-height: 20px;
+  background: #ccc;
+  left: 50%;
+  top: 0;
+  z-index: 999;
+  border-radius: 50%;
+  margin: -8px 0 0 -10px;
+  font-family: "Ionicons";
+}
+
+page-questionnaire1 .orderStatus .row .col.done:after {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  content: "\f119";
+  color: #FDB411;
+  font-size: 24px;
+  line-height: 20px;
+  background: #FDB411;
+  left: 50%;
+  top: 0;
+  z-index: 999;
+  border-radius: 50%;
+  margin: -8px 0 0 -10px;
+  font-family: "Ionicons";
+}
+
+page-questionnaire1 .orderStatus .row .col.done {
+  color: #FDB411;
+}
+
 page-questionnaire2 .app-background {
   background-color: white;
+}
+
+page-questionnaire2 .car-progress {
+  margin-top: 1.5em;
+  height: 70px;
+  left: 50%;
+  -webkit-transform: translate(10%);
+  transform: translate(10%);
 }
 
 page-questionnaire2 .car-questionnaire {
@@ -33728,6 +33851,14 @@ page-questionnaire2 .grid {
 
 page-questionnaire3 .app-background {
   background-color: white;
+}
+
+page-questionnaire3 .car-progress {
+  margin-top: 16em;
+  height: 70px;
+  left: 50%;
+  -webkit-transform: translate(10%);
+  transform: translate(10%);
 }
 
 page-questionnaire3 .car-questionnaire {

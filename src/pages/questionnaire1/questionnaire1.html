@@ -1,20 +1,28 @@
 <ion-content padding class="app-background">
+    <!--<div class="orderStatus" style="margin-top:2em;">
+        <ul class="row">
+            <li class="col done">Step 1</li>
+            <li class="col done">Step 2</li>
+            <li class="col">Step 3</li>
+        </ul>
+    </div>-->
     <form class="car-questionnaire" [formGroup]="questionnaireForm">
         <h3 text-center>รถยนต์</h3>
         <ion-item class="regis-input">
             <ion-label>ยี่ห้อ</ion-label>
             <ion-select formControlName="brand" >
+                <ion-option value="Toyota">Toyota</ion-option>
                 <ion-option value="Honda">Honda</ion-option>
-                <ion-option >Toyota</ion-option>
             </ion-select>
         </ion-item>
         <ion-item class="regis-input">
             <ion-label>รุ่น</ion-label>
             <ion-select formControlName="model">
-                <ion-option value="Brio">Honda Brio</ion-option>
-                <ion-option >Honda City</ion-option>
-                <ion-option >Honda HR-V</ion-option>
-                <ion-option >Honda Jazz</ion-option>
+                <ion-option value="4runner">4runner</ion-option>
+                <ion-option >Camry</ion-option>
+                <ion-option >Corolla Altis</ion-option>
+                <ion-option >Fortuner</ion-option>
+                <ion-option >Vios</ion-option>
             </ion-select>
         </ion-item>
         <ion-item class="regis-input">
@@ -39,10 +47,21 @@
         <ion-item class="regis-input">
             <ion-label>สีรถยนต์</ion-label>
             <ion-select formControlName="model_color">
+                <ion-option value="ขาว">ขาว</ion-option>
                 <ion-option value="ดำ">ดำ</ion-option>
-                <ion-option >ขาว</ion-option>
-                <ion-option >เทา</ion-option>
-                <ion-option >น้ำเงิน</ion-option>
+                <ion-option value="ทอง">ทอง</ion-option>
+                <ion-option value="น้ำตาล">น้ำตาล</ion-option>
+                <ion-option value="น้ำเงิน">น้ำเงิน</ion-option>
+                <ion-option value="ฟ้า">ฟ้า</ion-option>
+                <ion-option value="ม่วง">ม่วง</ion-option>
+                <ion-option value="ส้ม">ส้ม</ion-option>
+                <ion-option value="เขียว">เขียว</ion-option>
+                <ion-option value="เงิน">เงิน</ion-option>
+                <ion-option value="เทา">เทา</ion-option>
+                <ion-option value="เหลือง">เหลือง</ion-option>
+                <ion-option value="แดง">แดง</ion-option>
+                <ion-option value="ครีม">ครีม</ion-option>
+                <ion-option value="ชมพู">ชมพู</ion-option>
             </ion-select>
         </ion-item>
         <ion-row radio-group formControlName="model_gear">
@@ -75,16 +94,17 @@
         <ion-item class="regis-input">
             <ion-label>ประเทศที่จดทะเบียน</ion-label>
             <ion-select formControlName="model_country">
-                <ion-option value="England">England</ion-option>
-                <ion-option >Japan</ion-option>
-                <ion-option >Thailand</ion-option>
-                <ion-option >USA</ion-option>
+                <ion-option value="England">อังกฤษ</ion-option>
+                <ion-option >ญี่ปุ่น</ion-option>
+                <ion-option >ไทย</ion-option>
+                <ion-option >สหรัฐอเมริกา</ion-option>
             </ion-select>
         </ion-item>
         <ion-item class="regis-input">
             <ion-label>ทะเบียนรถยนต์</ion-label>
             <ion-input style="margin-bottom: -15px;" type="text" required text-right formControlName="model_license"></ion-input>
         </ion-item>
+        <img class="car-progress" src="../assets/imgs/car-1.png">
         <div class="fix-button">
             <button ion-button full type="submit" (click)="goToQuestionnaire2()">
                 ถัดไป

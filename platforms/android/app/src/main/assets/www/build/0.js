@@ -1,14 +1,14 @@
 webpackJsonp([0],{
 
-/***/ 330:
+/***/ 560:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainPageModule", function() { return MainPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main__ = __webpack_require__(568);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,1542 +38,13 @@ var MainPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 337:
-/***/ (function(module, exports) {
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-function EventEmitter() {
-  this._events = this._events || {};
-  this._maxListeners = this._maxListeners || undefined;
-}
-module.exports = EventEmitter;
-
-// Backwards-compat with node 0.10.x
-EventEmitter.EventEmitter = EventEmitter;
-
-EventEmitter.prototype._events = undefined;
-EventEmitter.prototype._maxListeners = undefined;
-
-// By default EventEmitters will print a warning if more than 10 listeners are
-// added to it. This is a useful default which helps finding memory leaks.
-EventEmitter.defaultMaxListeners = 10;
-
-// Obviously not all Emitters should be limited to 10. This function allows
-// that to be increased. Set to zero for unlimited.
-EventEmitter.prototype.setMaxListeners = function(n) {
-  if (!isNumber(n) || n < 0 || isNaN(n))
-    throw TypeError('n must be a positive number');
-  this._maxListeners = n;
-  return this;
-};
-
-EventEmitter.prototype.emit = function(type) {
-  var er, handler, len, args, i, listeners;
-
-  if (!this._events)
-    this._events = {};
-
-  // If there is no 'error' event listener then throw.
-  if (type === 'error') {
-    if (!this._events.error ||
-        (isObject(this._events.error) && !this._events.error.length)) {
-      er = arguments[1];
-      if (er instanceof Error) {
-        throw er; // Unhandled 'error' event
-      } else {
-        // At least give some kind of context to the user
-        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-        err.context = er;
-        throw err;
-      }
-    }
-  }
-
-  handler = this._events[type];
-
-  if (isUndefined(handler))
-    return false;
-
-  if (isFunction(handler)) {
-    switch (arguments.length) {
-      // fast cases
-      case 1:
-        handler.call(this);
-        break;
-      case 2:
-        handler.call(this, arguments[1]);
-        break;
-      case 3:
-        handler.call(this, arguments[1], arguments[2]);
-        break;
-      // slower
-      default:
-        args = Array.prototype.slice.call(arguments, 1);
-        handler.apply(this, args);
-    }
-  } else if (isObject(handler)) {
-    args = Array.prototype.slice.call(arguments, 1);
-    listeners = handler.slice();
-    len = listeners.length;
-    for (i = 0; i < len; i++)
-      listeners[i].apply(this, args);
-  }
-
-  return true;
-};
-
-EventEmitter.prototype.addListener = function(type, listener) {
-  var m;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events)
-    this._events = {};
-
-  // To avoid recursion in the case that type === "newListener"! Before
-  // adding it to the listeners, first emit "newListener".
-  if (this._events.newListener)
-    this.emit('newListener', type,
-              isFunction(listener.listener) ?
-              listener.listener : listener);
-
-  if (!this._events[type])
-    // Optimize the case of one listener. Don't need the extra array object.
-    this._events[type] = listener;
-  else if (isObject(this._events[type]))
-    // If we've already got an array, just append.
-    this._events[type].push(listener);
-  else
-    // Adding the second element, need to change to array.
-    this._events[type] = [this._events[type], listener];
-
-  // Check for listener leak
-  if (isObject(this._events[type]) && !this._events[type].warned) {
-    if (!isUndefined(this._maxListeners)) {
-      m = this._maxListeners;
-    } else {
-      m = EventEmitter.defaultMaxListeners;
-    }
-
-    if (m && m > 0 && this._events[type].length > m) {
-      this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length);
-      if (typeof console.trace === 'function') {
-        // not supported in IE 10
-        console.trace();
-      }
-    }
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-EventEmitter.prototype.once = function(type, listener) {
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  var fired = false;
-
-  function g() {
-    this.removeListener(type, g);
-
-    if (!fired) {
-      fired = true;
-      listener.apply(this, arguments);
-    }
-  }
-
-  g.listener = listener;
-  this.on(type, g);
-
-  return this;
-};
-
-// emits a 'removeListener' event iff the listener was removed
-EventEmitter.prototype.removeListener = function(type, listener) {
-  var list, position, length, i;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events || !this._events[type])
-    return this;
-
-  list = this._events[type];
-  length = list.length;
-  position = -1;
-
-  if (list === listener ||
-      (isFunction(list.listener) && list.listener === listener)) {
-    delete this._events[type];
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-
-  } else if (isObject(list)) {
-    for (i = length; i-- > 0;) {
-      if (list[i] === listener ||
-          (list[i].listener && list[i].listener === listener)) {
-        position = i;
-        break;
-      }
-    }
-
-    if (position < 0)
-      return this;
-
-    if (list.length === 1) {
-      list.length = 0;
-      delete this._events[type];
-    } else {
-      list.splice(position, 1);
-    }
-
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.removeAllListeners = function(type) {
-  var key, listeners;
-
-  if (!this._events)
-    return this;
-
-  // not listening for removeListener, no need to emit
-  if (!this._events.removeListener) {
-    if (arguments.length === 0)
-      this._events = {};
-    else if (this._events[type])
-      delete this._events[type];
-    return this;
-  }
-
-  // emit removeListener for all listeners on all events
-  if (arguments.length === 0) {
-    for (key in this._events) {
-      if (key === 'removeListener') continue;
-      this.removeAllListeners(key);
-    }
-    this.removeAllListeners('removeListener');
-    this._events = {};
-    return this;
-  }
-
-  listeners = this._events[type];
-
-  if (isFunction(listeners)) {
-    this.removeListener(type, listeners);
-  } else if (listeners) {
-    // LIFO order
-    while (listeners.length)
-      this.removeListener(type, listeners[listeners.length - 1]);
-  }
-  delete this._events[type];
-
-  return this;
-};
-
-EventEmitter.prototype.listeners = function(type) {
-  var ret;
-  if (!this._events || !this._events[type])
-    ret = [];
-  else if (isFunction(this._events[type]))
-    ret = [this._events[type]];
-  else
-    ret = this._events[type].slice();
-  return ret;
-};
-
-EventEmitter.prototype.listenerCount = function(type) {
-  if (this._events) {
-    var evlistener = this._events[type];
-
-    if (isFunction(evlistener))
-      return 1;
-    else if (evlistener)
-      return evlistener.length;
-  }
-  return 0;
-};
-
-EventEmitter.listenerCount = function(emitter, type) {
-  return emitter.listenerCount(type);
-};
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-
-
-/***/ }),
-
-/***/ 338:
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-
-/***/ 339:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-var formatRegExp = /%[sdj%]/g;
-exports.format = function(f) {
-  if (!isString(f)) {
-    var objects = [];
-    for (var i = 0; i < arguments.length; i++) {
-      objects.push(inspect(arguments[i]));
-    }
-    return objects.join(' ');
-  }
-
-  var i = 1;
-  var args = arguments;
-  var len = args.length;
-  var str = String(f).replace(formatRegExp, function(x) {
-    if (x === '%%') return '%';
-    if (i >= len) return x;
-    switch (x) {
-      case '%s': return String(args[i++]);
-      case '%d': return Number(args[i++]);
-      case '%j':
-        try {
-          return JSON.stringify(args[i++]);
-        } catch (_) {
-          return '[Circular]';
-        }
-      default:
-        return x;
-    }
-  });
-  for (var x = args[i]; i < len; x = args[++i]) {
-    if (isNull(x) || !isObject(x)) {
-      str += ' ' + x;
-    } else {
-      str += ' ' + inspect(x);
-    }
-  }
-  return str;
-};
-
-
-// Mark that a method should not be used.
-// Returns a modified function which warns once by default.
-// If --no-deprecation is set, then it is a no-op.
-exports.deprecate = function(fn, msg) {
-  // Allow for deprecating things in the process of starting up.
-  if (isUndefined(global.process)) {
-    return function() {
-      return exports.deprecate(fn, msg).apply(this, arguments);
-    };
-  }
-
-  if (process.noDeprecation === true) {
-    return fn;
-  }
-
-  var warned = false;
-  function deprecated() {
-    if (!warned) {
-      if (process.throwDeprecation) {
-        throw new Error(msg);
-      } else if (process.traceDeprecation) {
-        console.trace(msg);
-      } else {
-        console.error(msg);
-      }
-      warned = true;
-    }
-    return fn.apply(this, arguments);
-  }
-
-  return deprecated;
-};
-
-
-var debugs = {};
-var debugEnviron;
-exports.debuglog = function(set) {
-  if (isUndefined(debugEnviron))
-    debugEnviron = process.env.NODE_DEBUG || '';
-  set = set.toUpperCase();
-  if (!debugs[set]) {
-    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
-      var pid = process.pid;
-      debugs[set] = function() {
-        var msg = exports.format.apply(exports, arguments);
-        console.error('%s %d: %s', set, pid, msg);
-      };
-    } else {
-      debugs[set] = function() {};
-    }
-  }
-  return debugs[set];
-};
-
-
-/**
- * Echos the value of a value. Trys to print the value out
- * in the best way possible given the different types.
- *
- * @param {Object} obj The object to print out.
- * @param {Object} opts Optional options object that alters the output.
- */
-/* legacy: obj, showHidden, depth, colors*/
-function inspect(obj, opts) {
-  // default options
-  var ctx = {
-    seen: [],
-    stylize: stylizeNoColor
-  };
-  // legacy...
-  if (arguments.length >= 3) ctx.depth = arguments[2];
-  if (arguments.length >= 4) ctx.colors = arguments[3];
-  if (isBoolean(opts)) {
-    // legacy...
-    ctx.showHidden = opts;
-  } else if (opts) {
-    // got an "options" object
-    exports._extend(ctx, opts);
-  }
-  // set default options
-  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
-  if (isUndefined(ctx.depth)) ctx.depth = 2;
-  if (isUndefined(ctx.colors)) ctx.colors = false;
-  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
-  if (ctx.colors) ctx.stylize = stylizeWithColor;
-  return formatValue(ctx, obj, ctx.depth);
-}
-exports.inspect = inspect;
-
-
-// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-inspect.colors = {
-  'bold' : [1, 22],
-  'italic' : [3, 23],
-  'underline' : [4, 24],
-  'inverse' : [7, 27],
-  'white' : [37, 39],
-  'grey' : [90, 39],
-  'black' : [30, 39],
-  'blue' : [34, 39],
-  'cyan' : [36, 39],
-  'green' : [32, 39],
-  'magenta' : [35, 39],
-  'red' : [31, 39],
-  'yellow' : [33, 39]
-};
-
-// Don't use 'blue' not visible on cmd.exe
-inspect.styles = {
-  'special': 'cyan',
-  'number': 'yellow',
-  'boolean': 'yellow',
-  'undefined': 'grey',
-  'null': 'bold',
-  'string': 'green',
-  'date': 'magenta',
-  // "name": intentionally not styling
-  'regexp': 'red'
-};
-
-
-function stylizeWithColor(str, styleType) {
-  var style = inspect.styles[styleType];
-
-  if (style) {
-    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
-           '\u001b[' + inspect.colors[style][1] + 'm';
-  } else {
-    return str;
-  }
-}
-
-
-function stylizeNoColor(str, styleType) {
-  return str;
-}
-
-
-function arrayToHash(array) {
-  var hash = {};
-
-  array.forEach(function(val, idx) {
-    hash[val] = true;
-  });
-
-  return hash;
-}
-
-
-function formatValue(ctx, value, recurseTimes) {
-  // Provide a hook for user-specified inspect functions.
-  // Check that value is an object with an inspect function on it
-  if (ctx.customInspect &&
-      value &&
-      isFunction(value.inspect) &&
-      // Filter out the util module, it's inspect function is special
-      value.inspect !== exports.inspect &&
-      // Also filter out any prototype objects using the circular check.
-      !(value.constructor && value.constructor.prototype === value)) {
-    var ret = value.inspect(recurseTimes, ctx);
-    if (!isString(ret)) {
-      ret = formatValue(ctx, ret, recurseTimes);
-    }
-    return ret;
-  }
-
-  // Primitive types cannot have properties
-  var primitive = formatPrimitive(ctx, value);
-  if (primitive) {
-    return primitive;
-  }
-
-  // Look up the keys of the object.
-  var keys = Object.keys(value);
-  var visibleKeys = arrayToHash(keys);
-
-  if (ctx.showHidden) {
-    keys = Object.getOwnPropertyNames(value);
-  }
-
-  // IE doesn't make error fields non-enumerable
-  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
-  if (isError(value)
-      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
-    return formatError(value);
-  }
-
-  // Some type of object without properties can be shortcutted.
-  if (keys.length === 0) {
-    if (isFunction(value)) {
-      var name = value.name ? ': ' + value.name : '';
-      return ctx.stylize('[Function' + name + ']', 'special');
-    }
-    if (isRegExp(value)) {
-      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-    }
-    if (isDate(value)) {
-      return ctx.stylize(Date.prototype.toString.call(value), 'date');
-    }
-    if (isError(value)) {
-      return formatError(value);
-    }
-  }
-
-  var base = '', array = false, braces = ['{', '}'];
-
-  // Make Array say that they are Array
-  if (isArray(value)) {
-    array = true;
-    braces = ['[', ']'];
-  }
-
-  // Make functions say that they are functions
-  if (isFunction(value)) {
-    var n = value.name ? ': ' + value.name : '';
-    base = ' [Function' + n + ']';
-  }
-
-  // Make RegExps say that they are RegExps
-  if (isRegExp(value)) {
-    base = ' ' + RegExp.prototype.toString.call(value);
-  }
-
-  // Make dates with properties first say the date
-  if (isDate(value)) {
-    base = ' ' + Date.prototype.toUTCString.call(value);
-  }
-
-  // Make error with message first say the error
-  if (isError(value)) {
-    base = ' ' + formatError(value);
-  }
-
-  if (keys.length === 0 && (!array || value.length == 0)) {
-    return braces[0] + base + braces[1];
-  }
-
-  if (recurseTimes < 0) {
-    if (isRegExp(value)) {
-      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-    } else {
-      return ctx.stylize('[Object]', 'special');
-    }
-  }
-
-  ctx.seen.push(value);
-
-  var output;
-  if (array) {
-    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-  } else {
-    output = keys.map(function(key) {
-      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-    });
-  }
-
-  ctx.seen.pop();
-
-  return reduceToSingleString(output, base, braces);
-}
-
-
-function formatPrimitive(ctx, value) {
-  if (isUndefined(value))
-    return ctx.stylize('undefined', 'undefined');
-  if (isString(value)) {
-    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
-                                             .replace(/'/g, "\\'")
-                                             .replace(/\\"/g, '"') + '\'';
-    return ctx.stylize(simple, 'string');
-  }
-  if (isNumber(value))
-    return ctx.stylize('' + value, 'number');
-  if (isBoolean(value))
-    return ctx.stylize('' + value, 'boolean');
-  // For some reason typeof null is "object", so special case here.
-  if (isNull(value))
-    return ctx.stylize('null', 'null');
-}
-
-
-function formatError(value) {
-  return '[' + Error.prototype.toString.call(value) + ']';
-}
-
-
-function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-  var output = [];
-  for (var i = 0, l = value.length; i < l; ++i) {
-    if (hasOwnProperty(value, String(i))) {
-      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-          String(i), true));
-    } else {
-      output.push('');
-    }
-  }
-  keys.forEach(function(key) {
-    if (!key.match(/^\d+$/)) {
-      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-          key, true));
-    }
-  });
-  return output;
-}
-
-
-function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-  var name, str, desc;
-  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
-  if (desc.get) {
-    if (desc.set) {
-      str = ctx.stylize('[Getter/Setter]', 'special');
-    } else {
-      str = ctx.stylize('[Getter]', 'special');
-    }
-  } else {
-    if (desc.set) {
-      str = ctx.stylize('[Setter]', 'special');
-    }
-  }
-  if (!hasOwnProperty(visibleKeys, key)) {
-    name = '[' + key + ']';
-  }
-  if (!str) {
-    if (ctx.seen.indexOf(desc.value) < 0) {
-      if (isNull(recurseTimes)) {
-        str = formatValue(ctx, desc.value, null);
-      } else {
-        str = formatValue(ctx, desc.value, recurseTimes - 1);
-      }
-      if (str.indexOf('\n') > -1) {
-        if (array) {
-          str = str.split('\n').map(function(line) {
-            return '  ' + line;
-          }).join('\n').substr(2);
-        } else {
-          str = '\n' + str.split('\n').map(function(line) {
-            return '   ' + line;
-          }).join('\n');
-        }
-      }
-    } else {
-      str = ctx.stylize('[Circular]', 'special');
-    }
-  }
-  if (isUndefined(name)) {
-    if (array && key.match(/^\d+$/)) {
-      return str;
-    }
-    name = JSON.stringify('' + key);
-    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-      name = name.substr(1, name.length - 2);
-      name = ctx.stylize(name, 'name');
-    } else {
-      name = name.replace(/'/g, "\\'")
-                 .replace(/\\"/g, '"')
-                 .replace(/(^"|"$)/g, "'");
-      name = ctx.stylize(name, 'string');
-    }
-  }
-
-  return name + ': ' + str;
-}
-
-
-function reduceToSingleString(output, base, braces) {
-  var numLinesEst = 0;
-  var length = output.reduce(function(prev, cur) {
-    numLinesEst++;
-    if (cur.indexOf('\n') >= 0) numLinesEst++;
-    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
-  }, 0);
-
-  if (length > 60) {
-    return braces[0] +
-           (base === '' ? '' : base + '\n ') +
-           ' ' +
-           output.join(',\n  ') +
-           ' ' +
-           braces[1];
-  }
-
-  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
-}
-
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-function isArray(ar) {
-  return Array.isArray(ar);
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return isObject(re) && objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return isObject(d) && objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return isObject(e) &&
-      (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = __webpack_require__(350);
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-
-function pad(n) {
-  return n < 10 ? '0' + n.toString(10) : n.toString(10);
-}
-
-
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-              'Oct', 'Nov', 'Dec'];
-
-// 26 Feb 16:19:34
-function timestamp() {
-  var d = new Date();
-  var time = [pad(d.getHours()),
-              pad(d.getMinutes()),
-              pad(d.getSeconds())].join(':');
-  return [d.getDate(), months[d.getMonth()], time].join(' ');
-}
-
-
-// log is just a thin wrapper to console.log that prepends a timestamp
-exports.log = function() {
-  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
-};
-
-
-/**
- * Inherit the prototype methods from one constructor into another.
- *
- * The Function.prototype.inherits from lang.js rewritten as a standalone
- * function (not on Function.prototype). NOTE: If this file is to be loaded
- * during bootstrapping this function needs to be rewritten using some native
- * functions as prototype setup using normal JavaScript does not work as
- * expected during bootstrapping (see mirror.js in r114903).
- *
- * @param {function} ctor Constructor function which needs to inherit the
- *     prototype.
- * @param {function} superCtor Constructor function to inherit prototype from.
- */
-exports.inherits = __webpack_require__(351);
-
-exports._extend = function(origin, add) {
-  // Don't do anything if add isn't an object
-  if (!add || !isObject(add)) return origin;
-
-  var keys = Object.keys(add);
-  var i = keys.length;
-  while (i--) {
-    origin[keys[i]] = add[keys[i]];
-  }
-  return origin;
-};
-
-function hasOwnProperty(obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(55), __webpack_require__(338)))
-
-/***/ }),
-
-/***/ 340:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process, __filename) {
-/**
- * Module dependencies.
- */
-
-var fs = __webpack_require__(353)
-  , path = __webpack_require__(354)
-  , join = path.join
-  , dirname = path.dirname
-  , exists = fs.existsSync || path.existsSync
-  , defaults = {
-        arrow: process.env.NODE_BINDINGS_ARROW || ' → '
-      , compiled: process.env.NODE_BINDINGS_COMPILED_DIR || 'compiled'
-      , platform: process.platform
-      , arch: process.arch
-      , version: process.versions.node
-      , bindings: 'bindings.node'
-      , try: [
-          // node-gyp's linked version in the "build" dir
-          [ 'module_root', 'build', 'bindings' ]
-          // node-waf and gyp_addon (a.k.a node-gyp)
-        , [ 'module_root', 'build', 'Debug', 'bindings' ]
-        , [ 'module_root', 'build', 'Release', 'bindings' ]
-          // Debug files, for development (legacy behavior, remove for node v0.9)
-        , [ 'module_root', 'out', 'Debug', 'bindings' ]
-        , [ 'module_root', 'Debug', 'bindings' ]
-          // Release files, but manually compiled (legacy behavior, remove for node v0.9)
-        , [ 'module_root', 'out', 'Release', 'bindings' ]
-        , [ 'module_root', 'Release', 'bindings' ]
-          // Legacy from node-waf, node <= 0.4.x
-        , [ 'module_root', 'build', 'default', 'bindings' ]
-          // Production "Release" buildtype binary (meh...)
-        , [ 'module_root', 'compiled', 'version', 'platform', 'arch', 'bindings' ]
-        ]
-    }
-
-/**
- * The main `bindings()` function loads the compiled bindings for a given module.
- * It uses V8's Error API to determine the parent filename that this function is
- * being invoked from, which is then used to find the root directory.
- */
-
-function bindings (opts) {
-
-  // Argument surgery
-  if (typeof opts == 'string') {
-    opts = { bindings: opts }
-  } else if (!opts) {
-    opts = {}
-  }
-  opts.__proto__ = defaults
-
-  // Get the module root
-  if (!opts.module_root) {
-    opts.module_root = exports.getRoot(exports.getFileName())
-  }
-
-  // Ensure the given bindings name ends with .node
-  if (path.extname(opts.bindings) != '.node') {
-    opts.bindings += '.node'
-  }
-
-  var tries = []
-    , i = 0
-    , l = opts.try.length
-    , n
-    , b
-    , err
-
-  for (; i<l; i++) {
-    n = join.apply(null, opts.try[i].map(function (p) {
-      return opts[p] || p
-    }))
-    tries.push(n)
-    try {
-      b = opts.path ? /*require.resolve*/(!(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) : !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())
-      if (!opts.path) {
-        b.path = n
-      }
-      return b
-    } catch (e) {
-      if (!/not find/i.test(e.message)) {
-        throw e
-      }
-    }
-  }
-
-  err = new Error('Could not locate the bindings file. Tried:\n'
-    + tries.map(function (a) { return opts.arrow + a }).join('\n'))
-  err.tries = tries
-  throw err
-}
-module.exports = exports = bindings
-
-
-/**
- * Gets the filename of the JavaScript file that invokes this function.
- * Used to help find the root directory of a module.
- * Optionally accepts an filename argument to skip when searching for the invoking filename
- */
-
-exports.getFileName = function getFileName (calling_file) {
-  var origPST = Error.prepareStackTrace
-    , origSTL = Error.stackTraceLimit
-    , dummy = {}
-    , fileName
-
-  Error.stackTraceLimit = 10
-
-  Error.prepareStackTrace = function (e, st) {
-    for (var i=0, l=st.length; i<l; i++) {
-      fileName = st[i].getFileName()
-      if (fileName !== __filename) {
-        if (calling_file) {
-            if (fileName !== calling_file) {
-              return
-            }
-        } else {
-          return
-        }
-      }
-    }
-  }
-
-  // run the 'prepareStackTrace' function above
-  Error.captureStackTrace(dummy)
-  dummy.stack
-
-  // cleanup
-  Error.prepareStackTrace = origPST
-  Error.stackTraceLimit = origSTL
-
-  return fileName
-}
-
-/**
- * Gets the root directory of a module, given an arbitrary filename
- * somewhere in the module tree. The "root directory" is the directory
- * containing the `package.json` file.
- *
- *   In:  /home/nate/node-native-module/lib/index.js
- *   Out: /home/nate/node-native-module
- */
-
-exports.getRoot = function getRoot (file) {
-  var dir = dirname(file)
-    , prev
-  while (true) {
-    if (dir === '.') {
-      // Avoids an infinite loop in rare cases, like the REPL
-      dir = process.cwd()
-    }
-    if (exists(join(dir, 'package.json')) || exists(join(dir, 'node_modules'))) {
-      // Found the 'package.json' file or 'node_modules' dir; we're done
-      return dir
-    }
-    if (prev === dir) {
-      // Got to the top
-      throw new Error('Could not find module root given file: "' + file
-                    + '". Do you have a `package.json` file? ')
-    }
-    // Try the parent dir next
-    prev = dir
-    dir = join(dir, '..')
-  }
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(338), "/index.js"))
-
-/***/ }),
-
-/***/ 341:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/*
- * Copyright (c) 2012-2013, Eelco Cramer
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/*jslint node: true*/
-/*global require*/
-
-(function () {
-    "use strict";
-
-    var util = __webpack_require__(339),
-        EventEmitter = __webpack_require__(337).EventEmitter,
-        btSerial = __webpack_require__(340)('BluetoothSerialPort.node'),
-        DeviceINQ = __webpack_require__(355).DeviceINQ;
-
-    /**
-     * Creates an instance of the bluetooth-serial object.
-     * @constructor
-     * @name Connection
-     * @param rpcHandler The RPC handler.
-     */
-    function BluetoothSerialPort() {
-        EventEmitter.call(this);
-        this.inq = new DeviceINQ();
-
-        var self = this;
-
-        this.found = function (address, name) {
-            self.emit('found', address, name);
-        }
-
-        this.finish = function () {
-            self.emit('finished');
-        }
-    }
-
-    util.inherits(BluetoothSerialPort, EventEmitter);
-    exports.BluetoothSerialPort = BluetoothSerialPort;
-
-    BluetoothSerialPort.prototype.listPairedDevices = function (callback) {
-        this.inq.listPairedDevices(callback);
-    };
-
-    BluetoothSerialPort.prototype.inquire = function () {
-        this.inq.inquire(this.found, this.finish);
-    };
-
-    BluetoothSerialPort.prototype.inquireSync = function () {
-        this.inq.inquireSync(this.found, this.finish);
-    };
-
-    BluetoothSerialPort.prototype.findSerialPortChannel = function (address, successCallback, errorCallback) {
-        this.inq.findSerialPortChannel(address, function (channel) {
-            if (channel >= 0) {
-                successCallback(channel);
-            } else if (errorCallback) {
-                errorCallback();
-            }
-        });
-    };
-
-    BluetoothSerialPort.prototype.connect = function (address, channel, successCallback, errorCallback) {
-        var self = this,
-            read = function () {
-                process.nextTick(function () {
-                    if (self.connection) {
-                        self.connection.read(function (err, buffer) {
-                            if (!err && buffer) {
-                                self.emit('data', buffer);
-                            } else {
-                                self.removeListener('data', dataListener);  // remove it to prevent
-                                self.close();                               // calling self.on many
-                                self.emit('failure', err);                  // times
-                            }
-                        });
-                    }
-                });
-            },
-            dataListener = function (buffer) { // event listenner
-                if (buffer.length <= 0) {
-                        // we are done reading. The remote device might have closed the device
-                        // or we have closed it ourself. Lets cleanup our side anyway...
-                        self.close();
-                    } else {
-                        read();
-                    }
-            },
-            connection = new btSerial.BTSerialPortBinding(address, channel, function () {
-                self.address = address;
-                self.buffer = [];
-                self.connection = connection;
-                self.isReading = false;
-
-                self.on('data', dataListener); // add listener to event 'data'
-
-                read();
-
-                successCallback();
-            }, function (err) {
-                // cleaning up the the failed connection
-                connection.close(address);
-
-                if (errorCallback) {
-                    errorCallback(err);
-                }
-            });
-    };
-
-    BluetoothSerialPort.prototype.write = function (buffer, cb) {
-        if (this.connection) {
-            this.connection.write(buffer, this.address, cb);
-        } else {
-            var err = new Error("Not connected");
-            cb.call(err);
-        }
-    };
-
-    BluetoothSerialPort.prototype.close = function () {
-        if (this.connection) {
-            this.connection.close(this.address);
-            this.connection = undefined;
-        }
-
-        this.emit('closed');
-    };
-
-    BluetoothSerialPort.prototype.isOpen = function () {
-        return this.connection !== undefined;
-    };
-}());
-
-(function () {
-    "use strict";
-
-    if (process.platform !== 'linux') {
-        return;
-    }
-
-    var util = __webpack_require__(339),
-        EventEmitter = __webpack_require__(337).EventEmitter,
-        btSerial = __webpack_require__(340)('BluetoothSerialPortServer.node'),
-        _SERIAL_PORT_PROFILE_UUID = '1101',
-        _DEFAULT_SERVER_CHANNEL = 1,
-        _ERROR_CLIENT_CLOSED_CONNECTION = 'Error: Connection closed by the client';
-
-    /**
-     * Creates an instance of the bluetooth-serial-server object.
-     * @constructor
-     */
-    function BluetoothSerialPortServer() {
-        EventEmitter.call(this);
-    }
-
-    util.inherits(BluetoothSerialPortServer, EventEmitter);
-    exports.BluetoothSerialPortServer = BluetoothSerialPortServer;
-
-    BluetoothSerialPortServer.prototype.listen = function (successCallback, errorCallback, options) {
-        var _options = {};
-
-        if(errorCallback &&
-            typeof errorCallback !== 'function'){
-            _options = errorCallback;
-            errorCallback = null;
-        }
-
-        if(successCallback &&
-            typeof successCallback !== 'function'){
-            if(errorCallback)
-            errorCallback("successCallback must be a function!");
-            else
-            this.emit("failure", "successCallback must be a function!");
-
-            return;
-        }
-
-        options = options || _options;
-        options.uuid = options.uuid || _SERIAL_PORT_PROFILE_UUID;
-        options.channel = options.channel || _DEFAULT_SERVER_CHANNEL;
-
-        var self = this;
-        var read = function () {
-            process.nextTick(function(){
-                if (self.server) {
-                    self.server.read(function (err, buffer) {
-                        if (!err && buffer) {
-                            self.emit('data', buffer);
-                            read();
-                        }else if(err != _ERROR_CLIENT_CLOSED_CONNECTION){
-                            self.emit('failure', err);
-                        }else{
-                            // The client closed the connection, this is not a failure
-                            // so we trigger the event but the RFCOMM socket still can
-                            // receive new connections
-                            self.emit('closed');
-                        }
-                    });
-                }
-            });
-        };
-        var server = new btSerial.BTSerialPortBindingServer(function (clientAddress) {
-            self.server = server;
-            read();
-            successCallback(clientAddress);
-        }, function (err) {
-            // cleaning up the the failed connection
-            if(this.server)
-                this.server.close();
-            if (typeof errorCallback === 'function') {
-                errorCallback(err);
-            }
-        }, options);
-
-    };
-
-    BluetoothSerialPortServer.prototype.write = function (buffer, callback) {
-        if (this.server) {
-            this.server.write(buffer, callback);
-        } else {
-            callback(new Error("Not connected"));
-        }
-    };
-
-    BluetoothSerialPortServer.prototype.close = function () {
-        if (this.server) {
-            this.server.close();
-            this.server = undefined;
-        }
-    };
-
-    BluetoothSerialPortServer.prototype.isOpen = function () {
-        return this.server !== undefined;
-    };
-}());
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(338)))
-
-/***/ }),
-
-/***/ 342:
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 342;
-
-/***/ }),
-
-/***/ 344:
+/***/ 568:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1593,24 +64,30 @@ var wifiOBDReader;
  * Ionic pages and navigation.
  */
 var MainPage = /** @class */ (function () {
-    function MainPage(navCtrl, navParams, ngZone, plt) {
+    function MainPage(navCtrl, navParams, ngZone, plt, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.ngZone = ngZone;
         this.plt = plt;
-        this.host = "192.168.0.10:35000"; // ip:port 192.168.0.10:35000
+        this.alertCtrl = alertCtrl;
+        this.connected = false;
         this.speed = "";
         this.temp = "";
         this.Distance = "";
-        var OBDReader = __webpack_require__(345);
+        var OBDReader = __webpack_require__(569);
         wifiOBDReader = new OBDReader();
         var instance = this;
         this.counter = 0;
         wifiOBDReader.on('debug', function (data) { console.log("=>APP DEBUG:" + data); });
         wifiOBDReader.on('error', function (data) {
+            /*instance.connectInverval=setInterval(() => {
+                       instance.start();
+              }, 10000);
+              instance.connected=false;*/
             console.log("=>APP ERROR:" + data);
         });
         wifiOBDReader.on('dataReceived', function (data) {
+            //instance.stopClear();
             console.log("=>APP: Received Data=" + JSON.stringify(data));
             if (data.name && data.name == 'vss') {
                 var kph_1 = Math.round(data.value); // convert to mph
@@ -1625,6 +102,8 @@ var MainPage = /** @class */ (function () {
         });
         wifiOBDReader.on('connected', function () {
             console.log("=>APP: Connected");
+            instance.connected = true;
+            //clearInterval(this.connectInverval);
             this.stopPolling();
             this.removeAllPollers();
             this.addPoller("vss"); // 0,220 mph
@@ -1633,21 +112,27 @@ var MainPage = /** @class */ (function () {
         }); // conneceted
     }
     MainPage.prototype.start = function () {
-        var _this = this;
-        console.log(this.host);
+        //console.log(this.host);
         this.plt.ready().then(function () {
             console.log("Platform ready, instantiating OBD");
-            wifiOBDReader.setProtocol(0);
-            wifiOBDReader.autoconnect("TCP", _this.host);
+            //wifiOBDReader.setProtocol(0);
+            //wifiOBDReader.autoconnect("TCP", this.host);
+            wifiOBDReader.autoconnect("bluetooth", "OBD");
         }); // ready
     };
     MainPage.prototype.stop = function () {
+        var _this = this;
         this.plt.ready().then(function () {
             wifiOBDReader.removeAllPollers();
             wifiOBDReader.disconnect();
+            _this.connected = false;
             wifiOBDReader.stopPolling();
             console.log("=======>ON STOP WE HAVE " + wifiOBDReader.getNumPollers() + " pollers");
         });
+    };
+    MainPage.prototype.stopClear = function () {
+        clearInterval(this.connectInverval);
+        console.log("clear interval");
     };
     MainPage.prototype.sleep = function (milliseconds) {
         var start = new Date().getTime();
@@ -1661,22 +146,43 @@ var MainPage = /** @class */ (function () {
         console.log('ionViewDidLoad MainPage');
     };
     MainPage.prototype.ionViewDidEnter = function () {
-        var _this = this;
-        setInterval(function () {
-            _this.ngZone.run(function () {
-                _this.myRand = _this.random();
-            });
-        }, 5000);
+        /*this.connectInverval=setInterval(() => {
+                    this.start();
+           }, 10000);*/
     };
-    MainPage.prototype.random = function () {
-        var rand = Math.floor(Math.random() * 20) + 1;
-        return rand;
+    MainPage.prototype.editOdoAlert = function () {
+        var alert = this.alertCtrl.create({
+            title: 'แก้ไขเลขไมล์สะสม',
+            inputs: [
+                {
+                    name: 'odemeter',
+                    placeholder: 'เลขไมล์สะสม'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'ยกเลิก',
+                    role: 'cancel',
+                    handler: function (data) {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'บันทึก',
+                    handler: function (data) {
+                        console.log('Save clicked');
+                    }
+                }
+            ]
+        });
+        alert.setMode('ios');
+        alert.present();
     };
     MainPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-main',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/main/main.html"*/'<ion-content class="app-background" padding>\n    <ion-header>\n        <ion-toolbar color="font-color">\n            <ion-buttons left>\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-notifications"></ion-icon>\n                </button>\n            </ion-buttons>\n            <ion-buttons right>\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-contact"></ion-icon>\n                </button>\n            </ion-buttons>\n        </ion-toolbar>\n    </ion-header>\n    <br><br><br>\n\n    <ion-grid>\n        <ion-row>\n            <ion-col col-6 class="speed-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/speed.png">\n                        <p style="margin-top:31px;color:#98999c">ความเร็ว</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km/h</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n            <ion-col col-6 class="distance-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/distance.png">\n                        <p style="margin-top:31px;color:#98999c">ระยะทาง</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Distance}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n    <ion-grid>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันเครื่อง\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ผ้าเบรค\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ยางล้อรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ต่อภาษีรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        กรองอากาศเครื่องยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <br>\n    <div class="fix-button">\n        <ion-row style="margin-left:-5px;margin-right:-15px;margin-bottom:-6px;">\n            <ion-col col-6>\n                <button ion-button full class="start-button" (click)="start()">เริ่ม</button>\n            </ion-col>\n            <ion-col col-6>\n                <button ion-button full class="stop-button" (click)="stop()" color="danger">หยุด</button>\n            </ion-col>\n        </ion-row>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/main/main.html"*/,
+            selector: 'page-main',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/main/main.html"*/'<ion-content class="app-background" padding>\n    <ion-header>\n        <ion-toolbar color="font-color" style="padding-top:20px;">\n            <ion-buttons left style="padding-left:10px;">\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-notifications"></ion-icon>\n                </button>\n            </ion-buttons>\n            <ion-buttons left style="padding-left:10px;">\n                <button ion-button color="icon-color">\n                    <img class="bt-icon" [src]="connected ? \'../assets/imgs/bluetooth-connected.png\' : \'../assets/imgs/bluetooth.png\'">\n                </button>\n            </ion-buttons>\n            <ion-buttons right style="padding-right:10px;">\n                <button ion-button icon-only color="icon-color">\n                    <ion-icon name="ios-contact"></ion-icon>\n                </button>\n            </ion-buttons>\n        </ion-toolbar>\n    </ion-header>\n    <br><br><br>\n\n    <ion-grid>\n        <ion-row>\n            <ion-col col-4 class="speed-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/speed.png">\n                        <p style="margin-top:31px;color:#98999c">ความเร็ว</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km/h</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n            <ion-col col-4 class="distance-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/distance.png">\n                        <p style="margin-top:31px;color:#98999c">ระยะทาง</p>\n                        <p style="margin-top:7px;font-size:25px;">{{Distance}}</p>\n                        <p style="margin-top:-5px;color:#98999c">km</p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n            <ion-col col-4 class="odometer-col">\n                <ion-card class="question-card">\n                    <ion-card-content text-center>\n                        <img class="main-icon" src="../assets/imgs/odometer.png">\n                        <p style="margin-top:31px;color:#98999c">เลขไมล์สะสม</p>\n                        <p style="margin-top:7px;font-size:25px;">0</p>\n                        <p style="margin-top:-5px;color:#98999c;margin-bottom:-17px;">km</p>\n                        <button ion-button icon-only color="icon-color" (click)="editOdoAlert()">\n                            <ion-icon name="ios-create"></ion-icon>\n                        </button>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n\n    <ion-grid>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันเครื่อง\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ผ้าเบรค\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ยางล้อรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ต่อภาษีรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        กรองอากาศเครื่องยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันเกียร์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันเฟืองท้าย\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        น้ำมันพาเวอร์ / น้ำมันเบรค\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        กรองอากาศแอร์ในห้องโดยสาร\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ยางในปัดน้ำฝน\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ระดับน้ำในหม้อน้ำ\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        แบตเตอรี่ + น้ำกลั่นในแบตเตอรี่ + กำลังไฟแบตเตอรี่\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ประกันภัยภาคสมัครใจ\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n        <ion-row class="list-row">\n            <ion-col col-12 class="list-col">\n                <ion-card class="list-card">\n                    <ion-card-title text-left>\n                        ลมยางล้อรถยนต์\n                    </ion-card-title>\n                    <ion-card-content>\n                        <p></p>\n                    </ion-card-content>\n                </ion-card>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n    <br>\n    <div class="fix-button">\n        <ion-row style="margin-left:-5px;margin-right:-15px;margin-bottom:-6px;">\n            <ion-col col-6>\n                <button ion-button full class="start-button" (click)="start()">เริ่ม</button>\n            </ion-col>\n            <ion-col col-6>\n                <button ion-button full class="stop-button" (click)="stop()" color="danger">หยุด</button>\n            </ion-col>\n        </ion-row>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/main/main.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], MainPage);
     return MainPage;
 }());
@@ -1685,7 +191,7 @@ var MainPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 345:
+/***/ 569:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1704,657 +210,647 @@ var MainPage = /** @class */ (function () {
  *
  * (C) Copyright 2013, TNO
  * Author: Eric Smekens
- * 
- */
-
- // modified on Aug 28, 2017 to support TCP 
-
-
-
-//Used for event emitting.
-var EventEmitter = __webpack_require__(337).EventEmitter;
-var util = __webpack_require__(339);
-
-/**
- * obdInfo.js for all PIDS.
- * @type {*}
- */
-var PIDS = __webpack_require__(352);
-
-/**
- * Constant for defining delay between writes.
- * @type {number}
- */
-var writeDelay = 50;
-
-/**
- * Queue for writing
- * @type {Array}
- */
-var queue = [];
-
-// Class OBDReader
-var OBDReader;
-
-/**
- * Creates an instance of OBDReader.
- * @constructor
- * @param {string} address MAC-address of device that will be connected to.
- * @param {number} channel Channel that the serial port service runs on.
- * @this {OBDReader}
- */
-OBDReader = function () {
-    EventEmitter.call(this);
-    this.connected = false;
-    this.receivedData = "";
-    this.protocol = '0';
-    this.connType = '';
-    return this;
-};
-util.inherits(OBDReader, EventEmitter);
-/**
- * Find a PID-value by name.
- * @param name Name of the PID you want the hexadecimal (in ASCII text) value of.
- * @return {string} PID in hexadecimal ASCII
- */
-function getPIDByName(name) {
-    var i;
-    for (i = 0; i < PIDS.length; i++) {
-        if (PIDS[i].name === name) {
-            if (PIDS[i].pid !== undefined) {
-                return (PIDS[i].mode + PIDS[i].pid);
-            }
-            //There are modes which don't require a extra parameter ID.
-            return (PIDS[i].mode);
-        }
-    }
-}
-
-/**
- * Parses a hexadecimal string to a reply object. Uses PIDS. (obdInfo.js)
- * @param {string} hexString Hexadecimal value in string that is received over the serialport.
- * @return {Object} reply - The reply.
- * @return {string} reply.value - The value that is already converted. This can be a PID converted answer or "OK" or "NO DATA".
- * @return {string} reply.name - The name. --! Only if the reply is a PID.
- * @return {string} reply.mode - The mode of the PID. --! Only if the reply is a PID.
- * @return {string} reply.pid - The PID. --! Only if the reply is a PID.
- */
-function parseOBDCommand(hexString) {
-    var reply,
-        byteNumber,
-        valueArray; //New object
-
-    reply = {};
-    if (hexString === "NO DATA" || hexString === "OK" || hexString === "?" || hexString === "UNABLE TO CONNECT" || hexString === "SEARCHING...") {
-        //No data or OK is the response, return directly.
-        reply.value = hexString;
-        return reply;
-    }
-
-    hexString = hexString.replace(/ /g, ''); //Whitespace trimming //Probably not needed anymore?
-    valueArray = [];
-
-    for (byteNumber = 0; byteNumber < hexString.length; byteNumber += 2) {
-        valueArray.push(hexString.substr(byteNumber, 2));
-    }
-
-    if (valueArray[0] === "41") {
-        reply.mode = valueArray[0];
-        reply.pid = valueArray[1];
-        for (var i = 0; i < PIDS.length; i++) {
-            if (PIDS[i].pid == reply.pid) {
-                var numberOfBytes = PIDS[i].bytes;
-                reply.name = PIDS[i].name;
-                switch (numberOfBytes) {
-                    case 1:
-                        reply.value = PIDS[i].convertToUseful(valueArray[2]);
-                        break;
-                    case 2:
-                        reply.value = PIDS[i].convertToUseful(valueArray[2], valueArray[3]);
-                        break;
-                    case 4:
-                        reply.value = PIDS[i].convertToUseful(valueArray[2], valueArray[3], valueArray[4], valueArray[5]);
-                        break;
-                    case 8:
-                        reply.value = PIDS[i].convertToUseful(valueArray[2], valueArray[3], valueArray[4], valueArray[5], valueArray[6], valueArray[7], valueArray[8], valueArray[9]);
-                        break;
-                }
-                break; //Value is converted, break out the for loop.
-            }
-        }
-    } else if (valueArray[0] === "43") {
-        reply.mode = valueArray[0];
-        for (var i = 0; i < PIDS.length; i++) {
-            if (PIDS[i].mode == "03") {
-                reply.name = PIDS[i].name;
-                reply.value = PIDS[i].convertToUseful(valueArray[1], valueArray[2], valueArray[3], valueArray[4], valueArray[5], valueArray[6]);
-            }
-        }
-    }
-    return reply;
-}
-/**
- *  Converts a UTF8 Array to a string. cordova sockets returns a UTF8 array 
- * @param {*} array 
- */
-
- // http://www.onicos.com/staff/iz/amuse/javascript/expert/utf.txt
-
-/* utf.js - UTF-8 <=> UTF-16 convertion
- *
- * Copyright (C) 1999 Masanao Izumo <iz@onicos.co.jp>
- * Version: 1.0
- * LastModified: Dec 25 1999
- * This library is free.  You can redistribute it and/or modify it.
- */
-
-function Utf8ArrayToStr(array) {
-    var out, i, len, c;
-    var char2, char3;
-
-    out = "";
-    len = array.length;
-    i = 0;
-    while(i < len) {
-    c = array[i++];
-    switch(c >> 4)
-    { 
-      case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
-        // 0xxxxxxx
-        out += String.fromCharCode(c);
-        break;
-      case 12: case 13:
-        // 110x xxxx   10xx xxxx
-        char2 = array[i++];
-        out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
-        break;
-      case 14:
-        // 1110 xxxx  10xx xxxx  10xx xxxx
-        char2 = array[i++];
-        char3 = array[i++];
-        out += String.fromCharCode(((c & 0x0F) << 12) |
-                       ((char2 & 0x3F) << 6) |
-                       ((char3 & 0x3F) << 0));
-        break;
-    }
-    }
-
-    return out;
-}
-
-/**
- * converts from string to Utf8 Array - used by TCP sockets
- * @param {*} dataString 
- */
-
-function strToUtf8Array(dataString) {
-    var data = new Uint8Array(dataString.length);
-    for (var i = 0; i < data.length; i++) {
-        data[i] = dataString.charCodeAt(i);
-    }
-    return data;
-}
-
-/**
- * Initializes the ODB channel with the right AT commands
- * @param {*} instance 
- */
-function initComms (instance) {
-    var self = instance;
-    self.write('ATZ');
-    //Turns off extra line feed and carriage return
-    self.write('ATL0');
-    //This disables spaces in in output, which is faster!
-    self.write('ATS0');
-    //Turns off headers and checksum to be sent.
-    self.write('ATH0');
-    //Turns off echo.
-    self.write('ATE0');
-    //Turn adaptive timing to 2. This is an aggressive learn curve for adjusting the timeout. Will make huge difference on slow systems.
-    self.write('ATAT2');
-    //Set timeout to 10 * 4 = 40msec, allows +20 queries per second. This is the maximum wait-time. ATAT will decide if it should wait shorter or not.
-    //self.write('ATST0A');
-    //http://www.obdtester.com/elm-usb-commands
-    self.write('ATSP' + self.protocol);
-}
-
-/**
- * Set the protocol version number to use with your car.  Defaults to 0
- * which is to autoselect.
- *
- * Uses the ATSP command - see http://www.obdtester.com/elm-usb-commands
- *
- * @default 0
- * 
- */
-OBDReader.prototype.setProtocol = function (protocol) {
-    if (protocol.toString().search(/^[0-9]$/) === -1) {
-        throw "setProtocol: Must provide a number between 0 and 9 - refer to ATSP section of http://www.obdtester.com/elm-usb-commands";
-    }
-    this.protocol = protocol;
-}
-
-/**
- * Get the protocol version number set for this object.  Defaults to 0
- * which is to autoselect.
- *
- * Uses the ATSP command - see http://www.obdtester.com/elm-usb-commands
  *
  */
-OBDReader.prototype.getProtocol = function () {
-    return this.protocol;
-}
 
+ // modified on Aug 28, 2017 to support TCP
 
-/**
- * returns full PID object for name. Useful to get details like min/max/description for display/processing purposes
- */
-OBDReader.prototype.getPIDObjectByName = function (name) {
-    
-    var i;
-    for (i = 0; i < PIDS.length; i++) {
-        if (PIDS[i].name == name) {
-            break;
-        }
-    }
-    return (i < PIDS.length ? PIDS[i]:undefined);
-    
-    }
+ 
 
-
-/**
- * called by autoconnect if you wanted TCP
- * Don't know why I need to pass a this instance from one prototype to the other
- * but if I don't, the this instance is wrong. Let's chalk this up to my inxperience
- * 
- * url is of the format "host:port" (note this is TCP, so no url scheme)
- */ 
-OBDReader.prototype.autoconnectTCP = function (url, instance) {
-    var self = instance;
-    self.emit('debug', 'TCP autoconnect called');
-    var hp = url.split(':');
-    var OBDSocket = new Socket();
-    self.emit("Opening socket for:" + hp[0] + ":" + hp[1]);
-    OBDSocket.open(hp[0], parseInt(hp[1]),
-        function (succ) {
-            self.connected = true;
-            self.onTCPConnect();
-            initComms(self);
-            self.emit('connected');
-        },
-        function (err) {
-            self.emit ("debug","OBDSocket open error. setting connection false");
-            self.connected = false;
-            self.onTCPError(err)
-        });
-    OBDSocket.onData = function (data) {
-        self.onTCPEvent(data, self)
-    };
-    OBDSocket.onClose = function (data) {
-        self.emit ("debug","OBDSocket onClose called. setting connection false");
-        self.connected = false;
-        self.onTCPDisconnect(data)
-    };
-    OBDSocket.onError = function (data) {
-        self.emit ("debug","OBDSocket onError called. setting connection false");
-        
-        self.connected = false;
-        self.onTCPError(data);
-    };
-
-    
-    this.OBDSocket = OBDSocket; // save connection
-    self.emit('debug', 'queue writer interval started');
-    this.intervalWriter = setInterval(function () {
-        if (queue.length > 0 && self.connected) {
-            try {
-
-                var data = queue.shift();
-                self.OBDSocket.write(strToUtf8Array(data));
-
-            } catch (err) {
-                self.emit('error', 'Error while writing: ' + err);
-                self.emit('error', 'OBD-II Listeners deactivated, connection is probably lost.');
-                
-               
-            }
-        }
-
-    }, writeDelay); //Updated with Adaptive Timing on ELM327. 20 queries a second seems good enough.
-
-
-}
-
-
-// private
-OBDReader.prototype.onTCPConnect = function () {
-    this.emit("debug", "Connected to TCP dongle");
-
-}
-
-// private
-OBDReader.prototype.onTCPError = function (data) {
-   
-    this.emit('error', "TCP Error: " + JSON.stringify(data));
-
-}
-
-// private
-// receives UTF8 data from the OBD TCP socket and parses it
-OBDReader.prototype.onTCPEvent = function (u8data, instance) {
-    var data = Utf8ArrayToStr(u8data);
-    var self = this;
-    var currentString, arrayOfCommands;
-    currentString = self.receivedData + data.toString('utf8'); // making sure it's a utf8 string
-
-    arrayOfCommands = currentString.split('>');
-
-    var forString;
-    if (arrayOfCommands.length < 2) {
-        self.receivedData = arrayOfCommands[0];
-    } else {
-        for (var commandNumber = 0; commandNumber < arrayOfCommands.length; commandNumber++) {
-            forString = arrayOfCommands[commandNumber];
-            if (forString === '') {
-                continue;
-            }
-
-            var multipleMessages = forString.split('\r');
-            for (var messageNumber = 0; messageNumber < multipleMessages.length; messageNumber++) {
-                var messageString = multipleMessages[messageNumber];
-                if (messageString === '') {
-                    continue;
-                }
-                var reply;
-                reply = parseOBDCommand(messageString);
-                //Event dataReceived.
-                self.emit('dataReceived', reply);
-                self.receivedData = '';
-            }
-        }
-    }
-
-
-}
-
-// private
-OBDReader.prototype.onTCPDisconnect = function () {
-    this.emit ('debug', 'TCP disconnected');
-
-}
-
-/**
- * wrapper function that either connects via bluetooth (default) or TCP
- * depending on the 'type' that is passed
- */
-OBDReader.prototype.autoconnect = function (type='bluetooth', parameter) {
-    this.connType = type;
-    if (type == "TCP")
-        OBDReader.prototype.autoconnectTCP(parameter, this);
-    else
-         OBDReader.prototype.autoconnectBluetooth(parameter, this)
-     
-}
-
-/**
- * Attempts discovery of and subsequent connection to Bluetooth device and channel
- * @param {string} query Query string to be fuzzy-ish matched against device name/address
- */
-OBDReader.prototype.autoconnectBluetooth = function (query, instance) {
-    console.log("Autoconnect bluetooth called");
-    var self = instance; //Enclosure
-    var btSerial = new(__webpack_require__(341)).BluetoothSerialPort();
-    var search = new RegExp(query.replace(/\W/g, ''), 'gi');
-
-    btSerial.on('found', function (address, name) {
-        var addrMatch = !query || address.replace(/\W/g, '').search(search) != -1;
-        var nameMatch = !query || name.replace(/\W/g, '').search(search) != -1;
-
-        if (addrMatch || nameMatch) {
-            btSerial.removeAllListeners('finished');
-            btSerial.removeAllListeners('found');
-            self.emit('debug', 'Found device: ' + name + ' (' + address + ')');
-
-            btSerial.findSerialPortChannel(address, function (channel) {
-                self.emit('debug', 'Found device channel: ' + channel);
-                self.connect(address, channel);
-            }, function (err) {
-                console.log("Error finding serialport: " + err);
-            });
-        } else {
-            self.emit('debug', 'Ignoring device: ' + name + ' (' + address + ')');
-        }
-    });
-
-    btSerial.on('finished', function () {
-        self.emit('error', 'No suitable devices found');
-    });
-
-    btSerial.inquire();
-}
-
-/**
- * Connect/Open the bluetooth serial port and add events to bluetooth-serial-port.
- * Also starts the intervalWriter that is used to write the queue.
- * @this {OBDReader}
- */
-OBDReader.prototype.connect = function (address, channel) {
-    var self = this; //Enclosure
-    var btSerial = new(__webpack_require__(341)).BluetoothSerialPort();
-
-    btSerial.connect(address, channel, function () {
-        self.connected = true;
-
-        initComms(self);
-
-        //Event connected
-        self.emit('connected');
-
-        btSerial.on('data', function (data) {
-            var currentString, arrayOfCommands;
-            currentString = self.receivedData + data.toString('utf8'); // making sure it's a utf8 string
-
-            arrayOfCommands = currentString.split('>');
-
-            var forString;
-            if (arrayOfCommands.length < 2) {
-                self.receivedData = arrayOfCommands[0];
-            } else {
-                for (var commandNumber = 0; commandNumber < arrayOfCommands.length; commandNumber++) {
-                    forString = arrayOfCommands[commandNumber];
-                    if (forString === '') {
-                        continue;
-                    }
-
-                    var multipleMessages = forString.split('\r');
-                    for (var messageNumber = 0; messageNumber < multipleMessages.length; messageNumber++) {
-                        var messageString = multipleMessages[messageNumber];
-                        if (messageString === '') {
-                            continue;
-                        }
-                        var reply;
-                        reply = parseOBDCommand(messageString);
-                        //Event dataReceived.
-                        self.emit('dataReceived', reply);
-                        self.receivedData = '';
-                    }
-                }
-            }
-        });
-
-        btSerial.on('failure', function (error) {
-            self.emit('error', 'Error with OBD-II device: ' + error);
-        });
-
-    }, function (err) { //Error callback!
-        self.emit('error', 'Error with OBD-II device: ' + err);
-    });
-
-    this.btSerial = btSerial; //Save the connection in OBDReader object.
-
-    this.intervalWriter = setInterval(function () {
-
-        if (queue.length > 0 && self.connected)
-            try {
-
-
-                self.btSerial.write(new Buffer(queue.shift(), "utf-8"), function (err, count) {
-                    if (err)
-                        self.emit('error', err);
-                });
-
-
-            } catch (err) {
-                self.emit('error', 'Error while writing: ' + err);
-                self.emit('error', 'OBD-II Listeners deactivated, connection is probably lost.');
-                clearInterval(self.intervalWriter);
-                self.removeAllPollers();
-            }
-    }, writeDelay); //Updated with Adaptive Timing on ELM327. 20 queries a second seems good enough.
-
-    return this;
-};
-
-/**
- * Disconnects/closes the port.
- *
- * @param {Function} cb Callback function when the serial connection is closed
- * @this {OBDReader}
- */
-OBDReader.prototype.disconnect = function (cb) {
-    clearInterval(this.intervalWriter);
-    queue.length = 0; //Clears queue
-    if (typeof cb === 'function') {
-        this.btSerial.on('closed', cb);
-    }
-    if (this.connType == 'bluetooth') this.btSerial.close()
-    else {
-        this.OBDSocket.close();
-        
-        this.emit ("debug","OBDSocket disconnect called. setting connection false");
-        console.log ("OBDSocket disconnect called. setting connection false");
-    }
-    this.connected = false;
-};
-
-
-
-/**
- * Writes a message to the port. (Queued!) All write functions call this function.
- * @this {OBDReader}
- * @param {string} message The PID or AT Command you want to send. Without \r or \n!
- * @param {number} replies The number of replies that are expected. Default = 0. 0 --> infinite
- * AT Messages --> Zero replies!!
- */
-OBDReader.prototype.write = function (message, replies) {
-    
-    if (replies === undefined) {
-        replies = 0;
-    }
-    //console.log("Queue write called with " + message);
-    //console.log ("Inside write, with qlen="+queue.length+ " connected="+this.connected)
-    if (this.connected) {
-        if (queue.length < 256) {
-            if (replies !== 0) {
-                queue.push(message + replies + '\r');
-            } else {
-                queue.push(message + '\r');
-            }
-        } else {
-            this.emit('error', 'Queue-overflow!');
-        }
-    } else {
-        this.emit('error', ' device is not connected.');
-        clearInterval(self.intervalWriter);
-        self.removeAllPollers();
-    }
-};
-/**
- * Writes a PID value by entering a pid supported name.
- * @this {OBDReader}
- * @param {string} name Look into obdInfo.js for all PIDS.
- */
-OBDReader.prototype.requestValueByName = function (name) {
-    this.write(getPIDByName(name));
-};
-
-
-
-var activePollers = [];
-/**
- * Adds a poller to the poller-array.
- * @this {OBDReader}
- * @param {string} name Name of the poller you want to add.
- */
-OBDReader.prototype.addPoller = function (name) {
-    var stringToSend = getPIDByName(name);
-    activePollers.push(stringToSend);
-};
-/**
- * Removes an poller.
- * @this {OBDReader}
- * @param {string} name Name of the poller you want to remove.
- */
-OBDReader.prototype.removePoller = function (name) {
-    var stringToDelete = getPIDByName(name);
-    var index = activePollers.indexOf(stringToDelete);
-    activePollers.splice(index, 1);
-};
-/**
- * Removes all pollers.
- * @this {OBDReader}
- */
-OBDReader.prototype.removeAllPollers = function () {
-      activePollers.length = 0; //This does not delete the array, it just clears every element.
-};
-
-
-OBDReader.prototype.getNumPollers = function () {
-    return activePollers.length;
-};
-
-
-/**
- * Writes all active pollers.
- * @this {OBDReader}
- */
-OBDReader.prototype.writePollers = function () {
-    var i;
-    for (i = 0; i < activePollers.length; i++) {
-        this.write(activePollers[i], 1);
-    }
-};
-
-var pollerInterval;
-/**
- * Starts polling. Lower interval than activePollers * 50 will probably give buffer overflows. See writeDelay.
- * @this {OBDReader}
- * @param {number} interval Frequency how often all variables should be polled. (in ms). If no value is given, then for each activePoller 75ms will be added.
- */
-OBDReader.prototype.startPolling = function (interval) {
-    if (interval === undefined) {
-        interval = activePollers.length * (writeDelay * 2); //Double the delay, so there's room for manual requests.
-    }
-
-    var self = this;
-    pollerInterval = setInterval(function () {
-        self.writePollers();
-    }, interval);
-};
-/**
- * Stops polling.
- * @this {OBDReader}
- */
-OBDReader.prototype.stopPolling = function () {
-    clearInterval(pollerInterval);
-};
-
-var exports = module.exports = OBDReader;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(346).Buffer))
+ //Used for event emitting.
+ var EventEmitter = __webpack_require__(574).EventEmitter;
+ var util = __webpack_require__(575);
+ 
+ /**
+  * obdInfo.js for all PIDS.
+  * @type {*}
+  */
+ var PIDS = __webpack_require__(578);
+ 
+ /**
+  * Constant for defining delay between writes.
+  * @type {number}
+  */
+ var writeDelay = 50;
+ 
+ /**
+  * Queue for writing
+  * @type {Array}
+  */
+ var queue = [];
+ 
+ // Class OBDReader
+ var OBDReader;
+ 
+ /**
+  * Creates an instance of OBDReader.
+  * @constructor
+  * @param {string} address MAC-address of device that will be connected to.
+  * @param {number} channel Channel that the serial port service runs on.
+  * @this {OBDReader}
+  */
+ OBDReader = function () {
+     EventEmitter.call(this);
+     this.connected = false;
+     this.receivedData = "";
+     this.protocol = '0';
+     this.connType = '';
+     return this;
+ };
+ util.inherits(OBDReader, EventEmitter);
+ /**
+  * Find a PID-value by name.
+  * @param name Name of the PID you want the hexadecimal (in ASCII text) value of.
+  * @return {string} PID in hexadecimal ASCII
+  */
+ function getPIDByName(name) {
+     var i;
+     for (i = 0; i < PIDS.length; i++) {
+         if (PIDS[i].name === name) {
+             if (PIDS[i].pid !== undefined) {
+                 return (PIDS[i].mode + PIDS[i].pid);
+             }
+             //There are modes which don't require a extra parameter ID.
+             return (PIDS[i].mode);
+         }
+     }
+ }
+ 
+ /**
+  * Parses a hexadecimal string to a reply object. Uses PIDS. (obdInfo.js)
+  * @param {string} hexString Hexadecimal value in string that is received over the serialport.
+  * @return {Object} reply - The reply.
+  * @return {string} reply.value - The value that is already converted. This can be a PID converted answer or "OK" or "NO DATA".
+  * @return {string} reply.name - The name. --! Only if the reply is a PID.
+  * @return {string} reply.mode - The mode of the PID. --! Only if the reply is a PID.
+  * @return {string} reply.pid - The PID. --! Only if the reply is a PID.
+  */
+ function parseOBDCommand(hexString) {
+     var reply,
+         byteNumber,
+         valueArray; //New object
+ 
+     reply = {};
+     if (hexString === "NO DATA" || hexString === "OK" || hexString === "?" || hexString === "UNABLE TO CONNECT" || hexString === "SEARCHING...") {
+         //No data or OK is the response, return directly.
+         reply.value = hexString;
+         return reply;
+     }
+ 
+     hexString = hexString.replace(/ /g, ''); //Whitespace trimming //Probably not needed anymore?
+     valueArray = [];
+ 
+     for (byteNumber = 0; byteNumber < hexString.length; byteNumber += 2) {
+         valueArray.push(hexString.substr(byteNumber, 2));
+     }
+ 
+     if (valueArray[0] === "41") {
+         reply.mode = valueArray[0];
+         reply.pid = valueArray[1];
+         for (var i = 0; i < PIDS.length; i++) {
+             if (PIDS[i].pid == reply.pid) {
+                 var numberOfBytes = PIDS[i].bytes;
+                 reply.name = PIDS[i].name;
+                 switch (numberOfBytes) {
+                     case 1:
+                         reply.value = PIDS[i].convertToUseful(valueArray[2]);
+                         break;
+                     case 2:
+                         reply.value = PIDS[i].convertToUseful(valueArray[2], valueArray[3]);
+                         break;
+                     case 4:
+                         reply.value = PIDS[i].convertToUseful(valueArray[2], valueArray[3], valueArray[4], valueArray[5]);
+                         break;
+                     case 8:
+                         reply.value = PIDS[i].convertToUseful(valueArray[2], valueArray[3], valueArray[4], valueArray[5], valueArray[6], valueArray[7], valueArray[8], valueArray[9]);
+                         break;
+                 }
+                 break; //Value is converted, break out the for loop.
+             }
+         }
+     } else if (valueArray[0] === "43") {
+         reply.mode = valueArray[0];
+         for (var i = 0; i < PIDS.length; i++) {
+             if (PIDS[i].mode == "03") {
+                 reply.name = PIDS[i].name;
+                 reply.value = PIDS[i].convertToUseful(valueArray[1], valueArray[2], valueArray[3], valueArray[4], valueArray[5], valueArray[6]);
+             }
+         }
+     }
+     return reply;
+ }
+ /**
+  *  Converts a UTF8 Array to a string. cordova sockets returns a UTF8 array
+  * @param {*} array
+  */
+ 
+  // http://www.onicos.com/staff/iz/amuse/javascript/expert/utf.txt
+ 
+ /* utf.js - UTF-8 <=> UTF-16 convertion
+  *
+  * Copyright (C) 1999 Masanao Izumo <iz@onicos.co.jp>
+  * Version: 1.0
+  * LastModified: Dec 25 1999
+  * This library is free.  You can redistribute it and/or modify it.
+  */
+ 
+ function Utf8ArrayToStr(array) {
+     var out, i, len, c;
+     var char2, char3;
+ 
+     out = "";
+     len = array.length;
+     i = 0;
+     while(i < len) {
+     c = array[i++];
+     switch(c >> 4)
+     {
+       case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+         // 0xxxxxxx
+         out += String.fromCharCode(c);
+         break;
+       case 12: case 13:
+         // 110x xxxx   10xx xxxx
+         char2 = array[i++];
+         out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+         break;
+       case 14:
+         // 1110 xxxx  10xx xxxx  10xx xxxx
+         char2 = array[i++];
+         char3 = array[i++];
+         out += String.fromCharCode(((c & 0x0F) << 12) |
+                        ((char2 & 0x3F) << 6) |
+                        ((char3 & 0x3F) << 0));
+         break;
+     }
+     }
+ 
+     return out;
+ }
+ 
+ /**
+  * converts from string to Utf8 Array - used by TCP sockets
+  * @param {*} dataString
+  */
+ 
+ function strToUtf8Array(dataString) {
+     var data = new Uint8Array(dataString.length);
+     for (var i = 0; i < data.length; i++) {
+         data[i] = dataString.charCodeAt(i);
+     }
+     return data;
+ }
+ 
+ /**
+  * Initializes the ODB channel with the right AT commands
+  * @param {*} instance
+  */
+ function initComms (instance) {
+     var self = instance;
+     self.write('ATZ');
+     //Turns off extra line feed and carriage return
+     self.write('ATL0');
+     //This disables spaces in in output, which is faster!
+     self.write('ATS0');
+     //Turns off headers and checksum to be sent.
+     self.write('ATH0');
+     //Turns off echo.
+     self.write('ATE0');
+     //Turn adaptive timing to 2. This is an aggressive learn curve for adjusting the timeout. Will make huge difference on slow systems.
+     self.write('ATAT2');
+     //Set timeout to 10 * 4 = 40msec, allows +20 queries per second. This is the maximum wait-time. ATAT will decide if it should wait shorter or not.
+     //self.write('ATST0A');
+     //http://www.obdtester.com/elm-usb-commands
+     self.write('ATSP' + self.protocol);
+ }
+ 
+ /**
+  * Set the protocol version number to use with your car.  Defaults to 0
+  * which is to autoselect.
+  *
+  * Uses the ATSP command - see http://www.obdtester.com/elm-usb-commands
+  *
+  * @default 0
+  *
+  */
+ OBDReader.prototype.setProtocol = function (protocol) {
+     if (protocol.toString().search(/^[0-9]$/) === -1) {
+         throw "setProtocol: Must provide a number between 0 and 9 - refer to ATSP section of http://www.obdtester.com/elm-usb-commands";
+     }
+     this.protocol = protocol;
+ }
+ 
+ /**
+  * Get the protocol version number set for this object.  Defaults to 0
+  * which is to autoselect.
+  *
+  * Uses the ATSP command - see http://www.obdtester.com/elm-usb-commands
+  *
+  */
+ OBDReader.prototype.getProtocol = function () {
+     return this.protocol;
+ }
+ 
+ 
+ /**
+  * returns full PID object for name. Useful to get details like min/max/description for display/processing purposes
+  */
+ OBDReader.prototype.getPIDObjectByName = function (name) {
+ 
+     var i;
+     for (i = 0; i < PIDS.length; i++) {
+         if (PIDS[i].name == name) {
+             break;
+         }
+     }
+     return (i < PIDS.length ? PIDS[i]:undefined);
+ 
+     }
+ 
+ 
+ /**
+  * called by autoconnect if you wanted TCP
+  * Don't know why I need to pass a this instance from one prototype to the other
+  * but if I don't, the this instance is wrong. Let's chalk this up to my inxperience
+  *
+  * url is of the format "host:port" (note this is TCP, so no url scheme)
+  */
+ OBDReader.prototype.autoconnectTCP = function (url, instance) {
+     var self = instance;
+     self.emit('debug', 'TCP autoconnect called');
+     var hp = url.split(':');
+     var OBDSocket = new Socket();
+     self.emit("Opening socket for:" + hp[0] + ":" + hp[1]);
+     OBDSocket.open(hp[0], parseInt(hp[1]),
+         function (succ) {
+             self.connected = true;
+             self.onTCPConnect();
+             initComms(self);
+             self.emit('connected');
+         },
+         function (err) {
+             self.emit ("debug","OBDSocket open error. setting connection false");
+             self.connected = false;
+             self.onTCPError(err)
+         });
+     OBDSocket.onData = function (data) {
+         self.onTCPEvent(data, self)
+     };
+     OBDSocket.onClose = function (data) {
+         self.emit ("debug","OBDSocket onClose called. setting connection false");
+         self.connected = false;
+         self.onTCPDisconnect(data)
+     };
+     OBDSocket.onError = function (data) {
+         self.emit ("debug","OBDSocket onError called. setting connection false");
+ 
+         self.connected = false;
+         self.onTCPError(data);
+     };
+ 
+ 
+     this.OBDSocket = OBDSocket; // save connection
+     self.emit('debug', 'queue writer interval started');
+     this.intervalWriter = setInterval(function () {
+         if (queue.length > 0 && self.connected) {
+             try {
+ 
+                 var data = queue.shift();
+                 self.OBDSocket.write(strToUtf8Array(data));
+ 
+             } catch (err) {
+                 self.emit('error', 'Error while writing: ' + err);
+                 self.emit('error', 'OBD-II Listeners deactivated, connection is probably lost.');
+ 
+ 
+             }
+         }
+ 
+     }, writeDelay); //Updated with Adaptive Timing on ELM327. 20 queries a second seems good enough.
+ 
+ 
+ }
+ 
+ 
+ // private
+ OBDReader.prototype.onTCPConnect = function () {
+     this.emit("debug", "Connected to TCP dongle");
+ 
+ }
+ 
+ // private
+ OBDReader.prototype.onTCPError = function (data) {
+ 
+     this.emit('error', "TCP Error: " + JSON.stringify(data));
+ 
+ }
+ 
+ // private
+ // receives UTF8 data from the OBD TCP socket and parses it
+ OBDReader.prototype.onTCPEvent = function (u8data, instance) {
+     var data = Utf8ArrayToStr(u8data);
+     var self = this;
+     var currentString, arrayOfCommands;
+     currentString = self.receivedData + data.toString('utf8'); // making sure it's a utf8 string
+ 
+     arrayOfCommands = currentString.split('>');
+ 
+     var forString;
+     if (arrayOfCommands.length < 2) {
+         self.receivedData = arrayOfCommands[0];
+     } else {
+         for (var commandNumber = 0; commandNumber < arrayOfCommands.length; commandNumber++) {
+             forString = arrayOfCommands[commandNumber];
+             if (forString === '') {
+                 continue;
+             }
+ 
+             var multipleMessages = forString.split('\r');
+             for (var messageNumber = 0; messageNumber < multipleMessages.length; messageNumber++) {
+                 var messageString = multipleMessages[messageNumber];
+                 if (messageString === '') {
+                     continue;
+                 }
+                 var reply;
+                 reply = parseOBDCommand(messageString);
+                 //Event dataReceived.
+                 self.emit('dataReceived', reply);
+                 self.receivedData = '';
+             }
+         }
+     }
+ 
+ 
+ }
+ 
+ // private
+ OBDReader.prototype.onTCPDisconnect = function () {
+     this.emit ('debug', 'TCP disconnected');
+ 
+ }
+ 
+ /**
+  * wrapper function that either connects via bluetooth (default) or TCP
+  * depending on the 'type' that is passed
+  */
+ OBDReader.prototype.autoconnect = function (type='bluetooth', parameter) {
+     this.connType = type;
+     if (type == "TCP")
+         OBDReader.prototype.autoconnectTCP(parameter, this);
+     else
+          OBDReader.prototype.autoconnectBluetooth(parameter, this)
+ 
+ }
+ 
+ /**
+  * Attempts discovery of and subsequent connection to Bluetooth device and channel
+  * @param {string} query Query string to be fuzzy-ish matched against device name/address
+  */
+ OBDReader.prototype.autoconnectBluetooth = function (query, instance) {
+     console.log("Autoconnect bluetooth called");
+     var self = instance; //Enclosure
+     var search = new RegExp(query.replace(/\W/g, ''), 'gi');
+ 
+     bluetoothSerial.list(function(devices) {
+         devices.forEach(function(device) {
+             var nameMatch = !query || device.name.replace(/\W/g, '').search(search) != -1;
+             if (nameMatch) {
+                 self.emit('debug', 'Found device: ' + device.name + ' (' + (device.address || device.uuid) + ')');
+                 self.connect(device.address || device.uuid);
+             } else {
+                 self.emit('debug', 'Ignoring device: ' + device.name + ' (' + device.address + ')');
+             }
+         })
+     }, ()=>{
+         self.emit('error', 'No suitable devices found');
+     });
+ 
+ 
+ }
+ 
+ /**
+  * Connect/Open the bluetooth serial port and add events to bluetooth-serial-port.
+  * Also starts the intervalWriter that is used to write the queue.
+  * @this {OBDReader}
+  */
+ OBDReader.prototype.connect = function (address) {
+     var self = this; //Enclosure
+     bluetoothSerial.connect(address, function () {
+         self.connected = true;
+ 
+         initComms(self);
+ 
+         //Event connected
+         self.emit('connected');
+ 
+         bluetoothSerial.subscribeRawData(function (data) {
+             var bytes = new Uint8Array(data);
+             var data = Utf8ArrayToStr(bytes);
+             var currentString, arrayOfCommands;
+             currentString = self.receivedData + data.toString('utf8'); // making sure it's a utf8 string
+ 
+             arrayOfCommands = currentString.split('>');
+ 
+             var forString;
+             if (arrayOfCommands.length < 2) {
+                 self.receivedData = arrayOfCommands[0];
+             } else {
+                 for (var commandNumber = 0; commandNumber < arrayOfCommands.length; commandNumber++) {
+                     forString = arrayOfCommands[commandNumber];
+                     if (forString === '') {
+                         continue;
+                     }
+ 
+                     var multipleMessages = forString.split('\r');
+                     for (var messageNumber = 0; messageNumber < multipleMessages.length; messageNumber++) {
+                         var messageString = multipleMessages[messageNumber];
+                         if (messageString === '') {
+                             continue;
+                         }
+                         var reply;
+                         reply = parseOBDCommand(messageString);
+                         //Event dataReceived.
+                         self.emit('dataReceived', reply);
+                         self.receivedData = '';
+                     }
+                 }
+             }
+         }, function (err) { //Error callback!
+             self.emit('error', 'Error with subscribeRawData: ' + err);
+         });
+ 
+     }, function (err) { //Error callback!
+         self.emit('error', 'Error with OBD-II device: ' + err);
+     });
+ 
+     this.bluetoothSerial = bluetoothSerial; //Save the connection in OBDReader object.
+ 
+     this.intervalWriter = setInterval(function () {
+ 
+         if (queue.length > 0 && self.connected)
+             try {
+ 
+ 
+                 bluetoothSerial.write(new Buffer(queue.shift(), "utf-8"), ()=>{}, (err)=>{
+                     self.emit('error', err);
+                 });
+ 
+ 
+             } catch (err) {
+                 self.emit('error', 'Error while writing: ' + err);
+                 self.emit('error', 'OBD-II Listeners deactivated, connection is probably lost.');
+                 clearInterval(self.intervalWriter);
+                 self.removeAllPollers();
+             }
+     }, writeDelay); //Updated with Adaptive Timing on ELM327. 20 queries a second seems good enough.
+ 
+     return this;
+ };
+ 
+ /**
+  * Disconnects/closes the port.
+  *
+  * @param {Function} cb Callback function when the serial connection is closed
+  * @this {OBDReader}
+  */
+ OBDReader.prototype.disconnect = function (cb) {
+     clearInterval(this.intervalWriter);
+     queue.length = 0; //Clears queue
+     if (typeof cb === 'function') {
+         bluetoothSerial.unsubscribeRawData();
+     }
+     if (this.connType == 'bluetooth') bluetoothSerial.disconnect(()=>{
+         this.emit('success', 'disconnected');}, (err)=>{
+             this.emit('error', 'Error while disconnecting: ' + err);
+         });
+     else {
+         this.OBDSocket.close();
+ 
+         this.emit ("debug","OBDSocket disconnect called. setting connection false");
+         console.log ("OBDSocket disconnect called. setting connection false");
+     }
+     this.connected = false;
+ };
+ 
+ 
+ 
+ /**
+  * Writes a message to the port. (Queued!) All write functions call this function.
+  * @this {OBDReader}
+  * @param {string} message The PID or AT Command you want to send. Without \r or \n!
+  * @param {number} replies The number of replies that are expected. Default = 0. 0 --> infinite
+  * AT Messages --> Zero replies!!
+  */
+ OBDReader.prototype.write = function (message, replies) {
+ 
+     if (replies === undefined) {
+         replies = 0;
+     }
+     //console.log("Queue write called with " + message);
+     //console.log ("Inside write, with qlen="+queue.length+ " connected="+this.connected)
+     if (this.connected) {
+         if (queue.length < 256) {
+             if (replies !== 0) {
+                 queue.push(message + replies + '\r');
+             } else {
+                 queue.push(message + '\r');
+             }
+         } else {
+             this.emit('error', 'Queue-overflow!');
+         }
+     } else {
+         this.emit('error', ' device is not connected.');
+         clearInterval(self.intervalWriter);
+         self.removeAllPollers();
+     }
+ };
+ /**
+  * Writes a PID value by entering a pid supported name.
+  * @this {OBDReader}
+  * @param {string} name Look into obdInfo.js for all PIDS.
+  */
+ OBDReader.prototype.requestValueByName = function (name) {
+     this.write(getPIDByName(name));
+ };
+ 
+ 
+ 
+ var activePollers = [];
+ /**
+  * Adds a poller to the poller-array.
+  * @this {OBDReader}
+  * @param {string} name Name of the poller you want to add.
+  */
+ OBDReader.prototype.addPoller = function (name) {
+     var stringToSend = getPIDByName(name);
+     activePollers.push(stringToSend);
+ };
+ /**
+  * Removes an poller.
+  * @this {OBDReader}
+  * @param {string} name Name of the poller you want to remove.
+  */
+ OBDReader.prototype.removePoller = function (name) {
+     var stringToDelete = getPIDByName(name);
+     var index = activePollers.indexOf(stringToDelete);
+     activePollers.splice(index, 1);
+ };
+ /**
+  * Removes all pollers.
+  * @this {OBDReader}
+  */
+ OBDReader.prototype.removeAllPollers = function () {
+       activePollers.length = 0; //This does not delete the array, it just clears every element.
+ };
+ 
+ 
+ OBDReader.prototype.getNumPollers = function () {
+     return activePollers.length;
+ };
+ 
+ 
+ /**
+  * Writes all active pollers.
+  * @this {OBDReader}
+  */
+ OBDReader.prototype.writePollers = function () {
+     var i;
+     for (i = 0; i < activePollers.length; i++) {
+         this.write(activePollers[i], 1);
+     }
+ };
+ 
+ var pollerInterval;
+ /**
+  * Starts polling. Lower interval than activePollers * 50 will probably give buffer overflows. See writeDelay.
+  * @this {OBDReader}
+  * @param {number} interval Frequency how often all variables should be polled. (in ms). If no value is given, then for each activePoller 75ms will be added.
+  */
+ OBDReader.prototype.startPolling = function (interval) {
+     if (interval === undefined) {
+         interval = activePollers.length * (writeDelay * 2); //Double the delay, so there's room for manual requests.
+     }
+ 
+     var self = this;
+     pollerInterval = setInterval(function () {
+         self.writePollers();
+     }, interval);
+ };
+ /**
+  * Stops polling.
+  * @this {OBDReader}
+  */
+ OBDReader.prototype.stopPolling = function () {
+     clearInterval(pollerInterval);
+ };
+ 
+ var exports = module.exports = OBDReader;
+ 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(570).Buffer))
 
 /***/ }),
 
-/***/ 346:
+/***/ 570:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2368,9 +864,9 @@ var exports = module.exports = OBDReader;
 
 
 
-var base64 = __webpack_require__(347)
-var ieee754 = __webpack_require__(348)
-var isArray = __webpack_require__(349)
+var base64 = __webpack_require__(571)
+var ieee754 = __webpack_require__(572)
+var isArray = __webpack_require__(573)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -4148,11 +2644,11 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(55)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
 
-/***/ 347:
+/***/ 571:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4311,7 +2807,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 348:
+/***/ 572:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -4402,7 +2898,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 349:
+/***/ 573:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -4414,7 +2910,910 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ 350:
+/***/ 574:
+/***/ (function(module, exports) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function(n) {
+  if (!isNumber(n) || n < 0 || isNaN(n))
+    throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function(type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events)
+    this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error ||
+        (isObject(this._events.error) && !this._events.error.length)) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      } else {
+        // At least give some kind of context to the user
+        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+        err.context = er;
+        throw err;
+      }
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler))
+    return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        args = Array.prototype.slice.call(arguments, 1);
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    args = Array.prototype.slice.call(arguments, 1);
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++)
+      listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function(type, listener) {
+  var m;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events)
+    this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener)
+    this.emit('newListener', type,
+              isFunction(listener.listener) ?
+              listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;
+  else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);
+  else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' +
+                    'leak detected. %d listeners added. ' +
+                    'Use emitter.setMaxListeners() to increase limit.',
+                    this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function(type, listener) {
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function(type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener))
+    throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type])
+    return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener ||
+      (isFunction(list.listener) && list.listener === listener)) {
+    delete this._events[type];
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener ||
+          (list[i].listener && list[i].listener === listener)) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0)
+      return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener)
+      this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function(type) {
+  var key, listeners;
+
+  if (!this._events)
+    return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0)
+      this._events = {};
+    else if (this._events[type])
+      delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else if (listeners) {
+    // LIFO order
+    while (listeners.length)
+      this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function(type) {
+  var ret;
+  if (!this._events || !this._events[type])
+    ret = [];
+  else if (isFunction(this._events[type]))
+    ret = [this._events[type]];
+  else
+    ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.prototype.listenerCount = function(type) {
+  if (this._events) {
+    var evlistener = this._events[type];
+
+    if (isFunction(evlistener))
+      return 1;
+    else if (evlistener)
+      return evlistener.length;
+  }
+  return 0;
+};
+
+EventEmitter.listenerCount = function(emitter, type) {
+  return emitter.listenerCount(type);
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+
+
+/***/ }),
+
+/***/ 575:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function(f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function(x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s': return String(args[i++]);
+      case '%d': return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function(fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function() {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function(set) {
+  if (isUndefined(debugEnviron))
+    debugEnviron = process.env.NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function() {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function() {};
+    }
+  }
+  return debugs[set];
+};
+
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold' : [1, 22],
+  'italic' : [3, 23],
+  'underline' : [4, 24],
+  'inverse' : [7, 27],
+  'white' : [37, 39],
+  'grey' : [90, 39],
+  'black' : [30, 39],
+  'blue' : [34, 39],
+  'cyan' : [36, 39],
+  'green' : [32, 39],
+  'magenta' : [35, 39],
+  'red' : [31, 39],
+  'yellow' : [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+           '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function(val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect &&
+      value &&
+      isFunction(value.inspect) &&
+      // Filter out the util module, it's inspect function is special
+      value.inspect !== exports.inspect &&
+      // Also filter out any prototype objects using the circular check.
+      !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value)
+      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '', array = false, braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function(key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value))
+    return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+                                             .replace(/'/g, "\\'")
+                                             .replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value))
+    return ctx.stylize('' + value, 'number');
+  if (isBoolean(value))
+    return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value))
+    return ctx.stylize('null', 'null');
+}
+
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function(key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          key, true));
+    }
+  });
+  return output;
+}
+
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function(line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function(line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'")
+                 .replace(/\\"/g, '"')
+                 .replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function(prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] +
+           (base === '' ? '' : base + '\n ') +
+           ' ' +
+           output.join(',\n  ') +
+           ' ' +
+           braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) &&
+      (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = __webpack_require__(576);
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+              'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()),
+              pad(d.getMinutes()),
+              pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function() {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = __webpack_require__(577);
+
+exports._extend = function(origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42), __webpack_require__(166)))
+
+/***/ }),
+
+/***/ 576:
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -4426,7 +3825,7 @@ module.exports = function isBuffer(arg) {
 
 /***/ }),
 
-/***/ 351:
+/***/ 577:
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -4456,7 +3855,7 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 
-/***/ 352:
+/***/ 578:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4852,286 +4251,6 @@ responsePIDS = [
 ];
 
 var exports = module.exports = responsePIDS;
-
-/***/ }),
-
-/***/ 353:
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ 354:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
-  }
-
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
-  }
-
-  return root + dir;
-};
-
-
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-
-exports.extname = function(path) {
-  return splitPath(path)[3];
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(338)))
-
-/***/ }),
-
-/***/ 355:
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
- * Copyright (c) 2012-2013, Eelco Cramer
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/*jslint node: true*/
-/*global require */
-
-(function () {
-    "use strict";
-
-    // javascript shim that lets our object inherit from EventEmitter
-    var DeviceINQ = __webpack_require__(340)('BluetoothSerialPort.node').DeviceINQ,
-        events = __webpack_require__(337);
-
-    // extend prototype
-    function inherits(target, source) {
-        var k;
-
-        for (k in source.prototype) {
-            target.prototype[k] = source.prototype[k];
-        }
-    }
-
-    inherits(DeviceINQ, events.EventEmitter);
-    exports.DeviceINQ = DeviceINQ;
-
-}());
-
 
 /***/ })
 

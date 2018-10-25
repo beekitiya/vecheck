@@ -109,4 +109,7 @@
     <feature name="SocketsForCordova">
         <param name="ios-package" value="SocketPlugin" />
     </feature>
+    <feature name="BluetoothSerial">
+        <param name="ios-package" onload="true" value="MEGBluetoothSerial" />
+    </feature>
 </widget>

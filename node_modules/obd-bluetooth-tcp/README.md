@@ -26,9 +26,12 @@ Installation
 npm install https://github.com/hsccorp/node-bluetooth-tcp-obd --save
 ```
 
-You will also need to install this cordova plugin in your app to initiate a TCP connection
+You will also need to install this cordova plugin in your app for both TCP and bluetooth connections
 ```
 cordova plugin add cz.blocshop.socketsforcordova
+
+cordova plugin add cordova-plugin-bluetooth-serial
+
 ```
 
 

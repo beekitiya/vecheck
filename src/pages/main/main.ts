@@ -1,8 +1,8 @@
 import { Component,NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 
 var wifiOBDReader;
-
+declare var require: any;
 /**
  * Generated class for the MainPage page.
  *
@@ -19,13 +19,15 @@ export class MainPage {
 
     //host: string = "192.168.0.10:35000"; // ip:port 192.168.0.10:35000
     wifiOBDReader: any;
+    connectInverval: any;
+    connected: boolean = false;
     speed: string = "";
     temp: string = "";
     Speed: number;
     counter: number;
     Distance: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private ngZone: NgZone, public plt: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private ngZone: NgZone, public plt: Platform, public alertCtrl: AlertController) {
       var OBDReader = require('obd-bluetooth-tcp');
       wifiOBDReader = new OBDReader();
       var instance = this;
@@ -33,24 +35,32 @@ export class MainPage {
 
       wifiOBDReader.on('debug', function (data) { console.log("=>APP DEBUG:" + data) });
       wifiOBDReader.on('error', function (data) {
+          /*instance.connectInverval=setInterval(() => {
+                     instance.start();
+            }, 10000);
+            instance.connected=false;*/
           console.log("=>APP ERROR:" + data)
       });
     wifiOBDReader.on('dataReceived', function (data) {
+        //instance.stopClear();
       console.log("=>APP: Received Data=" + JSON.stringify(data));
 
       if (data.name && data.name == 'vss') {
-        let kph  = Math.round(data.value); // convert to mph
-        setTimeout(() => {
-         instance.ngZone.run(()=>{
-             instance.Speed=kph;
-             instance.counter+=(kph/3600);
-             instance.Distance=instance.counter.toFixed(2);
-         })
-     }, 0);
-      }
+          let kph  = Math.round(data.value); // convert to mph
+          setTimeout(() => {
+            instance.ngZone.run(()=>{
+                instance.Speed=kph;
+                instance.counter+=(kph/3600);
+                instance.Distance=instance.counter.toFixed(2);
+            })
+        }, 0);
+        }
     })
+
     wifiOBDReader.on('connected', function () {
       console.log("=>APP: Connected");
+      instance.connected=true;
+      //clearInterval(this.connectInverval);
       this.stopPolling();
       this.removeAllPollers();
       this.addPoller("vss"); // 0,220 mph
@@ -65,7 +75,7 @@ export class MainPage {
       console.log("Platform ready, instantiating OBD");
       //wifiOBDReader.setProtocol(0);
         //wifiOBDReader.autoconnect("TCP", this.host);
-      wifiOBDReader.autoconnect("bluetooth", "obd");
+      wifiOBDReader.autoconnect("bluetooth", "OBD");
     }); // ready
   }
 
@@ -73,9 +83,15 @@ export class MainPage {
     this.plt.ready().then(() => {
       wifiOBDReader.removeAllPollers();
       wifiOBDReader.disconnect();
+      this.connected=false;
       wifiOBDReader.stopPolling();
       console.log("=======>ON STOP WE HAVE " + wifiOBDReader.getNumPollers() + " pollers");
     });
+  }
+
+  stopClear() {
+      clearInterval(this.connectInverval);
+      console.log("clear interval");
   }
 
   sleep(milliseconds) {
@@ -89,21 +105,41 @@ export class MainPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
 }
-  myRand: number;
 
 
   ionViewDidEnter() {
-    setInterval(() => {
-               this.ngZone.run(()=>{
-                   this.myRand=this.random();
-               })
-       }, 5000);
+    /*this.connectInverval=setInterval(() => {
+                this.start();
+       }, 10000);*/
 
+   }
+
+   editOdoAlert() {
+      let alert = this.alertCtrl.create({
+        title: 'แก้ไขเลขไมล์สะสม',
+        inputs: [
+          {
+            name: 'odemeter',
+            placeholder: 'เลขไมล์สะสม'
+          }
+        ],
+        buttons: [
+          {
+            text: 'ยกเลิก',
+            role: 'cancel',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'บันทึก',
+            handler: data => {
+              console.log('Save clicked');
+            }
+          }
+        ]
+      });
+      alert.setMode('ios');
+      alert.present();
     }
-
-   random(): number {
-     let rand = Math.floor(Math.random()*20)+1;
-     return rand;
-  }
-
 }

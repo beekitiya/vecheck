@@ -24,12 +24,12 @@
         "source": "/Users/teeragame/Desktop/nectec/vcare-project/platforms/android/app/src/main/res/drawable-port-hdpi/screen.png"
     },
     {
-        "merged": "/Users/teeragame/Desktop/nectec/vcare-project/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxxhdpi_screen.png.flat",
-        "source": "/Users/teeragame/Desktop/nectec/vcare-project/platforms/android/app/src/main/res/drawable-land-xxxhdpi/screen.png"
-    },
-    {
         "merged": "/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xxhdpi_screen.png.flat",
         "source": "/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/src/main/res/drawable-port-xxhdpi/screen.png"
+    },
+    {
+        "merged": "/Users/teeragame/Desktop/nectec/vcare-project/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxxhdpi_screen.png.flat",
+        "source": "/Users/teeragame/Desktop/nectec/vcare-project/platforms/android/app/src/main/res/drawable-land-xxxhdpi/screen.png"
     },
     {
         "merged": "/Users/teeragame/Desktop/nectec/vcare-project/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",

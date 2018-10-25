@@ -27,6 +27,9 @@
     },
     "cz.blocshop.socketsforcordova": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-bluetooth-serial": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {}

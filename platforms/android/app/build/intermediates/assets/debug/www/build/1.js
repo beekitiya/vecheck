@@ -1,14 +1,14 @@
 webpackJsonp([1],{
 
-/***/ 336:
+/***/ 566:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartQuestionnairePageModule", function() { return StartQuestionnairePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__start_questionnaire__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__start_questionnaire__ = __webpack_require__(584);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,13 +38,13 @@ var StartQuestionnairePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 361:
+/***/ 584:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StartQuestionnairePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -75,9 +75,9 @@ var StartQuestionnairePage = /** @class */ (function () {
     };
     StartQuestionnairePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-start-questionnaire',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/start-questionnaire/start-questionnaire.html"*/'<ion-content padding class="app-background">\n    <div class="start-survey">\n        <fieldset>\n            <h3>กรุณาตอบแบบสอบถาม</h3><br>\n            <h3 style="margin-top:-20px">ก่อนเริ่มการใช้งาน</h3>\n            <p>การตอบแบบสอบถามนี้ จะช่วยให้เราสามารถตรวจสอบและดูแลรถยนต์ของคุณได้ดียิ่งขึ้น</p>\n            <button ion-button block type="submit" (click)="goToQuestionnaire1()">\n                เริ่มทำแบบสอบถาม\n            </button>\n        </fieldset>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/start-questionnaire/start-questionnaire.html"*/,
+            selector: 'page-start-questionnaire',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/start-questionnaire/start-questionnaire.html"*/'<ion-content padding class="app-background">\n    <div class="start-survey">\n        <fieldset>\n            <img class="app-logo" src="../assets/imgs/app-logo.png"><br><br>\n            <h3 text-center>กรุณาตอบแบบสอบถาม</h3><br>\n            <h3 style="margin-top:-20px" text-center>ก่อนเริ่มการใช้งาน</h3>\n            <p text-center>การตอบแบบสอบถามนี้ จะช่วยให้เราสามารถตรวจสอบและดูแลรถยนต์ของคุณได้ดียิ่งขึ้น</p>\n            <button ion-button block type="submit" (click)="goToQuestionnaire1()">\n                เริ่มทำแบบสอบถาม\n            </button>\n        </fieldset>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/start-questionnaire/start-questionnaire.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
     ], StartQuestionnairePage);
     return StartQuestionnairePage;
 }());
