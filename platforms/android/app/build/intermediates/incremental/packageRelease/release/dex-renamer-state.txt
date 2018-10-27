@@ -1,4 +1,0 @@
-#Fri Sep 21 17:40:55 ICT 2018
-base.0=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/transforms/dex/release/0
-path.0=classes.dex
-renamed.0=classes.dex
