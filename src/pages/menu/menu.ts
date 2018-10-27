@@ -16,15 +16,15 @@ export class MenuPage {
   // A reference to the ion-nav in our component
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'ContentPage';
+  rootPage: any = 'LoginPage';
 
   pages: PageList;
 
   constructor(public navCtrl: NavController) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Sign in', component: 'LoginPage' },
-      { title: 'Signup', component: 'SignupPage' }
+      { title: 'แผนที่อู่ซ่อมรถ', component: '' },
+      { title: 'คูปองส่วนลด', component: '' }
     ];
   }
 

@@ -110,23 +110,23 @@ var map = {
 	],
 	"../pages/questionnaire1/questionnaire1.module": [
 		562,
-		5
+		1
 	],
 	"../pages/questionnaire2/questionnaire2.module": [
 		563,
-		4
+		5
 	],
 	"../pages/questionnaire3/questionnaire3.module": [
 		564,
-		3
+		4
 	],
 	"../pages/signup/signup.module": [
 		565,
-		2
+		3
 	],
 	"../pages/start-questionnaire/start-questionnaire.module": [
 		566,
-		1
+		2
 	]
 };
 function webpackAsyncContext(req) {
@@ -744,17 +744,8 @@ var MyApp = /** @class */ (function () {
         this.auth = auth;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages__["a" /* FirstRunPage */];
         this.pages = [
-            { title: 'Tutorial', component: 'TutorialPage' },
-            { title: 'Welcome', component: 'WelcomePage' },
-            { title: 'Tabs', component: 'TabsPage' },
-            { title: 'Cards', component: 'CardsPage' },
-            { title: 'Content', component: 'ContentPage' },
             { title: 'Login', component: 'LoginPage' },
-            { title: 'Signup', component: 'SignupPage' },
-            { title: 'Master Detail', component: 'ListMasterPage' },
-            { title: 'Menu', component: 'MenuPage' },
-            { title: 'Settings', component: 'SettingsPage' },
-            { title: 'Search', component: 'SearchPage' }
+            { title: 'Signup', component: 'SignupPage' }
         ];
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
@@ -801,7 +792,7 @@ var MyApp = /** @class */ (function () {
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            template: "<ion-menu [content]=\"content\">\n    <ion-header>\n      <ion-toolbar>\n        <ion-title>Pages</ion-title>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-content>\n      <ion-list>\n        <button menuClose ion-item *ngFor=\"let p of pages\" (click)=\"openPage(p)\">\n          {{p.title}}\n        </button>\n      </ion-list>\n    </ion-content>\n\n  </ion-menu>\n  <ion-nav #content [root]=\"rootPage\"></ion-nav>"
+            template: "<ion-menu [content]=\"content\">\n    <ion-header>\n      <ion-toolbar>\n        <ion-title>Menu</ion-title>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-content>\n      <ion-list>\n        <button menuClose ion-item *ngFor=\"let p of pages\" (click)=\"openPage(p)\">\n          {{p.title}}\n        </button>\n      </ion-list>\n    </ion-content>\n\n  </ion-menu>\n  <ion-nav #content [root]=\"rootPage\"></ion-nav>"
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_6__providers__["b" /* Settings */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* Config */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_7__services_auth_service__["a" /* AuthService */]])
     ], MyApp);

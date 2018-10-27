@@ -40,6 +40,7 @@ export class MainPage {
             }, 10000);
             instance.connected=false;*/
           console.log("=>APP ERROR:" + data)
+          wifiOBDReader.autoconnect("bluetooth", "OBD");
       });
     wifiOBDReader.on('dataReceived', function (data) {
         //instance.stopClear();
@@ -73,7 +74,7 @@ export class MainPage {
     //console.log(this.host);
     this.plt.ready().then(() => {
       console.log("Platform ready, instantiating OBD");
-      //wifiOBDReader.setProtocol(0);
+      wifiOBDReader.setProtocol(0);
         //wifiOBDReader.autoconnect("TCP", this.host);
       wifiOBDReader.autoconnect("bluetooth", "OBD");
     }); // ready

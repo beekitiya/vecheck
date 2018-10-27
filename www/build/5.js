@@ -1,14 +1,14 @@
 webpackJsonp([5],{
 
-/***/ 562:
+/***/ 561:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Questionnaire1PageModule", function() { return Questionnaire1PageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Questionnaire2PageModule", function() { return Questionnaire2PageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__questionnaire1__ = __webpack_require__(580);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__questionnaire2__ = __webpack_require__(579);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,31 +18,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var Questionnaire1PageModule = /** @class */ (function () {
-    function Questionnaire1PageModule() {
+var Questionnaire2PageModule = /** @class */ (function () {
+    function Questionnaire2PageModule() {
     }
-    Questionnaire1PageModule = __decorate([
+    Questionnaire2PageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__questionnaire1__["a" /* Questionnaire1Page */],
+                __WEBPACK_IMPORTED_MODULE_2__questionnaire2__["a" /* Questionnaire2Page */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__questionnaire1__["a" /* Questionnaire1Page */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__questionnaire2__["a" /* Questionnaire2Page */]),
             ],
         })
-    ], Questionnaire1PageModule);
-    return Questionnaire1PageModule;
+    ], Questionnaire2PageModule);
+    return Questionnaire2PageModule;
 }());
 
-//# sourceMappingURL=questionnaire1.module.js.map
+//# sourceMappingURL=questionnaire2.module.js.map
 
 /***/ }),
 
-/***/ 580:
+/***/ 579:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Questionnaire1Page; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Questionnaire2Page; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(27);
@@ -59,44 +59,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
- * Generated class for the Questionnaire1Page page.
+ * Generated class for the Questionnaire2Page page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var Questionnaire1Page = /** @class */ (function () {
-    function Questionnaire1Page(navCtrl, navParams, fb) {
+var Questionnaire2Page = /** @class */ (function () {
+    function Questionnaire2Page(navCtrl, navParams, fb) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.questionnaireForm = fb.group({
-            brand: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model_year: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model_color: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model_engine: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model_gear: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model_country: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
-            model_license: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required]
+            car_mile: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
+            last_visit: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
+            service_center: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required],
+            engine_oil: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["g" /* Validators */].required]
         });
     }
-    Questionnaire1Page.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad Questionnaire1Page');
+    Questionnaire2Page.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad Questionnaire2Page');
     };
-    Questionnaire1Page.prototype.goToQuestionnaire2 = function () {
-        var data = this.questionnaireForm.value;
-        this.navCtrl.push('Questionnaire2Page', data);
+    Questionnaire2Page.prototype.goToQuestionnaire3 = function () {
+        var data = Object.assign({}, this.navParams.data, this.questionnaireForm.value);
+        this.navCtrl.push('Questionnaire3Page', data);
     };
-    Questionnaire1Page = __decorate([
+    Questionnaire2Page = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-questionnaire1',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/questionnaire1/questionnaire1.html"*/'<ion-content padding class="app-background">\n    <!--<div class="orderStatus" style="margin-top:2em;">\n        <ul class="row">\n            <li class="col done">Step 1</li>\n            <li class="col done">Step 2</li>\n            <li class="col">Step 3</li>\n        </ul>\n    </div>-->\n    <form class="car-questionnaire" [formGroup]="questionnaireForm">\n        <h3 text-center>รถยนต์</h3>\n        <ion-item class="regis-input">\n            <ion-label>ยี่ห้อ</ion-label>\n            <ion-select formControlName="brand" >\n                <ion-option value="Toyota">Toyota</ion-option>\n                <ion-option value="Honda">Honda</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item class="regis-input">\n            <ion-label>รุ่น</ion-label>\n            <ion-select formControlName="model">\n                <ion-option value="4runner">4runner</ion-option>\n                <ion-option >Camry</ion-option>\n                <ion-option >Corolla Altis</ion-option>\n                <ion-option >Fortuner</ion-option>\n                <ion-option >Vios</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item class="regis-input">\n            <ion-label>ปี</ion-label>\n            <ion-select formControlName="model_year">\n                <ion-option value="2005">2005</ion-option>\n                <ion-option >2006</ion-option>\n                <ion-option >2007</ion-option>\n                <ion-option >2008</ion-option>\n                <ion-option >2009</ion-option>\n                <ion-option >2010</ion-option>\n                <ion-option >2011</ion-option>\n                <ion-option >2012</ion-option>\n                <ion-option >2013</ion-option>\n                <ion-option >2014</ion-option>\n                <ion-option >2015</ion-option>\n                <ion-option >2016</ion-option>\n                <ion-option >2017</ion-option>\n                <ion-option >2018</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item class="regis-input">\n            <ion-label>สีรถยนต์</ion-label>\n            <ion-select formControlName="model_color">\n                <ion-option value="ขาว">ขาว</ion-option>\n                <ion-option value="ดำ">ดำ</ion-option>\n                <ion-option value="ทอง">ทอง</ion-option>\n                <ion-option value="น้ำตาล">น้ำตาล</ion-option>\n                <ion-option value="น้ำเงิน">น้ำเงิน</ion-option>\n                <ion-option value="ฟ้า">ฟ้า</ion-option>\n                <ion-option value="ม่วง">ม่วง</ion-option>\n                <ion-option value="ส้ม">ส้ม</ion-option>\n                <ion-option value="เขียว">เขียว</ion-option>\n                <ion-option value="เงิน">เงิน</ion-option>\n                <ion-option value="เทา">เทา</ion-option>\n                <ion-option value="เหลือง">เหลือง</ion-option>\n                <ion-option value="แดง">แดง</ion-option>\n                <ion-option value="ครีม">ครีม</ion-option>\n                <ion-option value="ชมพู">ชมพู</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-row radio-group formControlName="model_gear">\n            <ion-col col-3>\n                <ion-item class="group-radio">\n                    เกียร์\n                </ion-item>\n            </ion-col>\n            <ion-col col-5>\n                <ion-item class="group-radio">\n                    <ion-radio value="1" item-left></ion-radio>\n                    <ion-label>ธรรมดา</ion-label>\n                </ion-item>\n            </ion-col>\n            <ion-col col-4>\n                <ion-item class="group-radio">\n                    <ion-radio value="2" item-left></ion-radio>\n                    <ion-label>ออโต้</ion-label>\n                </ion-item>\n            </ion-col>\n        </ion-row>\n        <ion-item class="regis-input">\n            <ion-label>ขนาดเครื่องยนต์ (CC.)</ion-label>\n            <ion-select formControlName="model_engine">\n                <ion-option value="1500">1,500 CC</ion-option>\n                <ion-option >1,800 CC</ion-option>\n                <ion-option >2,000 CC</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item class="regis-input">\n            <ion-label>ประเทศที่จดทะเบียน</ion-label>\n            <ion-select formControlName="model_country">\n                <ion-option value="England">อังกฤษ</ion-option>\n                <ion-option >ญี่ปุ่น</ion-option>\n                <ion-option >ไทย</ion-option>\n                <ion-option >สหรัฐอเมริกา</ion-option>\n            </ion-select>\n        </ion-item>\n        <ion-item class="regis-input">\n            <ion-label>ทะเบียนรถยนต์</ion-label>\n            <ion-input style="margin-bottom: -15px;" type="text" required text-right formControlName="model_license"></ion-input>\n        </ion-item>\n        <img class="car-progress" src="../assets/imgs/car-1.png">\n        <div class="fix-button">\n            <button ion-button full type="submit" (click)="goToQuestionnaire2()">\n                ถัดไป\n            </button>\n        </div>\n    </form>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/questionnaire1/questionnaire1.html"*/,
+            selector: 'page-questionnaire2',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/questionnaire2/questionnaire2.html"*/'<ion-content padding class="app-background">\n    <form class="car-questionnaire" [formGroup]="questionnaireForm">\n        <h3 text-center>ข้อมูลในการบำรุงรักษารถยนต์</h3>\n        <ion-item class="regis-input">\n            <ion-label>เลขไมล์ปัจจุบัน</ion-label>\n            <ion-input style="margin-bottom: -15px;" type="text" required text-right formControlName="car_mile"></ion-input>\n        </ion-item>\n        <ion-item class="regis-input">\n            <ion-label>วันที่เข้าศูนย์บริการล่าสุด</ion-label>\n            <ion-datetime style="margin-bottom: -20px;" displayFormat="DD/MM/YYYY" required text-right formControlName="last_visit"></ion-datetime>\n        </ion-item>\n        <ion-grid radio-group formControlName="service_center">\n            <ion-row>\n                <ion-item class="group-radio">\n                    ประเภทศูนย์บริการ\n                </ion-item>\n            </ion-row>\n            <ion-row>\n                <ion-item class="group-radio" style="padding-left:20px;">\n                    <ion-radio value="1" item-left></ion-radio>\n                    <ion-label>ศูนย์บริการรถยนต์ (เช่น โตโยต้า)</ion-label>\n                </ion-item>\n            </ion-row>\n            <ion-row>\n                <ion-item class="group-radio" style="padding-left:20px;">\n                    <ion-radio value="2" item-left></ion-radio>\n                    <ion-label>อู่ซ่อมรถ</ion-label>\n                </ion-item>\n            </ion-row>\n            <ion-row>\n                <ion-item class="group-radio" style="padding-left:20px;">\n                    <ion-radio value="0" item-left></ion-radio>\n                    <ion-label>ศูนย์บริการเฉพาะทาง (เช่น B-Quik)</ion-label>\n                </ion-item>\n            </ion-row>\n        </ion-grid>\n        <ion-grid radio-group formControlName="engine_oil">\n            <ion-row>\n                <ion-item class="group-radio">\n                    ประเภทน้ำมันเครื่องที่ใช้\n                </ion-item>\n            </ion-row>\n            <ion-row>\n                <ion-item class="group-radio" style="padding-left:20px;">\n                    <ion-radio value="1" item-left></ion-radio>\n                    <ion-label>ทุก 5,000 กิโลเมตร</ion-label>\n                </ion-item>\n            </ion-row>\n            <ion-row>\n                <ion-item class="group-radio" style="padding-left:20px;">\n                    <ion-radio value="2" item-left></ion-radio>\n                    <ion-label>ทุก 10,000 กิโลเมตร</ion-label>\n                </ion-item>\n            </ion-row>\n            <ion-row>\n                <ion-item class="group-radio" style="padding-left:20px;">\n                    <ion-radio value="0" item-left></ion-radio>\n                    <ion-label>ไม่แน่ใจ</ion-label>\n                </ion-item>\n            </ion-row>\n        </ion-grid>\n        <img class="car-progress" src="../assets/imgs/car-2.png">\n        <div class="fix-button">\n            <button ion-button full type="submit" (click)="goToQuestionnaire3()">\n                ถัดไป\n            </button>\n        </div>\n    </form>\n</ion-content>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/questionnaire2/questionnaire2.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */]])
-    ], Questionnaire1Page);
-    return Questionnaire1Page;
+    ], Questionnaire2Page);
+    return Questionnaire2Page;
 }());
 
-//# sourceMappingURL=questionnaire1.js.map
+//# sourceMappingURL=questionnaire2.js.map
 
 /***/ })
 

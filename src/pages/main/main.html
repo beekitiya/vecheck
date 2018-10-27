@@ -1,25 +1,24 @@
-<ion-content class="app-background" padding>
-    <ion-header>
-        <ion-toolbar color="font-color" style="padding-top:20px;">
-            <ion-buttons left style="padding-left:10px;">
-                <button ion-button icon-only color="icon-color">
-                    <ion-icon name="ios-notifications"></ion-icon>
-                </button>
-            </ion-buttons>
-            <ion-buttons left style="padding-left:10px;">
-                <button ion-button color="icon-color">
-                    <img class="bt-icon" [src]="connected ? '../assets/imgs/bluetooth-connected.png' : '../assets/imgs/bluetooth.png'">
-                </button>
-            </ion-buttons>
-            <ion-buttons right style="padding-right:10px;">
-                <button ion-button icon-only color="icon-color">
-                    <ion-icon name="ios-contact"></ion-icon>
-                </button>
-            </ion-buttons>
-        </ion-toolbar>
-    </ion-header>
-    <br><br><br>
+<ion-header>
+    <ion-toolbar color="font-color">
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons right>
+            <button ion-button color="icon-color">
+                <img class="bt-icon" [src]="connected ? '../assets/imgs/bluetooth-connected.png' : '../assets/imgs/bluetooth.png'">
+            </button>
+        </ion-buttons>
+        <ion-buttons right style="padding-right:10px;">
+            <button ion-button icon-only color="icon-color">
+                <ion-icon name="ios-notifications"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
+<ion-content class="app-background" padding>
     <ion-grid>
         <ion-row>
             <ion-col col-4 class="speed-col">
@@ -27,7 +26,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/speed.png">
                         <p style="margin-top:31px;color:#98999c">ความเร็ว</p>
-                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>
+                        <p style="margin-top:7px;font-size:25px;">0{{Speed}}</p>
                         <p style="margin-top:-5px;color:#98999c">km/h</p>
                     </ion-card-content>
                 </ion-card>

@@ -125,7 +125,7 @@ export class LoginPage {
         }else{
             this.navCtrl.push('StartQuestionnairePage');
         }
-      
+
     });
   }
   // Attempt to login in through our User service

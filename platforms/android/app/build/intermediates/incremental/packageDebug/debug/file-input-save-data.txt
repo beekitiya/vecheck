@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Oct 21 05:09:05 ICT 2018
+#Sat Oct 27 03:33:28 ICT 2018
 124.path=www/plugins/cordova-plugin-ionic-webview/src/www/util.js
 60.set=ASSET
 52.set=ASSET
@@ -57,7 +57,7 @@
 58.baseType=DIRECTORY
 114.path=www/assets/i18n/sk.json
 18.baseType=DIRECTORY
-23.path=www/assets/imgs/app-logo.png
+23.path=www/assets/i18n/pt-br.json
 129.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
 70.path=www/assets/fonts/noto-sans-regular.ttf
 21.baseType=DIRECTORY
@@ -138,7 +138,7 @@
 89.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
 121.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
 113.path=www/build/0.js.map
-22.path=www/assets/i18n/pt-br.json
+22.path=www/assets/img/speakers/rabbit.jpg
 129.baseType=DIRECTORY
 128.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
 29.path=www/assets/img/ica-slidebox-img-4.png
@@ -220,7 +220,7 @@
 120.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
 4.baseType=DIRECTORY
 112.path=www/build/1.js.map
-21.path=www/assets/img/speakers/rabbit.jpg
+21.path=www/assets/imgs/app-logo.png
 127.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
 119.path=www/assets/i18n/es-eu.json
 28.path=www/build/5.js
@@ -263,7 +263,7 @@
 0.path=www/assets/img/queen-live.png
 44.path=www/build/0.js
 81.baseType=DIRECTORY
-91.path=www/plugins/cordova-plugin-bluetooth-serial/www/bluetoothSerial.js
+91.path=www/build/6.js
 41.baseType=DIRECTORY
 7.path=www/assets/imgs/car-1.png
 98.path=www/assets/fonts/roboto-bold.ttf
@@ -343,7 +343,7 @@
 134.path=www/assets/fonts/roboto-light.ttf
 43.path=www/assets/i18n/ar.json
 16.base=/Users/kitiyasuriyachay/Desktop/vcare-project/platforms/android/app/build/intermediates/assets/debug
-90.path=www/build/6.js
+90.path=www/plugins/cordova-plugin-bluetooth-serial/www/bluetoothSerial.js
 6.path=www/assets/imgs/car-3.png
 112.baseType=DIRECTORY
 97.path=www/assets/img/ica-slidebox-img-3.png

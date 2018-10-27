@@ -65,11 +65,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MenuPage = /** @class */ (function () {
     function MenuPage(navCtrl) {
         this.navCtrl = navCtrl;
-        this.rootPage = 'ContentPage';
+        this.rootPage = 'LoginPage';
         // used for an example of ngFor and navigation
         this.pages = [
-            { title: 'Sign in', component: 'LoginPage' },
-            { title: 'Signup', component: 'SignupPage' }
+            { title: 'แผนที่อู่ซ่อมรถ', component: '' },
+            { title: 'คูปองส่วนลด', component: '' }
         ];
     }
     MenuPage.prototype.ionViewDidLoad = function () {
@@ -86,7 +86,7 @@ var MenuPage = /** @class */ (function () {
     ], MenuPage.prototype, "nav", void 0);
     MenuPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-menu',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n</ion-menu>\n\n<ion-nav #content [root]="rootPage"></ion-nav>'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/menu/menu.html"*/
+            selector: 'page-menu',template:/*ion-inline-start:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n            <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n          <!--<ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>-->\n          {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n</ion-menu>\n\n<ion-nav #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>\n'/*ion-inline-end:"/Users/kitiyasuriyachay/Desktop/vcare-project/src/pages/menu/menu.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]])
     ], MenuPage);
