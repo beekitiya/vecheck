@@ -20,6 +20,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore,AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from '../config';
 import { AuthService } from '../services/auth.service';
+//import { NgProgressModule } from 'ngx-progressbar';
+//import { ProgressBarModule } from "angular-progress-bar"
+//import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import {ProgressBarModule} from "angular-progress-bar"
 //import { LoginPage } from '../pages/login/login';
 //import { SignupPage } from '../pages/signup/signup';
 //import { MainPage } from '../pages/main/main';
@@ -49,6 +53,7 @@ export function provideSettings(storage: Storage) {
 @NgModule({
   declarations: [
     MyApp,
+    //ProgressBarComponent
     //LoginPage,
     //SignupPage,
     //MainPage
@@ -63,18 +68,14 @@ export function provideSettings(storage: Storage) {
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp,{
-        menuType: 'push',
-        platforms: {
-            ios: {
-                menuType: 'overlay',
-            }
-        }
-    }),
+    IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.fire),
     IonicStorageModule.forRoot(),
     NgxErrorsModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    //NgProgressModule,
+    ProgressBarModule
+    //ProgressBarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

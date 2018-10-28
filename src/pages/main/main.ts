@@ -1,5 +1,8 @@
 import { Component,NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AuthService } from '../../services/auth.service';
+import * as moment from 'moment';
 
 var wifiOBDReader;
 declare var require: any;
@@ -26,13 +29,42 @@ export class MainPage {
     Speed: number;
     counter: number;
     Distance: string = "";
+    last_visit: number;
+    mile: any;
+    oilEngine: any;
+    oil_engine = {'0':7500,'1':5000,'2':10000};
+    alert={};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private ngZone: NgZone, public plt: Platform, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private ngZone: NgZone, public plt: Platform, public alertCtrl: AlertController,
+    private readonly afs: AngularFirestore,
+    private auth: AuthService,) {
       var OBDReader = require('obd-bluetooth-tcp');
       wifiOBDReader = new OBDReader();
       var instance = this;
       this.counter=0;
+      this.readMile().then(out=>{
+        var CurrentDate = moment(new Date());
 
+
+        this.mile=out.mile;
+        this.last_visit=parseInt(out.last_visit.split('-')[1]);
+        this.oilEngine=out.engine_oil;
+
+        this.alert['oil_engine']=this.oil_engine[this.oilEngine]-(this.mile%this.oil_engine[this.oilEngine]);
+        this.alert['break']=40000-(this.mile%40000);
+        this.alert['oil_gear']=40000-(this.mile%40000);
+        this.alert['back_gear']=40000-(this.mile%40000);
+        this.alert['car_tires']=50000-(this.mile%50000);
+        this.alert['oil_power']=80000-(this.mile%80000);
+        this.alert['air_filter']=12-this.last_visit;
+        this.alert['passenger_air_filter']=6-this.last_visit;
+        this.alert['rain_rubber']=12-this.last_visit;
+        this.alert['battery']=24-this.last_visit;
+        this.alert['car_tax']=moment(out.third_insurance_expire).diff(CurrentDate,'days');
+        this.alert['car_insurance']=moment(out.insurance_expire).diff(CurrentDate,'days');
+
+
+      });
       wifiOBDReader.on('debug', function (data) { console.log("=>APP DEBUG:" + data) });
       wifiOBDReader.on('error', function (data) {
           /*instance.connectInverval=setInterval(() => {
@@ -114,6 +146,24 @@ export class MainPage {
        }, 10000);*/
 
    }
+
+   readMile(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      let currentUser = this.auth.getcurrentUser();
+      this.afs.collection('Users').doc('E5rUWddcGifXCueIFPmMFi0cNZl2').collection('Cars').ref.get()
+  .then(docs => {
+    docs.forEach(x=>{
+      let data = x.data()
+      resolve({'mile':data.car_mile,'last_visit':data.last_visit,'engine_oil':data.engine_oil,'third_insurance_expire':data.third_insurance_expire,'insurance_expire':data.insurance_expire});
+    })
+
+  })
+  .catch(err => {
+    reject(err);
+  });
+});
+
+}
 
    editOdoAlert() {
       let alert = this.alertCtrl.create({

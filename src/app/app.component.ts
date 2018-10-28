@@ -36,7 +36,7 @@ export class MyApp {
   pages: any[] = [
     { title: 'แผนที่อู่ซ่อมรถ', component: 'LoginPage' },
     { title: 'คูปองส่วนลด', component: 'SignupPage' },
-    { title: 'ออกจากระบบ', component: 'SignupPage' }
+    { title: 'ออกจากระบบ', component: 'LoginPage' }
   ]
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private auth: AuthService ) {
@@ -78,6 +78,19 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if (page.component) {
+        this.nav.setRoot(page.component);
+    } else {
+        this.auth.logOut()
+         .then((data : any) =>
+         {
+            this.nav.setRoot(page.component);
+         })
+         .catch((error : any) =>
+         {
+            console.dir(error);
+         });
+        //this.nav.setRoot('LoginPage');
+    }
   }
 }

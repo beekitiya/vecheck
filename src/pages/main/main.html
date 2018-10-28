@@ -26,7 +26,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/speed.png">
                         <p style="margin-top:31px;color:#98999c">ความเร็ว</p>
-                        <p style="margin-top:7px;font-size:25px;">0{{Speed}}</p>
+                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>
                         <p style="margin-top:-5px;color:#98999c">km/h</p>
                     </ion-card-content>
                 </ion-card>
@@ -46,7 +46,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/odometer.png">
                         <p style="margin-top:31px;color:#98999c">เลขไมล์สะสม</p>
-                        <p style="margin-top:7px;font-size:25px;">0</p>
+                        <p style="margin-top:7px;font-size:25px;">{{mile}}</p>
                         <p style="margin-top:-5px;color:#98999c;margin-bottom:-17px;">km</p>
                         <button ion-button icon-only color="icon-color" (click)="editOdoAlert()">
                             <ion-icon name="ios-create"></ion-icon>
@@ -65,7 +65,12 @@
                         น้ำมันเครื่อง
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        {{alert.oil_engine}}
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -77,7 +82,12 @@
                         ผ้าเบรค
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.break}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -89,7 +99,12 @@
                         ยางล้อรถยนต์
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.car_tires}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -101,7 +116,12 @@
                         ต่อภาษีรถยนต์
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.car_tax}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -113,7 +133,12 @@
                         กรองอากาศเครื่องยนต์
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.air_filter}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -125,7 +150,12 @@
                         น้ำมันเกียร์
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.oil_gear}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -137,7 +167,12 @@
                         น้ำมันเฟืองท้าย
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.back_gear}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -149,7 +184,12 @@
                         น้ำมันพาเวอร์ / น้ำมันเบรค
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.oil_power}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -161,7 +201,12 @@
                         กรองอากาศแอร์ในห้องโดยสาร
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.passenger_air_filter}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -173,7 +218,12 @@
                         ยางในปัดน้ำฝน
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.rain_rubber}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -185,7 +235,6 @@
                         ระดับน้ำในหม้อน้ำ
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -197,7 +246,12 @@
                         แบตเตอรี่ + น้ำกลั่นในแบตเตอรี่ + กำลังไฟแบตเตอรี่
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.battery}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -209,7 +263,12 @@
                         ประกันภัยภาคสมัครใจ
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
+                        <p>{{alert.car_insurance}}</p>
+                        <div class="progress-outer">
+                            <div class="progress-inner" [style.width]="progress + '%'">
+                                {{progress}}%
+                            </div>
+                        </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -221,7 +280,6 @@
                         ลมยางล้อรถยนต์
                     </ion-card-title>
                     <ion-card-content>
-                        <p></p>
                     </ion-card-content>
                 </ion-card>
             </ion-col>

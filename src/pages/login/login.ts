@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IonicPage, NavController, ToastController, ViewController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
-
+import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../../providers/user/user';
 import { SignupPage } from '../signup/signup';
 import { MainPage } from '../main/main';
@@ -17,14 +17,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 export class LoginPage {
     loginForm: FormGroup;
 	loginError: string;
-    //loginForm: FormGroup;
-    //loading: Loading;
-    //account = {email: '', password: ''};
 
-    /*fieldName: any = {
-        email: 'email',
-        password: 'password'
-    };*/
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
@@ -42,12 +35,9 @@ export class LoginPage {
     public viewCtrl: ViewController,
     private auth: AuthService,
     fb: FormBuilder,
-    private readonly afs: AngularFirestore
+    private readonly afs: AngularFirestore,
+    public afAuth: AngularFireAuth
     ) {
-
-    /*this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-  });*/
 
     this.loginForm = fb.group({
         email: [''],
@@ -60,17 +50,23 @@ export class LoginPage {
   });*/
   }
 
-  /*ionViewDidLoad() {
-    // this.user.checkUser();
-    let d = {
-      "email" : "a@a.com",
-      "password" : "ionic"
-    }
-    // this.user.login(d)
-    this.user.login(d).subscribe((resp) => {
-      console.log(resp)
-    })
-  }*/
+  ionViewDidLoad(){
+     // this.afAuth.authState.subscribe(user => {
+     //     let currentUser = user;
+     //     currentUser && this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()
+     //     .then( (query)=>
+
+     //       {
+     //         if(query.size>0){
+     //             this.navCtrl.push('MainPage');
+     //         }else{
+     //             this.navCtrl.push('StartQuestionnairePage');
+     //         }
+
+     //     });
+     // });
+
+   }
 
   login() {
         /*if (this.loginForm.invalid) {
