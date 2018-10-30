@@ -1,22 +1,28 @@
-import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, ToastController, ViewController, AlertController } from 'ionic-angular';
-import { AuthService } from '../../services/auth.service';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { User } from '../../providers/user/user';
-import { SignupPage } from '../signup/signup';
-import { MainPage } from '../main/main';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { Component } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {
+  IonicPage,
+  NavController,
+  ToastController,
+  ViewController,
+  AlertController
+} from "ionic-angular";
+import { AuthService } from "../../services/auth.service";
+import { AngularFireAuth } from "angularfire2/auth";
+import { User } from "../../providers/user/user";
+import { SignupPage } from "../signup/signup";
+import { MainPage } from "../main/main";
+import { AngularFirestore } from "angularfire2/firestore";
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: "page-login",
+  templateUrl: "login.html"
 })
 export class LoginPage {
-    loginForm: FormGroup;
-	loginError: string;
+  loginForm: FormGroup;
+  loginError: string;
 
   // The account fields for the login form.
   // If you're using the username field with or without email, make
@@ -37,11 +43,10 @@ export class LoginPage {
     fb: FormBuilder,
     private readonly afs: AngularFirestore,
     public afAuth: AngularFireAuth
-    ) {
-
+  ) {
     this.loginForm = fb.group({
-        email: [''],
-        password: ['']
+      email: [""],
+      password: [""]
     });
 
     /*this.loginForm = this.formBuilder.group({
@@ -50,26 +55,26 @@ export class LoginPage {
   });*/
   }
 
-  ionViewDidLoad(){
-     // this.afAuth.authState.subscribe(user => {
-     //     let currentUser = user;
-     //     currentUser && this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()
-     //     .then( (query)=>
+  ionViewDidLoad() {
+    this.gotoMainPage();
+    // this.afAuth.authState.subscribe(user => {
+    //     let currentUser = user;
+    //     currentUser && this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()
+    //     .then( (query)=>
 
-     //       {
-     //         if(query.size>0){
-     //             this.navCtrl.push('MainPage');
-     //         }else{
-     //             this.navCtrl.push('StartQuestionnairePage');
-     //         }
+    //       {
+    //         if(query.size>0){
+    //             this.navCtrl.push('MainPage');
+    //         }else{
+    //             this.navCtrl.push('StartQuestionnairePage');
+    //         }
 
-     //     });
-     // });
-
-   }
+    //     });
+    // });
+  }
 
   login() {
-        /*if (this.loginForm.invalid) {
+    /*if (this.loginForm.invalid) {
           this.formCtrl.validateForm(this.loginForm.controls, this.account.login);
           return console.error('Invalid form');
         }
@@ -77,7 +82,7 @@ export class LoginPage {
         return this.user.login(this.loginForm.value).then(() => {
           this.navCtrl.push('MainPage');
       });*/
-      /*this.user.login(this.account).subscribe((resp) => {
+    /*this.user.login(this.account).subscribe((resp) => {
           if (resp) {
               this.navCtrl.push('MainPage');
           } else {
@@ -86,18 +91,25 @@ export class LoginPage {
       }, error => {
           this.showError(error.message);
       });*/
-      let data = this.loginForm.value;
-      if (!data.email) {
-          return;
+    let data = this.loginForm.value;
+    if (!data.email) {
+      return;
+    }
+    let credentials = {
+      email: data.email,
+      password: data.password
+    };
+    this.auth.signInWithEmail(credentials).then(
+      () => this.gotoMainPage(),
+      error => {
+        let alert = this.alertCtrl.create({
+          title: "ERROR",
+          subTitle: error.message,
+          buttons: ["Dismiss"]
+        });
+        alert.present();
       }
-      let credentials = {
-          email: data.email,
-          password: data.password
-      };
-      this.auth.signInWithEmail(credentials) .then(
-          () => this.gotoMainPage(),
-          error => this.loginError = error.message
-      );
+    );
   }
 
   /*showError(text) {
@@ -110,22 +122,26 @@ export class LoginPage {
       //alert.present(prompt);
   }*/
 
-  gotoMainPage () {
+  gotoMainPage() {
     let currentUser = this.auth.getcurrentUser();
-    this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()
-    .then( (query)=>
-
-      {
-        if(query.size>0){
-            this.navCtrl.push('MainPage');
-        }else{
-            this.navCtrl.push('StartQuestionnairePage');
-        }
-
-    });
+    if (currentUser) {
+      console.log("GO GO CALLED");
+      this.afs
+        .collection("Users")
+        .doc(currentUser.uid)
+        .collection("Cars")
+        .ref.get()
+        .then(query => {
+          if (query.size > 0) {
+            this.navCtrl.push("MainPage");
+          } else {
+            this.navCtrl.push("StartQuestionnairePage");
+          }
+        });
+    }
   }
   // Attempt to login in through our User service
   gotoSignUp() {
-      this.navCtrl.push('SignupPage');
+    this.navCtrl.push("SignupPage");
   }
 }
