@@ -46,8 +46,8 @@ export class SignupPage {
 
         this.signupForm = fb.group({
             username: [''],
-            email: ['',Validators.required],
-			      password: ['',Validators.required],
+            email: ['',[Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+			password: ['',[Validators.required, Validators.minLength(6)]],
             lineid: [''],
             phonenumber: [''],
             gender: ['']
@@ -73,7 +73,7 @@ export class SignupPage {
      return new Promise<any>((resolve, reject) => {
        let currentUser = this.auth.getcurrentUser();
        this.afs.collection('Users').doc(currentUser.uid).set({
-         gender: value.gender,  
+         gender: value.gender,
          lineid: value.lineid,
          phonenumber: value.phonenumber,
          username: value.username

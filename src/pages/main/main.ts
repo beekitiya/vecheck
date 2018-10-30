@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 var wifiOBDReader;
 declare var require: any;
+declare var bluetoothSerial:any;
 /**
  * Generated class for the MainPage page.
  *
@@ -18,6 +19,8 @@ declare var require: any;
   selector: 'page-main',
   templateUrl: 'main.html',
 })
+
+
 export class MainPage {
 
     //host: string = "192.168.0.10:35000"; // ip:port 192.168.0.10:35000
@@ -32,8 +35,19 @@ export class MainPage {
     last_visit: number;
     mile: any;
     oilEngine: any;
+    carID: any;
     oil_engine = {'0':7500,'1':5000,'2':10000};
     alert={};
+    alert_per={};
+    alert_per_sorted=[];
+    alert_name={'oil_engine':'น้ำมันเครื่อง','break':'ผ้าเบรค','car_tires':'ยางล้อรถยนต์','car_tax':'ต่อภาษีรถยนต์','oil_power':'น้ำมันพาเวอร์ / น้ำมันเบรค',
+    'rain_rubber':'ยางในปัดน้ำฝน','battery':'แบตเตอรี่ + น้ำกลั่นในแบตเตอรี่ + กำลังไฟแบตเตอรี่','car_insurance':'ประกันภัยภาคสมัครใจ','passenger_air_filter':'กรองอากาศแอร์ในห้องโดยสาร','air_filter':'กรองอากาศเครื่องยนต์','oil_gear':'น้ำมันเกียร์','back_gear':'น้ำมันเฟืองท้าย'};
+    alert_type={'oil_engine':'กิโลเมตร','break':'กิโลเมตร','car_tires':'กิโลเมตร','car_tax':'วัน','oil_power':'กิโลเมตร',
+    'rain_rubber':'เดือน','battery':'เดือน','car_insurance':'วัน','passenger_air_filter':'เดือน','air_filter':'เดือน','oil_gear':'กิโลเมตร','back_gear':'กิโลเมตร'}
+
+    clamp(n: number,min: number, max: number) {
+  return Math.max(min, Math.min(n, max));
+    }
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private ngZone: NgZone, public plt: Platform, public alertCtrl: AlertController,
     private readonly afs: AngularFirestore,
@@ -42,29 +56,51 @@ export class MainPage {
       wifiOBDReader = new OBDReader();
       var instance = this;
       this.counter=0;
-      this.readMile().then(out=>{
+
+      var doc = this.afs.collection('Users').doc('E5rUWddcGifXCueIFPmMFi0cNZl2').collection('Cars')
+      doc.snapshotChanges().map(actions => {
+  return actions.map(a => {
+    const data = a.payload.doc.data();
+    const id = a.payload.doc.id;
+    return { id, ...data };
+  });
+}).subscribe((querySnapshot) => {
+    querySnapshot.forEach((docSnap:any) => {
+
         var CurrentDate = moment(new Date());
-
-
-        this.mile=out.mile;
-        this.last_visit=parseInt(out.last_visit.split('-')[1]);
-        this.oilEngine=out.engine_oil;
-
-        this.alert['oil_engine']=this.oil_engine[this.oilEngine]-(this.mile%this.oil_engine[this.oilEngine]);
-        this.alert['break']=40000-(this.mile%40000);
-        this.alert['oil_gear']=40000-(this.mile%40000);
-        this.alert['back_gear']=40000-(this.mile%40000);
-        this.alert['car_tires']=50000-(this.mile%50000);
-        this.alert['oil_power']=80000-(this.mile%80000);
-        this.alert['air_filter']=12-this.last_visit;
+        this.mile=docSnap.car_mile;
+        this.last_visit=parseInt(docSnap.last_visit.split('-')[1]);
+        this.oilEngine=docSnap.engine_oil;
+        this.carID=docSnap.id;
+        this.alert['oil_engine']=(this.mile%this.oil_engine[this.oilEngine]);
+        this.alert_per['oil_engine']=(this.mile%this.oil_engine[this.oilEngine])/this.oil_engine[this.oilEngine]*100;
+        this.alert['break']=(this.mile%40000);
+        this.alert_per['break']=(this.mile%40000)/40000*100;
+        this.alert['oil_gear']=(this.mile%40000);
+        this.alert_per['oil_gear']=(this.mile%40000)/40000*100;
+        this.alert['back_gear']=(this.mile%40000);
+        this.alert_per['back_gear']=(this.mile%40000)/40000*100;
+        this.alert['car_tires']=(this.mile%50000);
+        this.alert_per['car_tires']=(this.mile%50000)/50000*100;
+        this.alert['oil_power']=(this.mile%80000);
+        this.alert_per['oil_power']=(this.mile%80000)/80000*100;
+        this.alert['air_filter']=this.last_visit;
+        this.alert_per['air_filter']=this.clamp(this.last_visit/12*100,0,100);
         this.alert['passenger_air_filter']=6-this.last_visit;
-        this.alert['rain_rubber']=12-this.last_visit;
-        this.alert['battery']=24-this.last_visit;
-        this.alert['car_tax']=moment(out.third_insurance_expire).diff(CurrentDate,'days');
-        this.alert['car_insurance']=moment(out.insurance_expire).diff(CurrentDate,'days');
+        this.alert_per['passenger_air_filter']=this.clamp(this.last_visit/6*100,0,100);
+        this.alert['rain_rubber']=this.last_visit;
+        this.alert_per['rain_rubber']=this.clamp(this.last_visit/12*100,0,100);
+        this.alert['battery']=this.last_visit;
+        this.alert_per['battery']=this.clamp(this.last_visit/24*100,0,100);
+        this.alert['car_tax']=365-moment(docSnap.third_insurance_expire).diff(CurrentDate,'days');
+        this.alert_per['car_tax']=this.clamp((365-moment(docSnap.third_insurance_expire).diff(CurrentDate,'days'))/365*100,0,100);
+        this.alert['car_insurance']=365-moment(docSnap.insurance_expire).diff(CurrentDate,'days');
+        this.alert_per['car_insurance']=this.clamp((365-moment(docSnap.insurance_expire).diff(CurrentDate,'days'))/365*100,0,100);
+        this.alert_per_sorted = Object.keys(this.alert_per).sort((a,b)=>this.alert_per[b]-this.alert_per[a]);
+        console.log(this.alert_per,this.alert_per_sorted);
+    });
+});
 
-
-      });
       wifiOBDReader.on('debug', function (data) { console.log("=>APP DEBUG:" + data) });
       wifiOBDReader.on('error', function (data) {
           /*instance.connectInverval=setInterval(() => {
@@ -80,13 +116,11 @@ export class MainPage {
 
       if (data.name && data.name == 'vss') {
           let kph  = Math.round(data.value); // convert to mph
-          setTimeout(() => {
             instance.ngZone.run(()=>{
                 instance.Speed=kph;
                 instance.counter+=(kph/3600);
                 instance.Distance=instance.counter.toFixed(2);
             })
-        }, 0);
         }
     })
 
@@ -137,6 +171,24 @@ export class MainPage {
 }
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+
+    setTimeout(() => {
+    this.plt.ready().then(() => {
+        bluetoothSerial.enable(
+            ()=>{
+                console.log('enable');
+                this.start();
+            },()=>{
+                console.log('didnot enable');
+                let alert = this.alertCtrl.create({
+                    title: 'WARNING',
+                    subTitle: 'Please Enable Bluetooth',
+                    buttons: ['Dismiss']
+                });
+                alert.present();
+            }
+        )
+    })},3000);
 }
 
 
@@ -185,7 +237,9 @@ export class MainPage {
           {
             text: 'บันทึก',
             handler: data => {
-              console.log('Save clicked');
+              var colRef = this.afs.collection('Users').doc('E5rUWddcGifXCueIFPmMFi0cNZl2').collection('Cars').doc(this.carID)
+              var updateSingle = colRef.update({'car_mile': data.odemeter});
+
             }
           }
         ]

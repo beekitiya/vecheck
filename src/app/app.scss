@@ -14,3 +14,39 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.menu-logo {
+    height: 120px;
+    width: auto;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.menu-inner .item {
+    background: transparent;
+    color: #FFFFFF;
+    font-size: 14px;
+
+    ion-icon {
+        font-size: 20px;
+        margin-right: -10px;
+        padding-top: 6px;
+    }
+}
+
+.menu-inner > ion-header,
+.menu-inner > ion-content,
+.menu-inner > ion-footer {
+    div.fixed-content {
+        margin-top: 200px;
+    }
+    div.scroll-content {
+        background-image: linear-gradient(to top, #8ac3ee, #6ca6dc, #5388c9, #416bb5, #364d9e);
+    }
+}
+
+.item[no-lines].bottom-border {
+    border-bottom: 1px solid #477ba4;
+}

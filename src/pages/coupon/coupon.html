@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="font-color">
+        <ion-title text-center>คูปองส่วนลด</ion-title>
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <!--<ion-buttons right>
+            <button ion-button color="icon-color">
+                <img class="bt-icon" [src]="connected ? '../assets/imgs/bluetooth-connected.png' : '../assets/imgs/bluetooth.png'">
+            </button>
+        </ion-buttons>-->
+        <ion-buttons right style="padding-right:10px;">
+            <button ion-button icon-only color="icon-color">
+                <ion-icon name="ios-notifications"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            Name of coupon
+        </ion-card-header>
+        <ion-card-content>
+            Coupon's detail
+        </ion-card-content>
+    </ion-card>
+</ion-content>

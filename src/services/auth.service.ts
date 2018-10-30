@@ -2,31 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {App} from 'ionic-angular';
 import * as firebase from 'firebase/app';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
 	private user: firebase.User;
 
-	constructor(public afAuth: AngularFireAuth, public app: App,private readonly afs: AngularFirestore,) {
+	constructor(public afAuth: AngularFireAuth, public app: App) {
 		afAuth.authState.subscribe(user => {
-		if(user){
-		this.user = user;
-        this.afs.collection('Users').doc(user.uid).collection('Cars').ref.get()
-        .then( (query)=>
-
-          {
-            if(query.size>0){
-                this.app.getActiveNav().push('MainPage');
-            }else{
-                this.app.getActiveNav().push('StartQuestionnairePage');
-            }
-
-		});
-	}else{
-		this.app.getActiveNav().push('LoginPage');
-	}
-    });
+			if(user){
+				this.user = user;
+			}
+    	});
 	}
 
     signInWithEmail(credentials) {
@@ -42,7 +28,7 @@ export class AuthService {
 		return this.afAuth.auth.signOut();
 	}
 
-	logOut() : Promise {
+	logOut() : Promise<any> {
       	return new Promise((resolve, reject) => {
         	firebase
         	.auth()

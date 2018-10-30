@@ -11,20 +11,19 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
   template: `<ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Menu</ion-title>
+    <ion-header style=" height: 200px;">
+      <ion-toolbar color="font-color" style=" height: 200px;">
+        <img class="menu-logo" src="../assets/imgs/menu-logo.png">
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
+        <button menuClose ion-item no-lines class="bottom-border" *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon item-start [name]="p.icon"></ion-icon>{{p.title}}
         </button>
       </ion-list>
     </ion-content>
-
   </ion-menu>
   <ion-nav #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>`
 })
@@ -34,9 +33,10 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: 'แผนที่อู่ซ่อมรถ', component: 'LoginPage' },
-    { title: 'คูปองส่วนลด', component: 'SignupPage' },
-    { title: 'ออกจากระบบ', component: 'LoginPage' }
+    { title: 'หน้าหลัก', component: 'MainPage', icon: 'home' },
+    { title: 'แผนที่อู่ซ่อมรถ', component: 'GarageMapPage', icon: 'map' },
+    { title: 'คูปองส่วนลด', component: 'CouponPage', icon: 'cash'},
+    { title: 'ออกจากระบบ', component: 'LoginPage', icon: 'log-out' }
   ]
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private auth: AuthService ) {

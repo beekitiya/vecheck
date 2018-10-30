@@ -121,17 +121,35 @@ page-main {
         padding: 3px;
         text-align: center;
         margin-top: -10px;
-        border: none;
+        background-color: #f4f4f4;
+        border: 1px solid #dcdcdc;
         color: #fff;
+        border-radius: 20px;
+        height: 25px;
     }
 
     .progress-inner {
         min-width: 15%;
         white-space: nowrap;
         overflow: hidden;
-        padding: 5px;
+        padding: 2px;
         border-radius: 20px;
-        background-image: linear-gradient(to right, #25CB4E, #FED846, #FB1C4D);
-        color: color($colors, font-color);
+        //background-image: linear-gradient(to right, #25CB4E, #FED846, #FB1C4D);
+        color: white;
+        font-size: 10px;
+        height: 20px;
+        margin-top: -1.4px;
+    }
+
+    .green-bg {
+        background-color: #7FAF1B;
+    }
+
+    .yellow-bg {
+        background-color: #FCA90F;
+    }
+
+    .red-bg {
+        background-color: #CC333F;
     }
 }

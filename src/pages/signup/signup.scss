@@ -100,4 +100,13 @@ page-signup {
             padding: 0px;
         }
     }
+
+    .error-msg {
+        color: red;
+        text-align: right;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: -20px;
+        font-size: 12px;
+    }
 }

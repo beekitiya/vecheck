@@ -58,234 +58,26 @@
     </ion-grid>
 
     <ion-grid>
-        <ion-row class="list-row">
+        <ion-row *ngFor="let item of alert_per_sorted" class="list-row">
             <ion-col col-12 class="list-col">
                 <ion-card class="list-card">
                     <ion-card-title text-left>
-                        น้ำมันเครื่อง
+                        {{alert_name[item.split('-')[0]]}}
                     </ion-card-title>
                     <ion-card-content>
-                        {{alert.oil_engine}}
                         <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
+                            <div class="progress-inner" [style.width]="alert_per[item] + '%'"
+                            [ngClass]="{'green-bg': alert_per[item] >= '0' && alert_per[item] < '40', 'yellow-bg': alert_per[item] >= '40' && alert_per[item] < '80', 'red-bg': alert_per[item] >= '80'}">
+                                {{alert[item.split('-')[0]]}} {{alert_type[item.split('-')[0]]}}
                             </div>
                         </div>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ผ้าเบรค
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.break}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ยางล้อรถยนต์
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.car_tires}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ต่อภาษีรถยนต์
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.car_tax}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        กรองอากาศเครื่องยนต์
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.air_filter}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        น้ำมันเกียร์
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.oil_gear}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        น้ำมันเฟืองท้าย
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.back_gear}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        น้ำมันพาเวอร์ / น้ำมันเบรค
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.oil_power}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        กรองอากาศแอร์ในห้องโดยสาร
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.passenger_air_filter}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ยางในปัดน้ำฝน
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.rain_rubber}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ระดับน้ำในหม้อน้ำ
-                    </ion-card-title>
-                    <ion-card-content>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        แบตเตอรี่ + น้ำกลั่นในแบตเตอรี่ + กำลังไฟแบตเตอรี่
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.battery}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ประกันภัยภาคสมัครใจ
-                    </ion-card-title>
-                    <ion-card-content>
-                        <p>{{alert.car_insurance}}</p>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="progress + '%'">
-                                {{progress}}%
-                            </div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
-        <ion-row class="list-row">
-            <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
-                    <ion-card-title text-left>
-                        ลมยางล้อรถยนต์
-                    </ion-card-title>
-                    <ion-card-content>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-        </ion-row>
+
     </ion-grid>
-    <br>
+    <!--<br>
     <div class="fix-button">
         <ion-row style="margin-left:-5px;margin-right:-15px;margin-bottom:-6px;">
             <ion-col col-6>
@@ -295,5 +87,6 @@
                 <button ion-button full class="stop-button" (click)="stop()" color="danger">หยุด</button>
             </ion-col>
         </ion-row>
-    </div>
+    </div>-->
+
 </ion-content>

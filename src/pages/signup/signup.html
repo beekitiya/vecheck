@@ -11,10 +11,14 @@
                 <ion-label>Email</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="email" formControlName="email" text-right></ion-input>
             </ion-item>
+            <p class="error-msg" *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched || signupForm.get('email').dirty">Password is required</p>
+            <p class="error-msg" *ngIf="signupForm.get('email').hasError('pattern') && signupForm.get('email').touched || signupForm.get('email').dirty">6 characters minimum</p>
             <ion-item class="regis-input">
                 <ion-label>รหัสผ่าน</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="password" formControlName="password" text-right></ion-input>
             </ion-item>
+            <p class="error-msg" *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').touched || signupForm.get('password').dirty">Password is required</p>
+            <p class="error-msg" *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').touched || signupForm.get('password').dirty">6 characters minimum</p>
             <ion-item class="regis-input">
                 <ion-label>เบอร์โทรศัพท์</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="tel" formControlName="phonenumber" text-right></ion-input>
