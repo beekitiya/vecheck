@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, AlertController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 import { User } from '../../providers';
@@ -48,11 +48,26 @@ export class SignupPage {
             username: [''],
             email: ['',[Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
 			password: ['',[Validators.required, Validators.minLength(6)]],
+            confirm_password: ['',[Validators.required, Validators.minLength(6)]],
             lineid: [''],
             phonenumber: [''],
             gender: ['']
-    	});
+    	}, {
+            validator: this.MatchPassword // Inject the provider method
+        });
   }
+
+  private MatchPassword(AC: AbstractControl) {
+       const password = AC.get('password').value // to get value in input tag
+       const confirm_password = AC.get('confirm_password').value // to get value in input tag
+        if(password != confirm_password) {
+            console.log('false');
+            AC.get('password').setErrors( { MatchPassword: true } )
+        } else {
+            console.log('true')
+            AC.get('password').setErrors(null);
+        }
+}
 
   signup() {
     // Attempt to login in through our User service

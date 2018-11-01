@@ -11,14 +11,19 @@
                 <ion-label>Email</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="email" formControlName="email" text-right></ion-input>
             </ion-item>
-            <p class="error-msg" *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched || signupForm.get('email').dirty">Password is required</p>
-            <p class="error-msg" *ngIf="signupForm.get('email').hasError('pattern') && signupForm.get('email').touched || signupForm.get('email').dirty">6 characters minimum</p>
+            <!--<p class="error-msg" *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched || signupForm.get('email').dirty">กรุณากรอกอีเมล</p>-->
+            <p class="error-msg" *ngIf="signupForm.get('email').hasError('pattern') && signupForm.get('email').touched || signupForm.get('email').dirty">กรอกรูปแบบอีเมลให้ถูกต้อง</p>
             <ion-item class="regis-input">
                 <ion-label>รหัสผ่าน</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="password" formControlName="password" text-right></ion-input>
             </ion-item>
-            <p class="error-msg" *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').touched || signupForm.get('password').dirty">Password is required</p>
-            <p class="error-msg" *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').touched || signupForm.get('password').dirty">6 characters minimum</p>
+            <!--<p class="error-msg" *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').touched || signupForm.get('password').dirty">กรุณากรอกรหัสผ่าน</p>-->
+            <p class="error-msg" *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').touched || signupForm.get('password').dirty">กรอกรหัสผ่านอย่างน้อย 6 ตัว</p>
+            <ion-item class="regis-input">
+                <ion-label>ยืนยันรหัสผ่าน</ion-label>
+                <ion-input style="margin-bottom: -20px;" type="password" formControlName="confirm_password" text-right></ion-input>
+            </ion-item>
+            <p class="error-msg" *ngIf="signupForm.controls['confirm_password'].errors?.MatchPassword">รหัสผ่านไม่ตรงกัน</p>
             <ion-item class="regis-input">
                 <ion-label>เบอร์โทรศัพท์</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="tel" formControlName="phonenumber" text-right></ion-input>
@@ -49,7 +54,7 @@
             <button ion-button block type="submit">
                 ลงทะเบียน
             </button>
-            <ion-row style="margin-top:0.5em">
+            <ion-row style="margin-top:0.3em">
                 <ion-col text-center>
                     <p style="color:#000000">
                         มีบัญชีผู้ใช้เรียบร้อยแล้ว?

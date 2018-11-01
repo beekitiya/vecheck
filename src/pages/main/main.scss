@@ -35,7 +35,8 @@ page-main {
       }
       button {
           font-size: 12px;
-          right: -52%;
+          right: -55%;
+          margin-top: 12px;
           box-shadow: none;
           color: color($colors,button-color);
       }
@@ -75,6 +76,10 @@ page-main {
       padding: 0px;
       margin-right: -15px;
       margin-left: 5px;
+      p{
+          margin-left: -5px;
+          margin-right: -5px;
+      }
   }
 
   .list-row {

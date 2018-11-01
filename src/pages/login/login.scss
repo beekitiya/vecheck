@@ -68,4 +68,67 @@ page-login {
             padding-left: 1px;
         }
     }
+
+    /* iPad */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+        .app-logo {
+            position: absolute;
+            top: 12%;
+        }
+
+        .login-form {
+            button[type=submit] {
+                margin-top: 20px;
+            }
+        }
+    }
+
+    /* iPhone X */
+    @media only screen and (min-width : 375px) and (max-width : 812px)
+    and (-webkit-device-pixel-ratio : 3) {
+
+    }
+
+    /* iPhone 6, 7, 8 */
+    @media only screen and (min-width : 375px) and (max-width : 667px) {
+
+    }
+
+    /* iPhone 6, 7, 8 Plus*/
+    @media only screen and (min-width : 414px) and (max-width : 736px) {
+        .app-logo {
+            position: absolute;
+            top: 18%;
+        }
+    }
+
+    /* iPhone 5, 5s */
+    @media only screen and (min-width : 320px) and (max-width : 568px) {
+        .login-form {
+            ion-item:first-child {
+                margin-top: 19em;
+                //border-radius: 50px;
+                //border-radius: 50px;
+            }
+            ion-item:last-child {
+                margin-top: 10px;
+                //border-radius: 50px;
+                //border-radius: 50px;
+            }
+            button[type=submit] {
+                font-size: 14px;
+                height: 35px;
+            }
+            .signup-button {
+                font-size: 14px;
+                padding-bottom: 13px;
+                padding-left: 1px;
+            }
+        }
+    }
+
+    /* Most of smartphone */
+    @media (min-width: 320px) and (max-width: 480px) {
+        
+    }
 }

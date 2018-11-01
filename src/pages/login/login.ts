@@ -6,6 +6,7 @@ import {
   NavController,
   ToastController,
   ViewController,
+  Platform,
   AlertController
 } from "ionic-angular";
 import { AuthService } from "../../services/auth.service";
@@ -35,6 +36,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public user: User,
     //public formCtrl: Form,
+    public plt: Platform,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public translateService: TranslateService,
@@ -56,7 +58,11 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+      setTimeout(() => {
+          this.plt.ready().then(() => {
     this.gotoMainPage();
+});
+},1000);
     // this.afAuth.authState.subscribe(user => {
     //     let currentUser = user;
     //     currentUser && this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()

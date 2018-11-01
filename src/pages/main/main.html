@@ -26,8 +26,8 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/speed.png">
                         <p style="margin-top:31px;color:#98999c">ความเร็ว</p>
-                        <p style="margin-top:7px;font-size:25px;">{{Speed}}</p>
-                        <p style="margin-top:-5px;color:#98999c">km/h</p>
+                        <p style="margin-top:7px;font-size:20px;">{{Speed}}</p>
+                        <p style="margin-bottom:-5px;color:#98999c">km/h</p>
                     </ion-card-content>
                 </ion-card>
             </ion-col>
@@ -36,7 +36,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/distance.png">
                         <p style="margin-top:31px;color:#98999c">ระยะทาง</p>
-                        <p style="margin-top:7px;font-size:25px;">{{Distance}}</p>
+                        <p style="margin-top:7px;font-size:20px;">{{Distance}}</p>
                         <p style="margin-top:-5px;color:#98999c">km</p>
                     </ion-card-content>
                 </ion-card>
@@ -46,7 +46,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/odometer.png">
                         <p style="margin-top:31px;color:#98999c">เลขไมล์สะสม</p>
-                        <p style="margin-top:7px;font-size:25px;">{{mile}}</p>
+                        <p style="margin-top:7px;font-size:20px;">{{mile}}</p>
                         <p style="margin-top:-5px;color:#98999c;margin-bottom:-17px;">km</p>
                         <button ion-button icon-only color="icon-color" (click)="editOdoAlert()">
                             <ion-icon name="ios-create"></ion-icon>
@@ -60,7 +60,7 @@
     <ion-grid>
         <ion-row *ngFor="let item of alert_per_sorted" class="list-row">
             <ion-col col-12 class="list-col">
-                <ion-card class="list-card">
+                <ion-card class="list-card" (click)="updateData()">
                     <ion-card-title text-left>
                         {{alert_name[item.split('-')[0]]}}
                     </ion-card-title>

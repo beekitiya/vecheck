@@ -35,6 +35,7 @@ export class MyApp {
 
   pages: any[] = [
     { title: "หน้าหลัก", component: "MainPage", icon: "home" },
+    { title: "แก้ไขข้อมูลรถยนต์", component: "Questionnaire1Page", icon: "car"},
     { title: "แผนที่อู่ซ่อมรถ", component: "GarageMapPage", icon: "map" },
     { title: "คูปองส่วนลด", component: "CouponPage", icon: "cash" },
     { title: "ออกจากระบบ", icon: "log-out" }
@@ -53,6 +54,8 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
+      statusBar.overlaysWebView(true);
+      statusBar.backgroundColorByHexString('#364D9E');
       this.splashScreen.hide();
     });
     this.initTranslate();

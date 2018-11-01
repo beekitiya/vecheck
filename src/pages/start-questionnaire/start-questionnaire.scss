@@ -49,4 +49,64 @@ page-start-questionnaire {
             }
         }
     }
+
+    /* iPad */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+        .app-logo {
+            height: 110px;
+            width: auto;
+            margin-top: 50px;
+        }
+
+        .signup-form {
+            margin-top: 13em;
+            button[type=submit] {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    /* iPhone X */
+    @media only screen and (min-width : 375px) and (max-width : 812px)
+    and (-webkit-device-pixel-ratio : 3) {
+
+    }
+
+    /* iPhone 6, 7, 8 */
+    @media only screen and (min-width : 375px) and (max-width : 667px) {
+
+    }
+
+    /* iPhone 6, 7, 8 Plus*/
+    @media only screen and (min-width : 414px) and (max-width : 736px) {
+
+    }
+
+    /* iPhone 5, 5s */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+        .start-survey {
+            width: 300px;
+            fieldset {
+                padding-top: 4em;
+                padding-bottom: 4em;
+                button[type=submit] {
+                    font-size: 14px;
+                    height: 35px;
+                }
+                h3 {
+                    font-size: 18px;
+                    letter-spacing: 1px;
+                }
+                p {
+                    font-size: 14px;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+    }
+
+    /* Most of smartphone */
+    @media (min-width: 320px) and (max-width: 480px) {
+
+    }
 }

@@ -92,7 +92,14 @@ export class MainPage {
     var instance = this;
     this.counter = 0;
     this.counter_temp = 0;
-
+    this.plt.ready().then(()=>{
+        this.pauseSub = this.plt.pause.subscribe(() => {
+          //this.stop();
+          this.updateMile(parseInt(this.mile) + this.counter_temp);
+          console.log('UPDATE MILE',this.counter_temp);
+          this.counter_temp = 0;
+        });
+    });
     wifiOBDReader.on("debug", function(data) {
       console.log("=>APP DEBUG:" + data);
     });
@@ -285,13 +292,8 @@ export class MainPage {
             alert.present();
           }
         );
-        this.pauseSub = this.plt.pause.subscribe(() => {
-          //this.stop();
-          this.updateMile(parseInt(this.mile) + this.counter_temp);
-          this.counter_temp = 0;
-        });
       });
-    }, 1000);
+  }, 1000);
   }
 
   updateMile(newValue: number) {
@@ -341,6 +343,40 @@ export class MainPage {
         {
           name: "odemeter",
           placeholder: "เลขไมล์สะสม"
+        }
+      ],
+      buttons: [
+        {
+          text: "ยกเลิก",
+          role: "cancel",
+          handler: data => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "บันทึก",
+          handler: data => {
+            var colRef = this.afs
+              .collection("Users")
+              .doc(this.auth.getcurrentUser().uid)
+              .collection("Cars")
+              .doc(this.carID);
+            var updateSingle = colRef.update({ car_mile: data.odemeter });
+          }
+        }
+      ]
+    });
+    alert.setMode("ios");
+    alert.present();
+  }
+
+  updateData() {
+    let alert = this.alertCtrl.create({
+      title: "วันที่เปลี่ยน",
+      inputs: [
+        {
+          name: "update_date",
+          placeholder: "วันที่เปลี่ยน"
         }
       ],
       buttons: [

@@ -32,7 +32,10 @@ page-signup {
             ion-label {
                 color: color($colors,font-color);
                 font-size: 14px;
-                margin-bottom: -10px;
+                margin-bottom: -5px;
+            }
+            .text-input {
+                margin-right: 0px;
             }
             .select-md {
                 padding: 15px 3px 0px 16px;
@@ -50,7 +53,7 @@ page-signup {
             background-color: color($colors,button-color);
             font-size: 15px;
             height: 40px;
-            top: 1.5em;
+            top: 1em;
             left: 50%;
             transform: translate(-50%);
             box-shadow: none;
@@ -62,7 +65,7 @@ page-signup {
         }
         .signin-button {
             font-size: 14px;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             padding-left: 1px;
         }
         .swiper-wrapper {
@@ -108,5 +111,53 @@ page-signup {
         margin-top: 10px;
         margin-bottom: -20px;
         font-size: 12px;
+    }
+
+    /* iPad */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+        .app-logo {
+            height: 110px;
+            width: auto;
+            margin-top: 50px;
+        }
+
+        .signup-form {
+            margin-top: 13em;
+            button[type=submit] {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    /* iPhone X */
+    @media only screen and (min-width : 375px) and (max-width : 812px)
+    and (-webkit-device-pixel-ratio : 3) {
+
+    }
+
+    /* iPhone 6, 7, 8 */
+    @media only screen and (min-width : 375px) and (max-width : 667px) {
+
+    }
+
+    /* iPhone 6, 7, 8 Plus*/
+    @media only screen and (min-width : 414px) and (max-width : 736px) {
+        .app-logo {
+            position: absolute;
+            top: 18%;
+        }
+    }
+
+    /* iPhone 5, 5s */
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+        button[type=submit] {
+            font-size: 14px;
+            height: 35px;
+        }
+    }
+
+    /* Most of smartphone */
+    @media (min-width: 320px) and (max-width: 480px) {
+
     }
 }

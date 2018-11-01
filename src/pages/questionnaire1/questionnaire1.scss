@@ -4,7 +4,7 @@ page-questionnaire1 {
     }
 
     .car-progress {
-        margin-top: 2em;
+        margin-top: 0.5em;
         height: 70px;
         left: 50%;
         transform: translate(10%);
@@ -81,15 +81,62 @@ page-questionnaire1 {
         right: 0;
     }
 
-    .orderStatus { padding: 10px; overflow: hidden; }
-    .orderStatus .row { padding: 0; margin: 0; display: flex; padding: 5px; width: 100%; }
-    .orderStatus .row .col { display: block; flex: 1 1 0; padding: 5px; width: 100%; ine-height: 12px; position: relative; text-align: center; padding-top: 15px; color: #aaa; }
-    .orderStatus .row .col:before { content: ''; width: 100%; height: 5px; background: #ccc; top: 0px; left: 0; position: absolute; margin: 0 0 0 -50%; }
-    .orderStatus .row .col.done:before { background: #FDB411; }
-    .orderStatus .row .col:first-child:before { background: none; }
-    .orderStatus .row .col:after { position: absolute; width: 20px; height: 20px; content: "\f119"; color: #ccc; font-size: 24px; line-height: 20px; background: #ccc; left: 50%; top: 0; z-index: 999; border-radius: 50%; margin: -8px 0 0 -10px; font-family: "Ionicons"; }
-    .orderStatus .row .col.done:after { position: absolute; width: 20px; height: 20px; content: "\f119"; color: #FDB411;; font-size: 24px; line-height: 20px; background: #FDB411; left: 50%; top: 0; z-index: 999; border-radius: 50%; margin: -8px 0 0 -10px; font-family: "Ionicons"; }
-    .orderStatus .row .col.done { color: #FDB411;}
+    /* iPad */
+    @media only screen and (min-width : 768px) and (max-width : 1024px) {
+        .car-progress {
+            margin-top: 2em;
+            height: 80px;
+            left: 50%;
+            transform: translate(65%);
+        }
+    }
+
+    /* iPhone X */
+    @media only screen and (min-width : 375px) and (max-width : 812px)
+    and (-webkit-device-pixel-ratio : 3) {
+
+    }
+
+    /* iPhone 6, 7, 8 */
+    @media only screen and (min-width : 375px) and (max-width : 667px) {
+
+    }
+
+    /* iPhone 6, 7, 8 Plus*/
+    @media only screen and (min-width : 414px) and (max-width : 736px) {
+
+    }
+
+    /* iPhone 5, 5s */
+    @media only screen and (min-width : 320px) and (max-width : 568px) {
+        /*.car-questionnaire {
+            margin-top: 1em;
+            h3 {
+                margin-bottom: 10px;
+            }
+            .regis-input {
+                font-size: 13px;
+                margin-top: -1px;
+                ion-label {
+                    font-size: 13px;
+                }
+            }
+            button[type=submit] {
+                font-size: 13px;
+                height: 35px;
+            }
+        }
+
+        .car-progress {
+            margin-top: 0.7em;
+            height: 60px;
+        }*/
+    }
+
+    /* Most of smartphone */
+    @media (min-width: 320px) and (max-width: 480px) {
+
+    }
 
 
 }
