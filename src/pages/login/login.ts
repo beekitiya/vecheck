@@ -51,32 +51,18 @@ export class LoginPage {
       password: [""]
     });
 
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.plt.ready().then(() => {
+          this.gotoMainPage();
+        });
+      }
+    });
+
     /*this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']
   });*/
-  }
-
-  ionViewDidLoad() {
-      setTimeout(() => {
-          this.plt.ready().then(() => {
-    this.gotoMainPage();
-});
-},1000);
-    // this.afAuth.authState.subscribe(user => {
-    //     let currentUser = user;
-    //     currentUser && this.afs.collection('Users').doc(currentUser.uid).collection('Cars').ref.get()
-    //     .then( (query)=>
-
-    //       {
-    //         if(query.size>0){
-    //             this.navCtrl.push('MainPage');
-    //         }else{
-    //             this.navCtrl.push('StartQuestionnairePage');
-    //         }
-
-    //     });
-    // });
   }
 
   login() {
@@ -129,22 +115,7 @@ export class LoginPage {
   }*/
 
   gotoMainPage() {
-    let currentUser = this.auth.getcurrentUser();
-    if (currentUser) {
-      console.log("GO GO CALLED");
-      this.afs
-        .collection("Users")
-        .doc(currentUser.uid)
-        .collection("Cars")
-        .ref.get()
-        .then(query => {
-          if (query.size > 0) {
-            this.navCtrl.push("MainPage");
-          } else {
-            this.navCtrl.push("StartQuestionnairePage");
-          }
-        });
-    }
+    this.navCtrl.push("MainPage");
   }
   // Attempt to login in through our User service
   gotoSignUp() {
