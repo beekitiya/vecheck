@@ -402,21 +402,21 @@ export class MainPage {
     setTimeout(() => {
       this.plt.ready().then(() => {
         this.loaduserProfile();
-        // bluetoothSerial.enable(
-        //   () => {
-        //     console.log("enable");
-        //     this.start();
-        //   },
-        //   () => {
-        //     console.log("didnot enable");
-        //     let alert = this.alertCtrl.create({
-        //       title: "WARNING",
-        //       subTitle: "Please Enable Bluetooth",
-        //       buttons: ["Dismiss"]
-        //     });
-        //     alert.present();
-        //   }
-        // );
+        bluetoothSerial.enable(
+          () => {
+            console.log("enable");
+            this.start();
+          },
+          () => {
+            console.log("didnot enable");
+            let alert = this.alertCtrl.create({
+              title: "WARNING",
+              subTitle: "Please Enable Bluetooth",
+              buttons: ["Dismiss"]
+            });
+            alert.present();
+          }
+        );
         this.pauseSub = this.plt.pause.subscribe(() => {
           console.log("PAUSE WORKING!!!!");
           if (this.counter_temp > 0) {
