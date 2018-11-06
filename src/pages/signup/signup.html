@@ -23,7 +23,7 @@
                 <ion-label>ยืนยันรหัสผ่าน</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="password" formControlName="confirm_password" text-right></ion-input>
             </ion-item>
-            <p class="error-msg" *ngIf="signupForm.controls['confirm_password'].errors?.MatchPassword">รหัสผ่านไม่ตรงกัน</p>
+            <p class="error-msg" *ngIf="signupForm.get('confirm_password').hasError('minlength') && signupForm.get('confirm_password').touched || signupForm.get('confirm_password').dirty">กรุณากรอกรหัสผ่านให้ตรงกัน</p>
             <ion-item class="regis-input">
                 <ion-label>เบอร์โทรศัพท์</ion-label>
                 <ion-input style="margin-bottom: -20px;" type="tel" formControlName="phonenumber" text-right></ion-input>

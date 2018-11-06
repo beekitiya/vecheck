@@ -50,8 +50,8 @@ page-login {
         }
         button[type=submit] {
             background-color: color($colors,button-color);
-            font-size: 15px;
-            height: 40px;
+            font-size: 14px;
+            height: 35px;
             left: 50%;
             transform: translate(-50%);
             box-shadow: none;
@@ -129,6 +129,6 @@ page-login {
 
     /* Most of smartphone */
     @media (min-width: 320px) and (max-width: 480px) {
-        
+
     }
 }

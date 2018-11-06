@@ -97,4 +97,8 @@ export class Questionnaire3Page {
       }
     });
   }
+
+  goToQuestionnaire2() {
+    this.navCtrl.pop();
+  }
 }

@@ -85,7 +85,7 @@ export class Questionnaire1Page {
             });
           });
       }
-    }, 1500);
+  }, 1500);
   }
 
   ionViewDidLoad() {

@@ -28,7 +28,7 @@
         </ul>
     </div>-->
     <form class="car-questionnaire" [formGroup]="questionnaireForm">
-        <h3 text-center>รถยนต์</h3>
+        <h5 text-center>รถยนต์</h5>
         <ion-item class="regis-input">
             <ion-label>ชื่อรถยนต์</ion-label>
             <ion-input type="text" style="margin-bottom: -20px;" required text-right formControlName="car_name"></ion-input>
@@ -99,10 +99,16 @@
         <ion-item class="regis-input">
             <ion-label>ประเทศที่จดทะเบียน</ion-label>
             <ion-select formControlName="model_country">
+                <ion-option value="Thailand">ไทย</ion-option>
                 <ion-option value="England">อังกฤษ</ion-option>
-                <ion-option>ญี่ปุ่น</ion-option>
-                <ion-option>ไทย</ion-option>
-                <ion-option>สหรัฐอเมริกา</ion-option>
+                <ion-option value="Japan">ญี่ปุ่น</ion-option>
+                <ion-option value="USA">สหรัฐอเมริกา</ion-option>
+                <ion-option value="Germany">เยอรมนี</ion-option>
+                <ion-option value="Korea">เกาหลี</ion-option>
+                <ion-option value="China">จีน</ion-option>
+                <ion-option value="Sweden">สวีเดน</ion-option>
+                <ion-option value="Italy">อิตาลี</ion-option>
+                <ion-option value="Other">อิตาลี</ion-option>
             </ion-select>
         </ion-item>
         <ion-item class="regis-input">

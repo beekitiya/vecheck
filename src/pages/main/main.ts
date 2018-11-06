@@ -26,6 +26,7 @@ declare var bluetoothSerial: any;
   templateUrl: "main.html"
 })
 export class MainPage {
+    formatDate;
   //host: string = "192.168.0.10:35000"; // ip:port 192.168.0.10:35000
   private pauseSub: any;
   wifiOBDReader: any;
@@ -89,6 +90,9 @@ export class MainPage {
     private readonly afs: AngularFirestore,
     private auth: AuthService
   ) {
+
+      this.getFormatDate();
+
     var OBDReader = require("obd-bluetooth-tcp");
     wifiOBDReader = new OBDReader();
     var instance = this;
@@ -203,7 +207,7 @@ export class MainPage {
       .subscribe(querySnapshot => {
         querySnapshot.forEach((docSnap: any) => {
           var CurrentDate = moment(new Date());
-          this.mile = docSnap.car_mile;
+          this.mile = parseFloat(docSnap.car_mile);
           this.showmile = this.mile.toFixed(1);
           this.lastvisit = docSnap.last_visit;
           this.last_visit = parseInt(docSnap.last_visit.split("-")[1]);
@@ -347,21 +351,21 @@ export class MainPage {
     setTimeout(() => {
       this.plt.ready().then(() => {
         this.loaduserProfile();
-        // bluetoothSerial.enable(
-        //   () => {
-        //     console.log("enable");
-        //     this.start();
-        //   },
-        //   () => {
-        //     console.log("didnot enable");
-        //     let alert = this.alertCtrl.create({
-        //       title: "WARNING",
-        //       subTitle: "Please Enable Bluetooth",
-        //       buttons: ["Dismiss"]
-        //     });
-        //     alert.present();
-        //   }
-        // );
+        bluetoothSerial.enable(
+          () => {
+            console.log("enable");
+            this.start();
+          },
+          () => {
+            console.log("didnot enable");
+            let alert = this.alertCtrl.create({
+              title: "WARNING",
+              subTitle: "Please Enable Bluetooth",
+              buttons: ["Dismiss"]
+            });
+            alert.present();
+          }
+        );
         this.pauseSub = this.plt.pause.subscribe(() => {
           console.log("PAUSE WORKING!!!!");
           if (this.counter_temp > 0) {
@@ -447,6 +451,18 @@ export class MainPage {
     alert.present();
   }
 
+  getFormatDate() {
+      var dateObj = new Date();
+
+      var year = dateObj.getFullYear().toString();
+      var month = dateObj.getMonth().toString();
+      var date = dateObj.getDate().toString();
+
+      var monthArray = ['01','02','03','04','05','06','07','08','09','10','11','12']
+
+      this.formatDate = date+'/'+monthArray[month]+'/'+year;
+  }
+
   updateData(name) {
     if (this.alert_type[name] != "กิโลเมตร") {
       let alert = this.alertCtrl.create({
@@ -454,7 +470,7 @@ export class MainPage {
         inputs: [
           {
             name: "update_date",
-            placeholder: "วันที่เปลี่ยน",
+            placeholder: this.formatDate,
             type: "date"
           }
         ],

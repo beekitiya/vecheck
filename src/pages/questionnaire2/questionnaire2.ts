@@ -45,4 +45,8 @@ export class Questionnaire2Page {
     );
     this.navCtrl.push("Questionnaire3Page", data);
   }
+
+  goToQuestionnaire1() {
+    this.navCtrl.pop();
+  }
 }

@@ -4,7 +4,7 @@ page-signup {
     }
 
     .app-logo {
-        height: 90px;
+        height: 70px;
         width: auto;
         position: absolute;
         margin-top: 30px;
@@ -12,7 +12,7 @@ page-signup {
         transform: translate(-50%);
     }
     .signup-form {
-        margin-top: 10em;
+        margin-top: 9em;
         fieldset {
             border-radius: 5px;
             border-color: color($colors,font-color);
@@ -27,7 +27,7 @@ page-signup {
             font-size: 14px;
             font-weight: 400;
             color: color($colors,font-color);
-            margin-top: 2px;
+            margin-top: 0px;
             margin-left: -10px;
             ion-label {
                 color: color($colors,font-color);
@@ -51,8 +51,8 @@ page-signup {
         }
         button[type=submit] {
             background-color: color($colors,button-color);
-            font-size: 15px;
-            height: 40px;
+            font-size: 14px;
+            height: 35px;
             top: 1em;
             left: 50%;
             transform: translate(-50%);
