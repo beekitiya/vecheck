@@ -32,7 +32,7 @@
                 </ion-card>
             </ion-col>
             <ion-col col-4 class="distance-col">
-                <ion-card class="question-card">
+                <ion-card class="question-card" (click)="increasedistance()">
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/distance.png">
                         <p style="margin-top:31px;color:#98999c">ระยะทาง</p>
@@ -42,7 +42,7 @@
                 </ion-card>
             </ion-col>
             <ion-col col-4 class="odometer-col">
-                <ion-card class="question-card"(click)="editOdoAlert()">
+                <ion-card class="question-card" (click)="editOdoAlert()">
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/odometer.png">
                         <p style="margin-top:31px;color:#98999c">เลขไมล์สะสม</p>

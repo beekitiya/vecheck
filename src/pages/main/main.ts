@@ -26,7 +26,7 @@ declare var bluetoothSerial: any;
   templateUrl: "main.html"
 })
 export class MainPage {
-    formatDate;
+  formatDate;
   //host: string = "192.168.0.10:35000"; // ip:port 192.168.0.10:35000
   private pauseSub: any;
   wifiOBDReader: any;
@@ -90,8 +90,7 @@ export class MainPage {
     private readonly afs: AngularFirestore,
     private auth: AuthService
   ) {
-
-      this.getFormatDate();
+    this.getFormatDate();
 
     var OBDReader = require("obd-bluetooth-tcp");
     wifiOBDReader = new OBDReader();
@@ -115,13 +114,20 @@ export class MainPage {
       console.log("=>APP: Received Data=" + JSON.stringify(data));
 
       if (data.name && data.name == "vss") {
-        let kph = Math.round(data.value); // convert to mph
-        instance.ngZone.run(() => {
-          instance.Speed = kph;
-          instance.counter += kph / 3600;
-          instance.counter_temp += kph / 3600;
-          instance.Distance = instance.counter.toFixed(2);
-        });
+        if (data.value != null) {
+          let kph = Math.round(data.value); // convert to mph
+          instance.ngZone.run(() => {
+            instance.Speed = kph;
+            instance.counter += kph / 3600;
+            instance.counter_temp += kph / 3600;
+            instance.Distance = instance.counter.toFixed(2);
+            instance.mile += instance.Speed / 3600;
+            instance.showmile = instance.mile.toFixed(1);
+          });
+        } else {
+          this.stop();
+          setTimeout(() => this.start(), 1000);
+        }
       }
     });
 
@@ -184,6 +190,8 @@ export class MainPage {
       this.counter += this.Speed / 3600;
       this.counter_temp += this.Speed / 3600;
       this.Distance = this.counter.toFixed(2);
+      this.mile += this.Speed / 3600;
+      this.showmile = this.mile.toFixed(1);
     });
   }
 
@@ -218,35 +226,78 @@ export class MainPage {
             this.alert["passenger_air_filter"] = this.lastvisit;
             this.alert["rain_rubber"] = this.lastvisit;
             this.alert["battery"] = this.lastvisit;
-            var colRef = this.afs
+            this.alert["oil_engine"] =
+              Math.floor(this.mile / this.oil_engine[this.oilEngine]) *
+              this.oil_engine[this.oilEngine];
+            this.alert["break"] = Math.floor(this.mile / 40000) * 40000;
+            this.alert["oil_gear"] = Math.floor(this.mile / 40000) * 40000;
+            this.alert["back_gear"] = Math.floor(this.mile / 40000) * 40000;
+            this.alert["car_tires"] = Math.floor(this.mile / 50000) * 50000;
+            this.alert["oil_power"] = Math.floor(this.mile / 80000) * 80000;
+            let colRef = this.afs
               .collection("Users")
               .doc(this.auth.getcurrentUser().uid)
               .collection("Cars")
               .doc(this.carID);
-            var updateSingle = colRef.update({ ...this.alert });
+            let updateSingle = colRef.update({ ...this.alert });
+          } else if (!("oil_engine" in docSnap)) {
+            this.alert["oil_engine"] =
+              Math.floor(this.mile / this.oil_engine[this.oilEngine]) *
+              this.oil_engine[this.oilEngine];
+            this.alert["break"] = Math.floor(this.mile / 40000) * 40000;
+            this.alert["oil_gear"] = Math.floor(this.mile / 40000) * 40000;
+            this.alert["back_gear"] = Math.floor(this.mile / 40000) * 40000;
+            this.alert["car_tires"] = Math.floor(this.mile / 50000) * 50000;
+            this.alert["oil_power"] = Math.floor(this.mile / 80000) * 80000;
+            let colRef = this.afs
+              .collection("Users")
+              .doc(this.auth.getcurrentUser().uid)
+              .collection("Cars")
+              .doc(this.carID);
+            let updateSingle = colRef.update({ ...this.alert });
           }
-          this.alert["oil_engine"] =
-            this.mile % this.oil_engine[this.oilEngine];
-          this.alert["break"] = this.mile % 40000;
-          this.alert["oil_gear"] = this.mile % 40000;
-          this.alert["back_gear"] = this.mile % 40000;
-          this.alert["car_tires"] = this.mile % 50000;
-          this.alert["oil_power"] = this.mile % 80000;
+          this.alert["oil_engine"] = this.mile - docSnap.oil_engine;
+          this.alert["break"] = this.mile - docSnap.break;
+          this.alert["oil_gear"] = this.mile - docSnap.oil_gear;
+          this.alert["back_gear"] = this.mile - docSnap.back_gear;
+          this.alert["car_tires"] = this.mile - docSnap.car_tires;
+          this.alert["oil_power"] = this.mile - docSnap.oil_power;
 
-          this.alert_per["oil_engine"] =
-            ((this.mile % this.oil_engine[this.oilEngine]) /
-              this.oil_engine[this.oilEngine]) *
-            100;
+          this.alert_per["oil_engine"] = this.clamp(
+            (this.alert["oil_engine"] / this.oil_engine[this.oilEngine]) * 100,
+            0,
+            100
+          );
 
-          this.alert_per["break"] = ((this.mile % 40000) / 40000) * 100;
+          this.alert_per["break"] = this.clamp(
+            (this.alert["break"] / 40000) * 100,
+            0,
+            100
+          );
 
-          this.alert_per["oil_gear"] = ((this.mile % 40000) / 40000) * 100;
+          this.alert_per["oil_gear"] = this.clamp(
+            (this.alert["oil_gear"] / 40000) * 100,
+            0,
+            100
+          );
 
-          this.alert_per["back_gear"] = ((this.mile % 40000) / 40000) * 100;
+          this.alert_per["back_gear"] = this.clamp(
+            (this.alert["back_gear"] / 40000) * 100,
+            0,
+            100
+          );
 
-          this.alert_per["car_tires"] = ((this.mile % 50000) / 50000) * 100;
+          this.alert_per["car_tires"] = this.clamp(
+            (this.alert["car_tires"] / 50000) * 100,
+            0,
+            100
+          );
 
-          this.alert_per["oil_power"] = ((this.mile % 80000) / 80000) * 100;
+          this.alert_per["oil_power"] = this.clamp(
+            (this.alert["oil_power"] / 80000) * 100,
+            0,
+            100
+          );
 
           this.alert["air_filter"] = CurrentDate.diff(
             moment(docSnap.air_filter),
@@ -351,21 +402,21 @@ export class MainPage {
     setTimeout(() => {
       this.plt.ready().then(() => {
         this.loaduserProfile();
-        bluetoothSerial.enable(
-          () => {
-            console.log("enable");
-            this.start();
-          },
-          () => {
-            console.log("didnot enable");
-            let alert = this.alertCtrl.create({
-              title: "WARNING",
-              subTitle: "Please Enable Bluetooth",
-              buttons: ["Dismiss"]
-            });
-            alert.present();
-          }
-        );
+        // bluetoothSerial.enable(
+        //   () => {
+        //     console.log("enable");
+        //     this.start();
+        //   },
+        //   () => {
+        //     console.log("didnot enable");
+        //     let alert = this.alertCtrl.create({
+        //       title: "WARNING",
+        //       subTitle: "Please Enable Bluetooth",
+        //       buttons: ["Dismiss"]
+        //     });
+        //     alert.present();
+        //   }
+        // );
         this.pauseSub = this.plt.pause.subscribe(() => {
           console.log("PAUSE WORKING!!!!");
           if (this.counter_temp > 0) {
@@ -451,16 +502,64 @@ export class MainPage {
     alert.present();
   }
 
+  editkmAlert(field) {
+    let alert = this.alertCtrl.create({
+      title: `แก้ไขเลขไมล์ที่เปลี่ยน ${this.alert_name[field]}`,
+      inputs: [
+        {
+          name: "odemeter",
+          placeholder: "เลขไมล์",
+          value: this.mile
+        }
+      ],
+      buttons: [
+        {
+          text: "ยกเลิก",
+          role: "cancel",
+          handler: data => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "บันทึก",
+          handler: data => {
+            var colRef = this.afs
+              .collection("Users")
+              .doc(this.auth.getcurrentUser().uid)
+              .collection("Cars")
+              .doc(this.carID);
+            var updateSingle = colRef.update({ [field]: data.odemeter });
+          }
+        }
+      ]
+    });
+    alert.setMode("ios");
+    alert.present();
+  }
+
   getFormatDate() {
-      var dateObj = new Date();
+    var dateObj = new Date();
 
-      var year = dateObj.getFullYear().toString();
-      var month = dateObj.getMonth().toString();
-      var date = dateObj.getDate().toString();
+    var year = dateObj.getFullYear().toString();
+    var month = dateObj.getMonth().toString();
+    var date = dateObj.getDate().toString();
 
-      var monthArray = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    var monthArray = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12"
+    ];
 
-      this.formatDate = date+'/'+monthArray[month]+'/'+year;
+    this.formatDate = date + "/" + monthArray[month] + "/" + year;
   }
 
   updateData(name) {
@@ -497,6 +596,8 @@ export class MainPage {
       });
       alert.setMode("ios");
       alert.present();
+    } else {
+      this.editkmAlert(name);
     }
   }
 }
