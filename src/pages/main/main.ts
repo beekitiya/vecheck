@@ -565,7 +565,7 @@ export class MainPage {
   updateData(name) {
     if (this.alert_type[name] != "กิโลเมตร") {
       let alert = this.alertCtrl.create({
-        title: "วันที่เปลี่ยน",
+        title: (this.alert_name[name] === "ประกันภัยภาคสมัครใจ" || this.alert_name[name] === "ต่อภาษีรถยนต์") ? "หมดอายุวันที่" : "วันที่เปลี่ยน",
         inputs: [
           {
             name: "update_date",

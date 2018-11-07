@@ -49,7 +49,7 @@ export class Questionnaire1Page {
   }
   async loadBrands() {
     this.cars = await this.readBrands();
-    setTimeout(() => {
+
       if (this.auth.getcurrentUser()) {
         this.user = this.auth.getcurrentUser();
         var doc = this.afs
@@ -85,7 +85,6 @@ export class Questionnaire1Page {
             });
           });
       }
-  }, 1500);
   }
 
   ionViewDidLoad() {
@@ -110,21 +109,23 @@ export class Questionnaire1Page {
       ? (this.engines = result)
       : (this.engines = [result]);
   }
+
+
   readBrands(): Promise<any> {
     return new Promise((resolve, reject) => {
       var brandCollect = this.afs.collection("CarBrands");
       var getDoc = brandCollect.ref
         .get()
-        .then(docs => {
+        .then(async docs => {
           let obj: any = {};
           let out: any = {};
-          docs.forEach(doc => {
+          await Promise.all(docs.docs.map(async doc => {
             obj[doc.id] = [];
-            doc.data().Models.forEach(async model => {
+            await Promise.all(doc.data().Models.map(async model => {
               out = await this.readModels(doc.id, model);
               obj[doc.id].push({ model, engine: out });
-            });
-          });
+            }));
+          }));
           resolve(obj);
         })
         .catch(err => {
@@ -140,11 +141,11 @@ export class Questionnaire1Page {
         .doc(brand)
         .collection(model)
         .ref.get()
-        .then(m_docs => {
+        .then(async m_docs => {
           let obj: any = {};
-          m_docs.forEach(doc => {
+          await Promise.all(m_docs.docs.map(doc => {
             obj = doc.data();
-          });
+          }));
           resolve(obj);
         })
         .catch(err => {
