@@ -50,41 +50,41 @@ export class Questionnaire1Page {
   async loadBrands() {
     this.cars = await this.readBrands();
 
-      if (this.auth.getcurrentUser()) {
-        this.user = this.auth.getcurrentUser();
-        var doc = this.afs
-          .collection("Users")
-          .doc(this.auth.getcurrentUser().uid)
-          .collection("Cars");
-        doc
-          .snapshotChanges()
-          .map(actions => {
-            return actions.map(a => {
-              const data = a.payload.doc.data();
-              const id = a.payload.doc.id;
-              return { id, ...data };
-            });
-          })
-          .subscribe(querySnapshot => {
-            querySnapshot.forEach((docSnap: any) => {
-              this.questionnaireForm.patchValue({
-                car_name: docSnap.car_name,
-                brand: docSnap.brand,
-                model: docSnap.model,
-                model_year: docSnap.model_year,
-                model_color: docSnap.model_color,
-                model_engine: docSnap.model_engine,
-                model_gear: docSnap.model_gear,
-                model_country: docSnap.model_country,
-                model_license: docSnap.model_license
-              });
-              this.car_profile = { ...docSnap };
-              this.getModel(docSnap.brand);
-              this.getYear(docSnap.model);
-              this.getEngine(docSnap.model_year);
-            });
+    if (this.auth.getcurrentUser()) {
+      this.user = this.auth.getcurrentUser();
+      var doc = this.afs
+        .collection("Users")
+        .doc(this.auth.getcurrentUser().uid)
+        .collection("Cars");
+      doc
+        .snapshotChanges()
+        .map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
           });
-      }
+        })
+        .subscribe(querySnapshot => {
+          querySnapshot.forEach((docSnap: any) => {
+            this.questionnaireForm.patchValue({
+              car_name: docSnap.car_name,
+              brand: docSnap.brand,
+              model: docSnap.model,
+              model_year: docSnap.model_year,
+              model_color: docSnap.model_color,
+              model_engine: docSnap.model_engine,
+              model_gear: docSnap.model_gear,
+              model_country: docSnap.model_country,
+              model_license: docSnap.model_license
+            });
+            this.car_profile = { ...docSnap };
+            this.getModel(docSnap.brand);
+            this.getYear(docSnap.model);
+            this.getEngine(docSnap.model_year);
+          });
+        });
+    }
   }
 
   ionViewDidLoad() {
@@ -110,7 +110,6 @@ export class Questionnaire1Page {
       : (this.engines = [result]);
   }
 
-
   readBrands(): Promise<any> {
     return new Promise((resolve, reject) => {
       var brandCollect = this.afs.collection("CarBrands");
@@ -119,13 +118,17 @@ export class Questionnaire1Page {
         .then(async docs => {
           let obj: any = {};
           let out: any = {};
-          await Promise.all(docs.docs.map(async doc => {
-            obj[doc.id] = [];
-            await Promise.all(doc.data().Models.map(async model => {
-              out = await this.readModels(doc.id, model);
-              obj[doc.id].push({ model, engine: out });
-            }));
-          }));
+          await Promise.all(
+            docs.docs.map(async doc => {
+              obj[doc.id] = [];
+              await Promise.all(
+                doc.data().Models.map(async model => {
+                  out = await this.readModels(doc.id, model);
+                  obj[doc.id].push({ model, engine: out });
+                })
+              );
+            })
+          );
           resolve(obj);
         })
         .catch(err => {
@@ -143,9 +146,11 @@ export class Questionnaire1Page {
         .ref.get()
         .then(async m_docs => {
           let obj: any = {};
-          await Promise.all(m_docs.docs.map(doc => {
-            obj = doc.data();
-          }));
+          await Promise.all(
+            m_docs.docs.map(doc => {
+              obj = doc.data();
+            })
+          );
           resolve(obj);
         })
         .catch(err => {

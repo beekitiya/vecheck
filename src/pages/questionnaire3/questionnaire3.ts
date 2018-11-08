@@ -19,6 +19,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class Questionnaire3Page {
   questionnaireForm: FormGroup;
+  public user: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -41,11 +42,11 @@ export class Questionnaire3Page {
         Validators.required
       ]
     });
+    this.user = this.auth.getcurrentUser();
   }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad Questionnaire3Page");
-    console.log(this.navParams.data);
   }
 
   writeData() {
@@ -61,6 +62,9 @@ export class Questionnaire3Page {
     this.navCtrl.push("MainPage");
   }
   createcarProfile(value) {
+    if (!Object.keys(value).every(o => value[o] != null && value[o] != "")) {
+      return;
+    }
     return new Promise<any>((resolve, reject) => {
       let currentUser = this.auth.getcurrentUser();
       if (value.id) {

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AuthService } from "../../services/auth.service";
 
 /**
  * Generated class for the Questionnaire2Page page.
@@ -15,12 +16,14 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   templateUrl: "questionnaire2.html"
 })
 export class Questionnaire2Page {
+  public user: any;
   questionnaireForm: FormGroup;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    fb: FormBuilder
+    fb: FormBuilder,
+    private auth: AuthService
   ) {
     this.questionnaireForm = fb.group({
       car_mile: [this.navParams.data.car_mile || "", Validators.required],
@@ -31,6 +34,7 @@ export class Questionnaire2Page {
       ],
       engine_oil: [this.navParams.data.engine_oil || "", Validators.required]
     });
+    this.user = this.auth.getcurrentUser();
   }
 
   ionViewDidLoad() {

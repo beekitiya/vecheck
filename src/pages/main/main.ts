@@ -488,12 +488,14 @@ export class MainPage {
         {
           text: "บันทึก",
           handler: data => {
-            var colRef = this.afs
-              .collection("Users")
-              .doc(this.auth.getcurrentUser().uid)
-              .collection("Cars")
-              .doc(this.carID);
-            var updateSingle = colRef.update({ car_mile: data.odemeter });
+            if (data.odemeter) {
+              var colRef = this.afs
+                .collection("Users")
+                .doc(this.auth.getcurrentUser().uid)
+                .collection("Cars")
+                .doc(this.carID);
+              var updateSingle = colRef.update({ car_mile: data.odemeter });
+            }
           }
         }
       ]
@@ -523,12 +525,14 @@ export class MainPage {
         {
           text: "บันทึก",
           handler: data => {
-            var colRef = this.afs
-              .collection("Users")
-              .doc(this.auth.getcurrentUser().uid)
-              .collection("Cars")
-              .doc(this.carID);
-            var updateSingle = colRef.update({ [field]: data.odemeter });
+            if (data.odemeter) {
+              var colRef = this.afs
+                .collection("Users")
+                .doc(this.auth.getcurrentUser().uid)
+                .collection("Cars")
+                .doc(this.carID);
+              var updateSingle = colRef.update({ [field]: data.odemeter });
+            }
           }
         }
       ]
@@ -565,7 +569,11 @@ export class MainPage {
   updateData(name) {
     if (this.alert_type[name] != "กิโลเมตร") {
       let alert = this.alertCtrl.create({
-        title: (this.alert_name[name] === "ประกันภัยภาคสมัครใจ" || this.alert_name[name] === "ต่อภาษีรถยนต์") ? "หมดอายุวันที่" : "วันที่เปลี่ยน",
+        title:
+          this.alert_name[name] === "ประกันภัยภาคสมัครใจ" ||
+          this.alert_name[name] === "ต่อภาษีรถยนต์"
+            ? "หมดอายุวันที่"
+            : "วันที่เปลี่ยน",
         inputs: [
           {
             name: "update_date",
@@ -584,12 +592,14 @@ export class MainPage {
           {
             text: "บันทึก",
             handler: data => {
-              var colRef = this.afs
-                .collection("Users")
-                .doc(this.auth.getcurrentUser().uid)
-                .collection("Cars")
-                .doc(this.carID);
-              var updateSingle = colRef.update({ [name]: data.update_date });
+              if (data.update_date) {
+                var colRef = this.afs
+                  .collection("Users")
+                  .doc(this.auth.getcurrentUser().uid)
+                  .collection("Cars")
+                  .doc(this.carID);
+                var updateSingle = colRef.update({ [name]: data.update_date });
+              }
             }
           }
         ]
