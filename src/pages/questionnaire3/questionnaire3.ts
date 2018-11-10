@@ -72,6 +72,7 @@ export class Questionnaire3Page {
       delete value["insurance_expire"];
     }
     if (value.id) {
+      delete value["break"];
       delete value["oil_gear"];
       delete value["back_gear"];
       delete value["car_tires"];
