@@ -71,6 +71,12 @@ export class Questionnaire3Page {
     if (value["insurance"] === "ไม่สมัคร") {
       delete value["insurance_expire"];
     }
+    if (value.id) {
+      delete value["oil_gear"];
+      delete value["back_gear"];
+      delete value["car_tires"];
+      delete value["oil_power"];
+    }
     if (!Object.keys(value).every(o => value[o] != null && value[o] != "")) {
       let alert = this.alertCtrl.create({
         title: "ERROR",
