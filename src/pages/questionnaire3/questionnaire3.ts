@@ -68,6 +68,9 @@ export class Questionnaire3Page {
     this.navCtrl.push("MainPage");
   }
   createcarProfile(value) {
+    if (value["insurance"] === "ไม่สมัคร") {
+      delete value["insurance_expire"];
+    }
     if (!Object.keys(value).every(o => value[o] != null && value[o] != "")) {
       let alert = this.alertCtrl.create({
         title: "ERROR",
