@@ -4,13 +4,6 @@
     <ion-buttons left>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <!--
-      <ion-buttons right>
-          <button ion-button color="icon-color">
-              <img class="bt-icon" [src]="connected ? '../assets/imgs/bluetooth-connected.png' : '../assets/imgs/bluetooth.png'">
-          </button>
-      </ion-buttons>
-    -->
     <ion-buttons right style="padding-right:10px;">
       <button ion-button icon-only color="icon-color">
         <ion-icon name="ios-notifications"></ion-icon>
@@ -20,11 +13,7 @@
 </ion-header>
 
 <ion-content padding class="app-background">
-  <form
-    class="car-questionnaire"
-    [formGroup]="questionnaireForm"
-    (ngSubmit)="writeData()"
-  >
+  <form class="car-questionnaire" [formGroup]="questionnaireForm" (ngSubmit)="writeData()">
     <h5 text-center>ภาษีรถยนต์</h5>
     <ion-item class="regis-input">
       <ion-label>วันหมดอายุภาษีประจำปี</ion-label>
@@ -34,8 +23,7 @@
         required
         text-right
         formControlName="car_tax_expire"
-        max="2025-12-31"
-      ></ion-datetime>
+        max="2025-12-31"></ion-datetime>
     </ion-item>
     <ion-item class="regis-input">
       <ion-label>วันสิ้นสุดประกันภัยภาคบังคับ (พรบ.)</ion-label>
@@ -45,20 +33,15 @@
         required
         text-right
         formControlName="third_insurance_expire"
-        max="2025-12-31"
-      ></ion-datetime>
+        max="2025-12-31"></ion-datetime>
     </ion-item>
     <ion-item class="regis-input">
       <ion-label>บริษัทประกันภัยภาคสมัครใจ</ion-label>
       <ion-select formControlName="insurance">
         <ion-option value="กรุงเทพประกันภัย">กรุงเทพประกันภัย</ion-option>
-        <ion-option value="กรุงไทยพานิชประกันภัย"
-          >กรุงไทยพานิชประกันภัย</ion-option
-        >
+        <ion-option value="กรุงไทยพานิชประกันภัย">กรุงไทยพานิชประกันภัย</ion-option>
         <ion-option value="คุ้มภัย">คุ้มภัย</ion-option>
-        <ion-option value="ชับบ์สามัคคีประกันภัย"
-          >ชับบ์สามัคคีประกันภัย</ion-option
-        >
+        <ion-option value="ชับบ์สามัคคีประกันภัย">ชับบ์สามัคคีประกันภัย</ion-option>
         <ion-option value="ทิพยประกันภัย">ทิพยประกันภัย</ion-option>
         <ion-option value="นวกิจประกันภัย">นวกิจประกันภัย</ion-option>
         <ion-option value="วิริยะประกันภัย">วิริยะประกันภัย</ion-option>
@@ -76,7 +59,7 @@
         <ion-option value="แปซิฟิก ครอส">แปซิฟิก ครอส</ion-option>
         <ion-option value="แอกซ่าประกันภัย">แอกซ่าประกันภัย</ion-option>
         <ion-option value="แอลเอ็มจี ประกันภัย">แอลเอ็มจี ประกันภัย</ion-option>
-        <ion-option value="แโตเกียวมารีน">แโตเกียวมารีน</ion-option>
+        <ion-option value="โตเกียวมารีน">โตเกียวมารีน</ion-option>
         <ion-option value="ทิไทยวิวัฒน์">ไทยวิวัฒน์</ion-option>
         <ion-option value="ไทยศรี">ไทยศรี</ion-option>
         <ion-option value="ไทยเศรษฐ">ไทยเศรษฐ</ion-option>
@@ -96,25 +79,18 @@
     </ion-item>
     <img class="car-progress" src="../assets/imgs/car-3.png" />
     <div class="fix-button">
-      <div class="fix-button">
-        <ion-row>
-          <ion-col col-6>
-            <button
-              outline
-              ion-button
-              full
-              (click)="goToQuestionnaire2()"
-              style="margin-top:8px;"
-              type="button"
-            >
-              กลับ
-            </button>
-          </ion-col>
-          <ion-col col-6>
-            <button ion-button block type="submit">เสร็จสิ้น</button>
-          </ion-col>
-        </ion-row>
-      </div>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button block outline (click)="goToQuestionnaire2()">
+            กลับ
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button block type="submit">
+            เสร็จสิ้น
+          </button>
+        </ion-col>
+      </ion-row>
     </div>
   </form>
 </ion-content>

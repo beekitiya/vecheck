@@ -72,28 +72,16 @@ export class Questionnaire3Page {
       delete value["insurance_expire"];
     }
     if (value.id) {
-<<<<<<< HEAD
       delete value["break"];
       delete value["oil_gear"];
       delete value["back_gear"];
       delete value["car_tires"];
       delete value["oil_power"];
-=======
-        delete value["break"];
-        delete value["oil_gear"];
-        delete value["back_gear"];
-        delete value["car_tires"];
-        delete value["oil_power"];
->>>>>>> fbd570f2982a8949516c3202217cd16e5d0e942c
     }
     if (!Object.keys(value).every(o => value[o] != null && value[o] != "")) {
       let alert = this.alertCtrl.create({
         title: "ERROR",
-<<<<<<< HEAD
-        subTitle: "Please Fill in information!",
-=======
         subTitle: "กรุณากรอกข้อมูลให้ครบ",
->>>>>>> fbd570f2982a8949516c3202217cd16e5d0e942c
         buttons: ["OK"]
       });
       alert.present();

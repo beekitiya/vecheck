@@ -4,7 +4,7 @@ page-questionnaire1 {
     }
 
     .car-progress {
-        margin-top: 0.7em;
+        margin-top: 3em;
         height: 50px;
         display: block;
         margin-left: auto;
@@ -12,10 +12,10 @@ page-questionnaire1 {
     }
 
     .car-questionnaire {
-        margin-top: 0.5em;
+        margin-top: 1em;
         h5 {
             color: color($colors,font-color);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         .regis-input {
             background-color: transparent;
@@ -42,17 +42,6 @@ page-questionnaire1 {
                 margin-right: 5px;
             }
         }
-        button[type=submit] {
-            background-color: color($colors,button-color);
-            font-size: 14px;
-            height: 40px;
-            bottom: -0.3em;
-            box-shadow: none;
-            font-weight: 400;
-        }
-        button[type=submit]:hover {
-            background-color: color($colors,button-color);
-        }
         .group-radio {
             padding-left: 3px;
             padding-top: 5px;
@@ -76,10 +65,20 @@ page-questionnaire1 {
     }
 
     .fix-button {
-        position: fixed;
-        left: 0;
-        bottom: 0px;
-        right: 0;
+        width: 95%;
+        left: 10px;
+        bottom: 5px;
+        position: absolute;
+        button {
+            background-color: color($colors,button-color);
+            font-size: 14px;
+            height: 40px;
+            box-shadow: none;
+            font-weight: 400;
+        }
+        button:hover {
+            background-color: color($colors,button-color);
+        }
     }
 
     /* iPad */
