@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from "ionic-angular";
 import { MainPage } from "../";
 import { AngularFirestore } from "angularfire2/firestore";
 import { AuthService } from "../../services/auth.service";
@@ -25,6 +30,7 @@ export class Questionnaire3Page {
     public navParams: NavParams,
     fb: FormBuilder,
     private auth: AuthService,
+    public alertCtrl: AlertController,
     private readonly afs: AngularFirestore
   ) {
     this.questionnaireForm = fb.group({
@@ -62,7 +68,23 @@ export class Questionnaire3Page {
     this.navCtrl.push("MainPage");
   }
   createcarProfile(value) {
+    if (value["insurance"] === "ไม่สมัคร") {
+      delete value["insurance_expire"];
+    }
+    if (value.id) {
+        delete value["break"];
+        delete value["oil_gear"];
+        delete value["back_gear"];
+        delete value["car_tires"];
+        delete value["oil_power"];
+    }
     if (!Object.keys(value).every(o => value[o] != null && value[o] != "")) {
+      let alert = this.alertCtrl.create({
+        title: "ERROR",
+        subTitle: "กรุณากรอกข้อมูลให้ครบ",
+        buttons: ["OK"]
+      });
+      alert.present();
       return;
     }
     return new Promise<any>((resolve, reject) => {

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="font-color" *ngIf="user">
-        <ion-title text-center>แก้ไขข้อมูลรถยนต์</ion-title>
+        <ion-title text-center>ข้อมูลรถยนต์</ion-title>
         <ion-buttons left>
             <button ion-button menuToggle>
                 <ion-icon name="menu"></ion-icon>
@@ -29,10 +29,6 @@
     </div>-->
     <form class="car-questionnaire" [formGroup]="questionnaireForm">
         <h5 text-center>รถยนต์</h5>
-        <ion-item class="regis-input">
-            <ion-label>ชื่อรถยนต์</ion-label>
-            <ion-input type="text" style="margin-bottom: -20px;" required text-right formControlName="car_name"></ion-input>
-        </ion-item>
         <ion-item class="regis-input">
             <ion-label>ยี่ห้อ</ion-label>
             <ion-select (ionChange)='getModel($event)' formControlName="brand">
@@ -108,7 +104,7 @@
                 <ion-option value="China">จีน</ion-option>
                 <ion-option value="Sweden">สวีเดน</ion-option>
                 <ion-option value="Italy">อิตาลี</ion-option>
-                <ion-option value="Other">อิตาลี</ion-option>
+                <ion-option value="Other">อื่นๆ</ion-option>
             </ion-select>
         </ion-item>
         <ion-item class="regis-input">

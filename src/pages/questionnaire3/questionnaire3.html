@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="font-color" *ngIf="user">
-        <ion-title text-center>แก้ไขข้อมูลรถยนต์</ion-title>
+        <ion-title text-center>ข้อมูลรถยนต์</ion-title>
         <ion-buttons left>
             <button ion-button menuToggle>
                 <ion-icon name="menu"></ion-icon>
@@ -54,7 +54,7 @@
                 <ion-option value="แปซิฟิก ครอส">แปซิฟิก ครอส</ion-option>
                 <ion-option value="แอกซ่าประกันภัย">แอกซ่าประกันภัย</ion-option>
                 <ion-option value="แอลเอ็มจี ประกันภัย">แอลเอ็มจี ประกันภัย</ion-option>
-                <ion-option value="แโตเกียวมารีน">แโตเกียวมารีน</ion-option>
+                <ion-option value="โตเกียวมารีน">โตเกียวมารีน</ion-option>
                 <ion-option value="ทิไทยวิวัฒน์">ไทยวิวัฒน์</ion-option>
                 <ion-option value="ไทยศรี">ไทยศรี</ion-option>
                 <ion-option value="ไทยเศรษฐ">ไทยเศรษฐ</ion-option>
@@ -69,12 +69,12 @@
         <div class="fix-button">
             <div class="fix-button">
                 <ion-row>
-                    <ion-col col-6>
+                    <ion-col>
                         <button  outline ion-button full (click)="goToQuestionnaire2()" style="margin-top:8px;">
                             กลับ
                         </button>
                     </ion-col>
-                    <ion-col col-6>
+                    <ion-col>
                         <button ion-button block type="submit">
                             เสร็จสิ้น
                         </button>

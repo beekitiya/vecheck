@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="font-color" *ngIf="user">
-        <ion-title text-center>แก้ไขข้อมูลรถยนต์</ion-title>
+        <ion-title text-center>ข้อมูลรถยนต์</ion-title>
         <ion-buttons left>
             <button ion-button menuToggle>
                 <ion-icon name="menu"></ion-icon>
@@ -83,12 +83,12 @@
         <img class="car-progress" src="../assets/imgs/car-2.png">
         <div class="fix-button">
             <ion-row>
-                <ion-col col-6>
+                <ion-col>
                     <button  outline ion-button full (click)="goToQuestionnaire1()" style="margin-top:8px;">
                         กลับ
                     </button>
                 </ion-col>
-                <ion-col col-6>
+                <ion-col>
                     <button ion-button full type="submit" (click)="goToQuestionnaire3()">
                         ถัดไป
                     </button>

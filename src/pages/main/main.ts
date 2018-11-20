@@ -372,23 +372,27 @@ export class MainPage {
             0,
             100
           );
-          this.alert["insurance_expire"] = CurrentDate.diff(
-            moment(docSnap.insurance_expire).subtract(12, "M"),
-            "months"
-          );
-          this.alert_per["insurance_expire"] = this.clamp(
-            (CurrentDate.diff(
-              moment(docSnap.insurance_expire).subtract(12, "M"),
-              "months"
-            ) /
-              moment(docSnap.insurance_expire).diff(
+          this.alert["insurance_expire"] = docSnap.insurance_expire
+            ? CurrentDate.diff(
                 moment(docSnap.insurance_expire).subtract(12, "M"),
                 "months"
-              )) *
-              100,
-            0,
-            100
-          );
+              )
+            : 0;
+          this.alert_per["insurance_expire"] = docSnap.insurance_expire
+            ? this.clamp(
+                (CurrentDate.diff(
+                  moment(docSnap.insurance_expire).subtract(12, "M"),
+                  "months"
+                ) /
+                  moment(docSnap.insurance_expire).diff(
+                    moment(docSnap.insurance_expire).subtract(12, "M"),
+                    "months"
+                  )) *
+                  100,
+                0,
+                100
+              )
+            : 0;
 
           this.alert_per_sorted = Object.keys(this.alert_per).sort(
             (a, b) => this.alert_per[b] - this.alert_per[a]
