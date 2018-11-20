@@ -1,125 +1,138 @@
 <ion-header>
-    <ion-toolbar color="font-color" *ngIf="user">
-        <ion-title text-center>แก้ไขข้อมูลรถยนต์</ion-title>
-        <ion-buttons left>
-            <button ion-button menuToggle>
-                <ion-icon name="menu"></ion-icon>
-            </button>
-        </ion-buttons>
-        <!--<ion-buttons right>
-            <button ion-button color="icon-color">
-                <img class="bt-icon" [src]="connected ? '../assets/imgs/bluetooth-connected.png' : '../assets/imgs/bluetooth.png'">
-            </button>
-        </ion-buttons>-->
-        <ion-buttons right style="padding-right:10px;">
-            <button ion-button icon-only color="icon-color">
-                <ion-icon name="ios-notifications"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar color="font-color" *ngIf="user">
+    <ion-title text-center>แก้ไขข้อมูลรถยนต์</ion-title>
+    <ion-buttons left>
+      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons>
+    <!--
+      <ion-buttons right>
+          <button ion-button color="icon-color">
+              <img class="bt-icon" [src]="connected ? '../assets/imgs/bluetooth-connected.png' : '../assets/imgs/bluetooth.png'">
+          </button>
+      </ion-buttons>
+    -->
+    <ion-buttons right style="padding-right:10px;">
+      <button ion-button icon-only color="icon-color">
+        <ion-icon name="ios-notifications"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="app-background">
-    <!--<div class="orderStatus" style="margin-top:2em;">
+  <!--
+    <div class="orderStatus" style="margin-top:2em;">
         <ul class="row">
             <li class="col done">Step 1</li>
             <li class="col done">Step 2</li>
             <li class="col">Step 3</li>
         </ul>
-    </div>-->
-    <form class="car-questionnaire" [formGroup]="questionnaireForm">
-        <h5 text-center>รถยนต์</h5>
-        <ion-item class="regis-input">
-            <ion-label>ชื่อรถยนต์</ion-label>
-            <ion-input type="text" style="margin-bottom: -20px;" required text-right formControlName="car_name"></ion-input>
+    </div>
+  -->
+  <form class="car-questionnaire" [formGroup]="questionnaireForm">
+    <h5 text-center>รถยนต์</h5>
+    <ion-item class="regis-input">
+      <ion-label>ยี่ห้อ</ion-label>
+      <ion-select (ionChange)="getModel($event)" formControlName="brand">
+        <ion-option
+          *ngFor="let item of (cars | keys)"
+          value="{{item.key}}"
+          on
+          >{{ item.key }}</ion-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item class="regis-input">
+      <ion-label>รุ่น</ion-label>
+      <ion-select (ionChange)="getYear($event)" formControlName="model">
+        <ion-option *ngFor="let item of models" value="{{item}}">{{
+          item
+        }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="regis-input">
+      <ion-label>ปี</ion-label>
+      <ion-select (ionChange)="getEngine($event)" formControlName="model_year">
+        <ion-option *ngFor="let item of (years | keys)" value="{{item.key}}">{{
+          item.key
+        }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="regis-input">
+      <ion-label>สีรถยนต์</ion-label>
+      <ion-select formControlName="model_color">
+        <ion-option value="ขาว">ขาว</ion-option>
+        <ion-option value="ดำ">ดำ</ion-option>
+        <ion-option value="ทอง">ทอง</ion-option>
+        <ion-option value="น้ำตาล">น้ำตาล</ion-option>
+        <ion-option value="น้ำเงิน">น้ำเงิน</ion-option>
+        <ion-option value="ฟ้า">ฟ้า</ion-option>
+        <ion-option value="ม่วง">ม่วง</ion-option>
+        <ion-option value="ส้ม">ส้ม</ion-option>
+        <ion-option value="เขียว">เขียว</ion-option>
+        <ion-option value="เงิน">เงิน</ion-option>
+        <ion-option value="เทา">เทา</ion-option>
+        <ion-option value="เหลือง">เหลือง</ion-option>
+        <ion-option value="แดง">แดง</ion-option>
+        <ion-option value="ครีม">ครีม</ion-option>
+        <ion-option value="ชมพู">ชมพู</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-row radio-group formControlName="model_gear">
+      <ion-col col-3>
+        <ion-item class="group-radio"> เกียร์ </ion-item>
+      </ion-col>
+      <ion-col col-5>
+        <ion-item class="group-radio">
+          <ion-radio value="1" item-left></ion-radio>
+          <ion-label>ธรรมดา</ion-label>
         </ion-item>
-        <ion-item class="regis-input">
-            <ion-label>ยี่ห้อ</ion-label>
-            <ion-select (ionChange)='getModel($event)' formControlName="brand">
-                <ion-option *ngFor="let item of cars | keys" value={{item.key}} on>{{item.key}}</ion-option>
-            </ion-select>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item class="group-radio">
+          <ion-radio value="2" item-left></ion-radio>
+          <ion-label>ออโต้</ion-label>
         </ion-item>
-        <ion-item class="regis-input">
-            <ion-label>รุ่น</ion-label>
-            <ion-select (ionChange)='getYear($event)' formControlName="model">
-                <ion-option *ngFor="let item of models" value={{item}}>{{item}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item class="regis-input">
-            <ion-label>ปี</ion-label>
-            <ion-select (ionChange)='getEngine($event)' formControlName="model_year">
-                <ion-option *ngFor="let item of years | keys" value={{item.key}}>{{item.key}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item class="regis-input">
-            <ion-label>สีรถยนต์</ion-label>
-            <ion-select formControlName="model_color">
-                <ion-option value="ขาว">ขาว</ion-option>
-                <ion-option value="ดำ">ดำ</ion-option>
-                <ion-option value="ทอง">ทอง</ion-option>
-                <ion-option value="น้ำตาล">น้ำตาล</ion-option>
-                <ion-option value="น้ำเงิน">น้ำเงิน</ion-option>
-                <ion-option value="ฟ้า">ฟ้า</ion-option>
-                <ion-option value="ม่วง">ม่วง</ion-option>
-                <ion-option value="ส้ม">ส้ม</ion-option>
-                <ion-option value="เขียว">เขียว</ion-option>
-                <ion-option value="เงิน">เงิน</ion-option>
-                <ion-option value="เทา">เทา</ion-option>
-                <ion-option value="เหลือง">เหลือง</ion-option>
-                <ion-option value="แดง">แดง</ion-option>
-                <ion-option value="ครีม">ครีม</ion-option>
-                <ion-option value="ชมพู">ชมพู</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-row radio-group formControlName="model_gear">
-            <ion-col col-3>
-                <ion-item class="group-radio">
-                    เกียร์
-                </ion-item>
-            </ion-col>
-            <ion-col col-5>
-                <ion-item class="group-radio">
-                    <ion-radio value="1" item-left></ion-radio>
-                    <ion-label>ธรรมดา</ion-label>
-                </ion-item>
-            </ion-col>
-            <ion-col col-4>
-                <ion-item class="group-radio">
-                    <ion-radio value="2" item-left></ion-radio>
-                    <ion-label>ออโต้</ion-label>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-item class="regis-input">
-            <ion-label>ขนาดเครื่องยนต์ (CC.)</ion-label>
-            <ion-select formControlName="model_engine">
-                <ion-option *ngFor="let item of engines" value={{item}}>{{item.toFixed(1)}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item class="regis-input">
-            <ion-label>ประเทศที่จดทะเบียน</ion-label>
-            <ion-select formControlName="model_country">
-                <ion-option value="Thailand">ไทย</ion-option>
-                <ion-option value="England">อังกฤษ</ion-option>
-                <ion-option value="Japan">ญี่ปุ่น</ion-option>
-                <ion-option value="USA">สหรัฐอเมริกา</ion-option>
-                <ion-option value="Germany">เยอรมนี</ion-option>
-                <ion-option value="Korea">เกาหลี</ion-option>
-                <ion-option value="China">จีน</ion-option>
-                <ion-option value="Sweden">สวีเดน</ion-option>
-                <ion-option value="Italy">อิตาลี</ion-option>
-                <ion-option value="Other">อิตาลี</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item class="regis-input">
-            <ion-label>ทะเบียนรถยนต์</ion-label>
-            <ion-input style="margin-bottom: -15px;" type="text" required text-right formControlName="model_license"></ion-input>
-        </ion-item>
-        <img class="car-progress" src="../assets/imgs/car-1.png">
-        <div class="fix-button">
-            <button ion-button full type="submit" (click)="goToQuestionnaire2()">
-                ถัดไป
-            </button>
-        </div>
-    </form>
+      </ion-col>
+    </ion-row>
+    <ion-item class="regis-input">
+      <ion-label>ขนาดเครื่องยนต์ (CC.)</ion-label>
+      <ion-select formControlName="model_engine">
+        <ion-option *ngFor="let item of engines" value="{{item}}">{{
+          item.toFixed(1)
+        }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="regis-input">
+      <ion-label>ประเทศที่จดทะเบียน</ion-label>
+      <ion-select formControlName="model_country">
+        <ion-option value="Thailand">ไทย</ion-option>
+        <ion-option value="England">อังกฤษ</ion-option>
+        <ion-option value="Japan">ญี่ปุ่น</ion-option>
+        <ion-option value="USA">สหรัฐอเมริกา</ion-option>
+        <ion-option value="Germany">เยอรมนี</ion-option>
+        <ion-option value="Korea">เกาหลี</ion-option>
+        <ion-option value="China">จีน</ion-option>
+        <ion-option value="Sweden">สวีเดน</ion-option>
+        <ion-option value="Italy">อิตาลี</ion-option>
+        <ion-option value="Other">อิตาลี</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="regis-input">
+      <ion-label>ทะเบียนรถยนต์</ion-label>
+      <ion-input
+        style="margin-bottom: -15px;"
+        type="text"
+        required
+        text-right
+        formControlName="model_license"
+      ></ion-input>
+    </ion-item>
+    <img class="car-progress" src="../assets/imgs/car-1.png" />
+    <div class="fix-button">
+      <button ion-button full type="submit" (click)="goToQuestionnaire2()">
+        ถัดไป
+      </button>
+    </div>
+  </form>
 </ion-content>

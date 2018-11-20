@@ -35,12 +35,11 @@ export class Questionnaire1Page {
     private auth: AuthService
   ) {
     this.questionnaireForm = fb.group({
-      car_name: ["", Validators.required],
       brand: ["", Validators.required],
-      model: ["", Validators.required],
-      model_year: ["", Validators.required],
+      model: [{ value: "", disabled: true }, Validators.required],
+      model_year: [{ value: "", disabled: true }, Validators.required],
       model_color: ["", Validators.required],
-      model_engine: ["", Validators.required],
+      model_engine: [{ value: "", disabled: true }, Validators.required],
       model_gear: ["", Validators.required],
       model_country: ["", Validators.required],
       model_license: ["", Validators.required]
@@ -68,7 +67,6 @@ export class Questionnaire1Page {
         .subscribe(querySnapshot => {
           querySnapshot.forEach((docSnap: any) => {
             this.questionnaireForm.patchValue({
-              car_name: docSnap.car_name,
               brand: docSnap.brand,
               model: docSnap.model,
               model_year: docSnap.model_year,
@@ -94,11 +92,13 @@ export class Questionnaire1Page {
   getModel(brand: string): void {
     this.models = this.cars[brand].map(x => x.model).sort();
     this.brand = brand;
+    this.questionnaireForm.controls["model"].enable();
   }
 
   getYear(model: string): void {
     this.model = model;
     this.years = this.cars[this.brand].filter(x => x.model == model)[0].engine;
+    this.questionnaireForm.controls["model_year"].enable();
   }
 
   getEngine(year: string): void {
@@ -108,6 +108,7 @@ export class Questionnaire1Page {
     typeof result === "object"
       ? (this.engines = result)
       : (this.engines = [result]);
+    this.questionnaireForm.controls["model_engine"].enable();
   }
 
   readBrands(): Promise<any> {
