@@ -10,22 +10,31 @@ import { Settings } from "../providers";
 import { AuthService } from "../services/auth.service";
 
 @Component({
-  template: `<ion-menu [content]="content">
-    <ion-header style=" height: 200px;">
-      <ion-toolbar color="font-color" style=" height: 200px;">
-        <img class="menu-logo" src="../assets/imgs/menu-logo.png">
-      </ion-toolbar>
-    </ion-header>
+  template: `
+    <ion-menu [content]="content">
+      <ion-header style=" height: 200px;">
+        <ion-toolbar color="font-color" style=" height: 200px;">
+          <img class="menu-logo" src="../assets/imgs/menu-logo.png" />
+        </ion-toolbar>
+      </ion-header>
 
-    <ion-content>
-      <ion-list>
-        <button menuClose ion-item no-lines class="bottom-border" *ngFor="let p of pages" (click)="openPage(p)">
-          <ion-icon item-start [name]="p.icon"></ion-icon>{{p.title}}
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-nav #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>`
+      <ion-content>
+        <ion-list>
+          <button
+            menuClose
+            ion-item
+            no-lines
+            class="bottom-border"
+            *ngFor="let p of pages"
+            (click)="openPage(p)"
+          >
+            <ion-icon item-start [name]="p.icon"></ion-icon>{{ p.title }}
+          </button>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-nav #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>
+  `
 })
 export class MyApp {
   rootPage = FirstRunPage;
@@ -35,7 +44,11 @@ export class MyApp {
 
   pages: any[] = [
     { title: "หน้าหลัก", component: "MainPage", icon: "home" },
-    { title: "แก้ไขข้อมูลรถยนต์", component: "Questionnaire1Page", icon: "car"},
+    {
+      title: "แก้ไขข้อมูลรถยนต์",
+      component: "Questionnaire1Page",
+      icon: "car"
+    },
     { title: "แผนที่อู่ซ่อมรถ", component: "GarageMapPage", icon: "map" },
     { title: "คูปองส่วนลด", component: "CouponPage", icon: "cash" },
     { title: "ออกจากระบบ", icon: "log-out" }
@@ -55,7 +68,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       statusBar.overlaysWebView(false);
-      statusBar.backgroundColorByHexString('#000000');
+      statusBar.backgroundColorByHexString("#000000");
       this.splashScreen.hide();
     });
     this.initTranslate();
@@ -96,7 +109,7 @@ export class MyApp {
       this.auth
         .logOut()
         .then((data: any) => {
-          this.nav.setRoot("LoginPage");
+          this.nav.setRoot("MainPage");
         })
         .catch((error: any) => {
           console.dir(error);

@@ -1,35 +1,35 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Nav, NavController } from 'ionic-angular';
+import { Component, ViewChild } from "@angular/core";
+import { IonicPage, Nav, NavController } from "ionic-angular";
 
 interface PageItem {
-  title: string
-  component: any
+  title: string;
+  component: any;
 }
-type PageList = PageItem[]
+type PageList = PageItem[];
 
 @IonicPage()
 @Component({
-  selector: 'page-menu',
-  templateUrl: 'menu.html'
+  selector: "page-menu",
+  templateUrl: "menu.html"
 })
 export class MenuPage {
   // A reference to the ion-nav in our component
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'LoginPage';
+  rootPage: any = "MainPage";
 
   pages: PageList;
 
   constructor(public navCtrl: NavController) {
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'แผนที่อู่ซ่อมรถ', component: '' },
-      { title: 'คูปองส่วนลด', component: '' }
+      { title: "แผนที่อู่ซ่อมรถ", component: "" },
+      { title: "คูปองส่วนลด", component: "" }
     ];
   }
 
   ionViewDidLoad() {
-    console.log('Hello MenuPage Page');
+    console.log("Hello MenuPage Page");
   }
 
   openPage(page: PageItem) {

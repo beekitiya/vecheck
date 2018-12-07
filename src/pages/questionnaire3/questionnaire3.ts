@@ -65,7 +65,7 @@ export class Questionnaire3Page {
   }
 
   gotoMainPage() {
-    this.navCtrl.push("MainPage");
+    this.navCtrl.setRoot("MainPage");
   }
   createcarProfile(value) {
     if (value["insurance"] === "ไม่สมัคร") {

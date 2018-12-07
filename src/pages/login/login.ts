@@ -51,14 +51,6 @@ export class LoginPage {
       password: [""]
     });
 
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.plt.ready().then(() => {
-          this.gotoMainPage();
-        });
-      }
-    });
-
     /*this.loginForm = this.formBuilder.group({
       email: [''],
       password: ['']
@@ -92,7 +84,7 @@ export class LoginPage {
       password: data.password
     };
     this.auth.signInWithEmail(credentials).then(
-      () => this.gotoMainPage(),
+      () => this.navCtrl.setRoot("MainPage"),
       error => {
         let alert = this.alertCtrl.create({
           title: "ERROR",
@@ -115,7 +107,7 @@ export class LoginPage {
   }*/
 
   gotoMainPage() {
-    this.navCtrl.push("MainPage");
+    //this.navCtrl.push("MainPage");
   }
   // Attempt to login in through our User service
   gotoSignUp() {

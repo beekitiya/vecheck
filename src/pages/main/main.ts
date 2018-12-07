@@ -8,6 +8,7 @@ import {
 } from "ionic-angular";
 import { AngularFirestore } from "angularfire2/firestore";
 import { AuthService } from "../../services/auth.service";
+import { AngularFireAuth } from "angularfire2/auth";
 import * as moment from "moment";
 
 var wifiOBDReader;
@@ -88,8 +89,17 @@ export class MainPage {
     public plt: Platform,
     public alertCtrl: AlertController,
     private readonly afs: AngularFirestore,
-    private auth: AuthService
+    private auth: AuthService,
+    public afAuth: AngularFireAuth
   ) {
+    this.afAuth.authState.subscribe(user => {
+      console.log(user, "Hi USER");
+      if (!user) {
+        this.plt.ready().then(() => {
+          this.navCtrl.setRoot("LoginPage");
+        });
+      }
+    });
     this.getFormatDate();
 
     var OBDReader = require("obd-bluetooth-tcp");
@@ -121,7 +131,7 @@ export class MainPage {
             instance.counter += kph / 3600;
             instance.counter_temp += kph / 3600;
             instance.Distance = instance.counter.toFixed(2);
-            instance.mile += instance.Speed / 3600;
+            instance.mile += kph / 3600;
             instance.showmile = instance.mile.toFixed(1);
           });
         } else {
