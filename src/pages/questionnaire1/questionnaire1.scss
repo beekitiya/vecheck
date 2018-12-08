@@ -1,14 +1,17 @@
 page-questionnaire1 {
+
     .app-background {
         background-color: white;
     }
 
     .car-progress {
+        position: relative;
         margin-top: 3em;
         height: 50px;
         display: block;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 0.8em;
     }
 
     .car-questionnaire {
@@ -65,10 +68,10 @@ page-questionnaire1 {
     }
 
     .fix-button {
-        width: 95%;
-        left: 10px;
-        bottom: 5px;
-        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 5px;;
+        position: relative;
         button {
             background-color: color($colors,button-color);
             font-size: 14px;

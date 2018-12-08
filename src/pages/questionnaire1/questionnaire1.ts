@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams,LoadingController } from "ionic-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFirestore } from "angularfire2/firestore";
 import { AuthService } from "../../services/auth.service";
@@ -27,12 +27,14 @@ export class Questionnaire1Page {
   model: string;
   year: string;
   car_profile: any = {};
+  loading: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     fb: FormBuilder,
     private readonly afs: AngularFirestore,
-    private auth: AuthService
+    private auth: AuthService,
+    public loadingCtrl: LoadingController
   ) {
     this.questionnaireForm = fb.group({
       brand: ["", Validators.required],
@@ -47,6 +49,7 @@ export class Questionnaire1Page {
     this.loadBrands();
   }
   async loadBrands() {
+    this.presentLoadingDefault()
     this.cars = await this.readBrands();
 
     if (this.auth.getcurrentUser()) {
@@ -80,8 +83,12 @@ export class Questionnaire1Page {
             this.getModel(docSnap.brand);
             this.getYear(docSnap.model);
             this.getEngine(docSnap.model_year);
+            this.loading.dismiss();
           });
         });
+        setTimeout(() => {
+    this.loading.dismiss();
+  }, 5000);
     }
   }
 
@@ -167,5 +174,14 @@ export class Questionnaire1Page {
       data = this.questionnaireForm.value;
     }
     this.navCtrl.push("Questionnaire2Page", data);
+  }
+
+  presentLoadingDefault() {
+      this.loading = this.loadingCtrl.create({
+        content: 'Please wait...'
+      });
+
+      this.loading.present();
+
   }
 }

@@ -30,6 +30,7 @@ export class MainPage {
   formatDate;
   //host: string = "192.168.0.10:35000"; // ip:port 192.168.0.10:35000
   private pauseSub: any;
+  private resumeSub: any;
   wifiOBDReader: any;
   connectInverval: any;
   connected: boolean = false;
@@ -111,11 +112,14 @@ export class MainPage {
       console.log("=>APP DEBUG:" + data);
     });
     wifiOBDReader.on("error", function(data) {
-      instance.connected = false;
-      if (instance.counter_temp > 0) {
-        instance.updateMile(parseInt(instance.mile) + instance.counter_temp);
-        instance.counter_temp = 0;
-      }
+        instance.ngZone.run(() => {
+            instance.connected = false;
+            if (instance.counter_temp > 0) {
+              instance.updateMile(parseInt(instance.mile) + instance.counter_temp);
+              instance.counter_temp = 0;
+            }
+        });
+
       console.log("=>APP ERROR:" + data);
       wifiOBDReader.autoconnect("bluetooth", "OBD");
     });
@@ -419,7 +423,7 @@ export class MainPage {
         bluetoothSerial.enable(
           () => {
             console.log("enable");
-            this.start();
+            //this.start();
           },
           () => {
             console.log("didnot enable");
@@ -431,11 +435,18 @@ export class MainPage {
             alert.present();
           }
         );
+
         this.pauseSub = this.plt.pause.subscribe(() => {
           console.log("PAUSE WORKING!!!!");
           if (this.counter_temp > 0) {
             this.updateMile(parseInt(this.mile) + this.counter_temp);
             this.counter_temp = 0;
+          }
+        });
+        this.resumeSub = this.plt.resume.subscribe(() => {
+          console.log("RESUME WORKING!!!!");
+          if (this.connected === false) {
+            this.start();
           }
         });
       });
