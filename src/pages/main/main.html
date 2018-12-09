@@ -26,7 +26,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/speed.png">
                         <p style="margin-top:31px;color:#98999c">ความเร็ว</p>
-                        <p style="margin-top:7px;font-size:20px;">{{Speed}}</p>
+                        <p style="margin-top:10px;font-size:17px;">{{Speed}}</p>
                         <p style="margin-bottom:-5px;color:#98999c">km/h</p>
                     </ion-card-content>
                 </ion-card>
@@ -36,7 +36,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/distance.png">
                         <p style="margin-top:31px;color:#98999c">ระยะทาง</p>
-                        <p style="margin-top:7px;font-size:20px;">{{Distance}}</p>
+                        <p style="margin-top:10px;font-size:17px;">{{Distance}}</p>
                         <p style="margin-top:-5px;color:#98999c">km</p>
                     </ion-card-content>
                 </ion-card>
@@ -46,7 +46,7 @@
                     <ion-card-content text-center>
                         <img class="main-icon" src="../assets/imgs/odometer.png">
                         <p style="margin-top:31px;color:#98999c">เลขไมล์สะสม</p>
-                        <p style="margin-top:7px;font-size:20px;">{{showmile}}</p>
+                        <p style="margin-top:10px;font-size:17px;">{{showmile}}</p>
                         <p style="margin-top:-5px;color:#98999c;margin-bottom:-17px;">km</p>
                     </ion-card-content>
                 </ion-card>
@@ -57,16 +57,25 @@
     <ion-grid>
         <ion-row *ngFor="let item of alert_per_sorted" class="list-row">
             <ion-col col-12 class="list-col">
-                <ion-card class="list-card" (click)="updateData(item.split('-')[0])">
+                <ion-card class="list-card">
                     <ion-card-title text-left>
                         {{alert_name[item.split('-')[0]]}}
                     </ion-card-title>
                     <ion-card-content>
-                        <div class="progress-outer">
-                            <div class="progress-inner" [style.width]="alert_per[item] + '%'" [ngClass]="{'green-bg': alert_per[item] >= '0' && alert_per[item] < '40', 'yellow-bg': alert_per[item] >= '40' && alert_per[item] < '80', 'red-bg': alert_per[item] >= '80'}">
-                                {{alert[item.split('-')[0]]}} {{alert_type[item.split('-')[0]]}}
-                            </div>
-                        </div>
+                        <ion-row>
+                            <ion-col col-11>
+                                <div class="progress-outer">
+                                    <div class="progress-inner" [style.width]="alert_per[item] + '%'" [ngClass]="{'green-bg': alert_per[item] >= '0' && alert_per[item] < '40', 'yellow-bg': alert_per[item] >= '40' && alert_per[item] < '80', 'red-bg': alert_per[item] >= '80'}">
+                                        {{alert[item.split('-')[0]]}} {{alert_type[item.split('-')[0]]}}
+                                    </div>
+                                </div>
+                            </ion-col>
+                            <ion-col col-1>
+                                <button ion-button icon-only color="icon-color" (click)="updateData(item.split('-')[0])">
+                                    <ion-icon name="ios-refresh-circle"></ion-icon>
+                                </button>
+                            </ion-col>
+                        </ion-row>
                     </ion-card-content>
                 </ion-card>
             </ion-col>

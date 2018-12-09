@@ -58,6 +58,16 @@ page-main {
           color: color($colors,font-color);
           font-size: 12px;
       }
+      button {
+          font-size: 12px;
+          box-shadow: none;
+          color: color($colors,button-color);
+          margin-top: -20px;
+          margin-left: -5px;
+      }
+      ion-card-content {
+          padding: 5px 16px;
+      }
   }
 
   .speed-col {
