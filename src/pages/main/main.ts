@@ -48,6 +48,7 @@ export class MainPage {
   carID: any;
   oil_engine = { "0": 7500, "1": 5000, "2": 10000 };
   alert = {};
+  alert_num = {};
   alert_per = {};
   alert_per_sorted = [];
   alert_name = {
@@ -112,13 +113,13 @@ export class MainPage {
       console.log("=>APP DEBUG:" + data);
     });
     wifiOBDReader.on("error", function(data) {
-        instance.ngZone.run(() => {
-            instance.connected = false;
-            if (instance.counter_temp > 0) {
-              instance.updateMile(parseInt(instance.mile) + instance.counter_temp);
-              instance.counter_temp = 0;
-            }
-        });
+      instance.ngZone.run(() => {
+        instance.connected = false;
+        if (instance.counter_temp > 0) {
+          instance.updateMile(parseInt(instance.mile) + instance.counter_temp);
+          instance.counter_temp = 0;
+        }
+      });
 
       console.log("=>APP ERROR:" + data);
       wifiOBDReader.autoconnect("bluetooth", "OBD");
@@ -137,6 +138,13 @@ export class MainPage {
             instance.Distance = instance.counter.toFixed(2);
             instance.mile += kph / 3600;
             instance.showmile = instance.mile.toFixed(1);
+            instance.alert_num["oil_engine"] =
+              instance.mile % instance.oil_engine[instance.oilEngine];
+            instance.alert_num["break"] = instance.mile % 40000;
+            instance.alert_num["oil_gear"] = instance.mile % 40000;
+            instance.alert_num["back_gear"] = instance.mile % 40000;
+            instance.alert_num["car_tires"] = instance.mile % 50000;
+            instance.alert_num["oil_power"] = instance.mile % 80000;
           });
         } else {
           this.stop();
@@ -241,91 +249,137 @@ export class MainPage {
             this.alert["rain_rubber"] = this.lastvisit;
             this.alert["battery"] = this.lastvisit;
             this.alert["oil_engine"] =
-              Math.floor(this.mile / this.oil_engine[this.oilEngine]) *
-              this.oil_engine[this.oilEngine];
-            this.alert["break"] = Math.floor(this.mile / 40000) * 40000;
-            this.alert["oil_gear"] = Math.floor(this.mile / 40000) * 40000;
-            this.alert["back_gear"] = Math.floor(this.mile / 40000) * 40000;
-            this.alert["car_tires"] = Math.floor(this.mile / 50000) * 50000;
-            this.alert["oil_power"] = Math.floor(this.mile / 80000) * 80000;
+              this.mile % this.oil_engine[this.oilEngine] === 0 ? 1 : 0;
+            this.alert["break"] = this.mile % 40000 === 0 ? 1 : 0;
+            this.alert["oil_gear"] = this.mile % 40000 === 0 ? 1 : 0;
+            this.alert["back_gear"] = this.mile % 40000 === 0 ? 1 : 0;
+            this.alert["car_tires"] = this.mile % 50000 === 0 ? 1 : 0;
+            this.alert["oil_power"] = this.mile % 80000 === 0 ? 1 : 0;
             let colRef = this.afs
               .collection("Users")
               .doc(this.auth.getcurrentUser().uid)
               .collection("Cars")
               .doc(this.carID);
             let updateSingle = colRef.update({ ...this.alert });
-          } else if (!("oil_engine" in docSnap)) {
-            this.alert["oil_engine"] =
-              Math.floor(this.mile / this.oil_engine[this.oilEngine]) *
-              this.oil_engine[this.oilEngine];
-            this.alert["break"] = Math.floor(this.mile / 40000) * 40000;
-            this.alert["oil_gear"] = Math.floor(this.mile / 40000) * 40000;
-            this.alert["back_gear"] = Math.floor(this.mile / 40000) * 40000;
-            this.alert["car_tires"] = Math.floor(this.mile / 50000) * 50000;
-            this.alert["oil_power"] = Math.floor(this.mile / 80000) * 80000;
-            let colRef = this.afs
-              .collection("Users")
-              .doc(this.auth.getcurrentUser().uid)
-              .collection("Cars")
-              .doc(this.carID);
-            let updateSingle = colRef.update({ ...this.alert });
+          } else {
+            this.alert["air_filter"] = docSnap.air_filter;
+            this.alert["passenger_air_filter"] = docSnap.passenger_air_filter;
+            this.alert["rain_rubber"] = docSnap.rain_rubber;
+            this.alert["battery"] = docSnap.battery;
+            this.alert["oil_engine"] = docSnap.oil_engine;
+            this.alert["break"] = docSnap.break;
+            this.alert["oil_gear"] = docSnap.oil_gear;
+            this.alert["back_gear"] = docSnap.back_gear;
+            this.alert["car_tires"] = docSnap.car_tires;
+            this.alert["oil_power"] = docSnap.oil_power;
+
+            this.alert_num["oil_engine"] =
+              this.alert["oil_engine"] > 1
+                ? this.mile - this.alert["oil_engine"]
+                : this.mile % this.oil_engine[this.oilEngine];
+            this.alert_num["break"] =
+              this.alert["break"] > 1
+                ? this.mile - this.alert["break"]
+                : this.mile % 40000;
+            this.alert_num["oil_gear"] =
+              this.alert["oil_gear"] > 1
+                ? this.mile - this.alert["oil_gear"]
+                : this.mile % 40000;
+            this.alert_num["back_gear"] =
+              this.alert["back_gear"] > 1
+                ? this.mile - this.alert["back_gear"]
+                : this.mile % 40000;
+            this.alert_num["car_tires"] =
+              this.alert["car_tires"] > 1
+                ? this.mile - this.alert["car_tires"]
+                : this.mile % 50000;
+            this.alert_num["oil_power"] =
+              this.alert["oil_power"] > 1
+                ? this.mile - this.alert["oil_power"]
+                : this.mile % 80000;
           }
-          this.alert["oil_engine"] = this.mile - docSnap.oil_engine;
-          this.alert["break"] = this.mile - docSnap.break;
-          this.alert["oil_gear"] = this.mile - docSnap.oil_gear;
-          this.alert["back_gear"] = this.mile - docSnap.back_gear;
-          this.alert["car_tires"] = this.mile - docSnap.car_tires;
-          this.alert["oil_power"] = this.mile - docSnap.oil_power;
+          // } else if (!("oil_engine" in docSnap)) {
+          //   this.alert["oil_engine"] =
+          //     Math.floor(this.mile / this.oil_engine[this.oilEngine]) *
+          //     this.oil_engine[this.oilEngine];
+          //   this.alert["break"] = this.mile % 40000;
+          //   this.alert["oil_gear"] = this.mile % 40000;
+          //   this.alert["back_gear"] = this.mile % 40000;
+          //   this.alert["car_tires"] = this.mile % 50000;
+          //   this.alert["oil_power"] = this.mile % 80000;
+          //   let colRef = this.afs
+          //     .collection("Users")
+          //     .doc(this.auth.getcurrentUser().uid)
+          //     .collection("Cars")
+          //     .doc(this.carID);
+          //   let updateSingle = colRef.update({ ...this.alert });
+          // }
 
           this.alert_per["oil_engine"] = this.clamp(
-            (this.alert["oil_engine"] / this.oil_engine[this.oilEngine]) * 100,
+            this.alert["oil_engine"] > 1
+              ? ((this.mile - this.alert["oil_engine"]) /
+                  this.oil_engine[this.oilEngine]) *
+                  100
+              : ((this.mile % this.oil_engine[this.oilEngine]) +
+                  this.alert["oil_engine"]) *
+                  100,
             0,
             100
           );
 
           this.alert_per["break"] = this.clamp(
-            (this.alert["break"] / 40000) * 100,
+            this.alert["break"] > 1
+              ? ((this.mile - this.alert["break"]) / 40000) * 100
+              : (this.alert["break"] + (this.mile % 40000)) * 100,
             0,
             100
           );
 
           this.alert_per["oil_gear"] = this.clamp(
-            (this.alert["oil_gear"] / 40000) * 100,
+            this.alert["oil_gear"] > 1
+              ? ((this.mile - this.alert["oil_gear"]) / 40000) * 100
+              : (this.alert["oil_gear"] + (this.mile % 40000)) * 100,
             0,
             100
           );
 
           this.alert_per["back_gear"] = this.clamp(
-            (this.alert["back_gear"] / 40000) * 100,
+            this.alert["back_gear"] > 1
+              ? ((this.mile - this.alert["back_gear"]) / 40000) * 100
+              : (this.alert["back_gear"] + (this.mile % 40000)) * 100,
             0,
             100
           );
 
           this.alert_per["car_tires"] = this.clamp(
-            (this.alert["car_tires"] / 50000) * 100,
+            this.alert["car_tires"] > 1
+              ? ((this.mile - this.alert["car_tires"]) / 50000) * 100
+              : (this.alert["car_tires"] + (this.mile % 50000)) * 100,
             0,
             100
           );
 
           this.alert_per["oil_power"] = this.clamp(
-            (this.alert["oil_power"] / 80000) * 100,
+            this.alert["oil_power"] > 1
+              ? ((this.mile - this.alert["oil_power"]) / 80000) * 100
+              : (this.alert["oil_power"] + (this.mile % 80000)) * 100,
             0,
             100
           );
 
-          this.alert["air_filter"] = CurrentDate.diff(
+          this.alert_num["air_filter"] = CurrentDate.diff(
             moment(docSnap.air_filter),
             "months"
           );
-          this.alert["passenger_air_filter"] = CurrentDate.diff(
+          this.alert_num["passenger_air_filter"] = CurrentDate.diff(
             moment(docSnap.passenger_air_filter),
             "months"
           );
-          this.alert["rain_rubber"] = CurrentDate.diff(
+          this.alert_num["rain_rubber"] = CurrentDate.diff(
             moment(docSnap.rain_rubber),
             "months"
           );
-          this.alert["battery"] = CurrentDate.diff(
+          this.alert_num["battery"] = CurrentDate.diff(
             moment(docSnap.battery),
             "months"
           );
@@ -369,7 +423,7 @@ export class MainPage {
             100
           );
 
-          this.alert["third_insurance_expire"] = CurrentDate.diff(
+          this.alert_num["third_insurance_expire"] = CurrentDate.diff(
             moment(docSnap.third_insurance_expire).subtract(12, "M"),
             "months"
           );
@@ -386,7 +440,7 @@ export class MainPage {
             0,
             100
           );
-          this.alert["insurance_expire"] = docSnap.insurance_expire
+          this.alert_num["insurance_expire"] = docSnap.insurance_expire
             ? CurrentDate.diff(
                 moment(docSnap.insurance_expire).subtract(12, "M"),
                 "months"
@@ -514,12 +568,21 @@ export class MainPage {
           text: "บันทึก",
           handler: data => {
             if (data.odemeter) {
-              var colRef = this.afs
-                .collection("Users")
-                .doc(this.auth.getcurrentUser().uid)
-                .collection("Cars")
-                .doc(this.carID);
-              var updateSingle = colRef.update({ car_mile: data.odemeter });
+              if (data.odemeter >= this.mile) {
+                var colRef = this.afs
+                  .collection("Users")
+                  .doc(this.auth.getcurrentUser().uid)
+                  .collection("Cars")
+                  .doc(this.carID);
+                var updateSingle = colRef.update({ car_mile: data.odemeter });
+              } else {
+                let alert = this.alertCtrl.create({
+                  title: "ERROR",
+                  subTitle: "กรุณาใส่เลขไมล์สะสมที่มากขึ้น!",
+                  buttons: ["OK"]
+                });
+                alert.present();
+              }
             }
           }
         }
