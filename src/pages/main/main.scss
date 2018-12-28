@@ -1,170 +1,174 @@
 page-main {
   .app-background {
-      background-color: white;
+    background-color: white;
   }
 
   .main-icon {
-      height: 35px;
-      width: auto;
-      position: absolute;
-      top: 10%;
-      left: 60%;
-      transform: translate(-60%);
+    height: 35px;
+    width: auto;
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    transform: translate(-60%);
   }
 
   .bt-icon {
-      height: 23px;
-      width: auto;
+    height: 23px;
+    width: auto;
   }
 
   .question-card {
-      //background: rgba(207, 237, 216, 0.4);
-      margin-top: 0.5em;
-      //border-radius: 5px;
-      width: 100%;
-      height: 140px;
-      .card-title-md {
-          color: color($colors,font-color);
-          font-size: 12px;
-          margin-left: 15px;
-          margin-top: 10px;
-      }
-      p {
-          color: color($colors,font-color);
-          font-size: 12px;
-      }
-      button {
-          font-size: 12px;
-          right: -55%;
-          margin-top: 12px;
-          box-shadow: none;
-          color: color($colors,button-color);
-      }
+    //background: rgba(207, 237, 216, 0.4);
+    margin-top: 0.5em;
+    //border-radius: 5px;
+    width: 100%;
+    height: 140px;
+    .card-title-md {
+      color: color($colors, font-color);
+      font-size: 12px;
+      margin-left: 15px;
+      margin-top: 10px;
+    }
+    p {
+      color: color($colors, font-color);
+      font-size: 12px;
+    }
+    button {
+      font-size: 12px;
+      right: -55%;
+      margin-top: 12px;
+      box-shadow: none;
+      color: color($colors, button-color);
+    }
   }
 
   .list-card {
-      margin-top: -6px;
-      //border-radius: 5px;
-      width: 100%;
+    margin-top: -6px;
+    //border-radius: 5px;
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid #d8d8d8;
+    .card-title-md {
+      color: color($colors, font-color);
+      font-size: 12px;
+      margin-left: 10px;
+      margin-top: 2px;
+    }
+    p {
+      color: color($colors, font-color);
+      font-size: 12px;
+    }
+    button {
+      font-size: 12px;
       box-shadow: none;
-      border: 1px solid #D8D8D8;
-      .card-title-md {
-          color: color($colors,font-color);
-          font-size: 12px;
-          margin-left: 10px;
-          margin-top: 2px;
-      }
-      p {
-          color: color($colors,font-color);
-          font-size: 12px;
-      }
-      button {
-          font-size: 12px;
-          box-shadow: none;
-          color: color($colors,button-color);
-          margin-top: -20px;
-          margin-left: -5px;
-      }
-      ion-card-content {
-          padding: 5px 16px;
-      }
+      color: color($colors, button-color);
+      margin-top: -20px;
+      margin-left: -5px;
+    }
+    ion-card-content {
+      padding: 5px 16px;
+    }
   }
 
   .speed-col {
-      padding: 0px;
-      margin-left: -20px;
-      margin-right: 5px;
+    padding: 0px;
+    margin-left: -20px;
+    margin-right: 5px;
   }
 
   .distance-col {
-      padding: 0px;
-      margin-right: 5px;
-      margin-left: 5px;
+    padding: 0px;
+    margin-right: 5px;
+    margin-left: 5px;
   }
 
   .odometer-col {
-      padding: 0px;
-      margin-right: -15px;
-      margin-left: 5px;
-      p{
-          margin-left: -5px;
-          margin-right: -5px;
-      }
+    padding: 0px;
+    margin-right: -15px;
+    margin-left: 5px;
+    p {
+      margin-left: -5px;
+      margin-right: -5px;
+    }
   }
 
   .list-row {
-      margin-right: -20px;
+    margin-right: -20px;
   }
 
   .list-col {
-      padding: 0px;
-      margin-top: -5px;
-      margin-left: -20px;
+    padding: 0px;
+    margin-top: -5px;
+    margin-left: -20px;
   }
 
   .fix-button {
-      position: fixed;
-      left: 0;
-      bottom: 0px;
-      right: 0;
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    right: 0;
   }
 
   .start-button {
-      background-color: color($colors,button-color);
-      font-size: 14px;
-      height: 40px;
-      bottom: -0.3em;
-      box-shadow: none;
-      font-weight: 400;
-      margin-right: -10px;
+    background-color: color($colors, button-color);
+    font-size: 14px;
+    height: 40px;
+    bottom: -0.3em;
+    box-shadow: none;
+    font-weight: 400;
+    margin-right: -10px;
   }
 
   .stop-button {
-      background-color: white;
-      border: 1px solid color($colors, button-color);
-      color: color($colors, button-color);
-      font-size: 14px;
-      height: 40px;
-      bottom: -0.3em;
-      box-shadow: none;
-      font-weight: 400;
-      margin-left: -10px;
+    background-color: white;
+    border: 1px solid color($colors, button-color);
+    color: color($colors, button-color);
+    font-size: 14px;
+    height: 40px;
+    bottom: -0.3em;
+    box-shadow: none;
+    font-weight: 400;
+    margin-left: -10px;
   }
 
   .progress-outer {
-        width: 100%;
-        padding: 3px;
-        text-align: center;
-        margin-top: -10px;
-        background-color: #f4f4f4;
-        border: 1px solid #dcdcdc;
-        color: #fff;
-        border-radius: 20px;
-        height: 25px;
-    }
+    width: 100%;
+    padding: 3px;
+    text-align: center;
+    margin-top: -10px;
+    background-color: #f4f4f4;
+    border: 1px solid #dcdcdc;
+    color: #fff;
+    border-radius: 20px;
+    height: 25px;
+  }
 
-    .progress-inner {
-        min-width: 15%;
-        white-space: nowrap;
-        overflow: hidden;
-        padding: 2px;
-        border-radius: 20px;
-        //background-image: linear-gradient(to right, #25CB4E, #FED846, #FB1C4D);
-        color: white;
-        font-size: 10px;
-        height: 20px;
-        margin-top: -1.4px;
-    }
+  .progress-inner {
+    min-width: 15%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 2px;
+    border-radius: 20px;
+    //background-image: linear-gradient(to right, #25CB4E, #FED846, #FB1C4D);
+    color: white;
+    font-size: 10px;
+    height: 20px;
+    margin-top: -1.4px;
+  }
 
-    .green-bg {
-        background-color: #7FAF1B;
-    }
+  .red-txt {
+    color: #ff0000;
+  }
 
-    .yellow-bg {
-        background-color: #FCA90F;
-    }
+  .green-bg {
+    background-color: #7faf1b;
+  }
 
-    .red-bg {
-        background-color: #CC333F;
-    }
+  .yellow-bg {
+    background-color: #fca90f;
+  }
+
+  .red-bg {
+    background-color: #cc333f;
+  }
 }

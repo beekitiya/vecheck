@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams,LoadingController } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from "ionic-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFirestore } from "angularfire2/firestore";
 import { AuthService } from "../../services/auth.service";
@@ -41,7 +46,7 @@ export class Questionnaire1Page {
       model: [{ value: "", disabled: true }, Validators.required],
       model_year: [{ value: "", disabled: true }, Validators.required],
       model_color: ["", Validators.required],
-      model_engine: [{ value: "", disabled: true }, Validators.required],
+      model_engine: ["", Validators.required],
       model_gear: ["", Validators.required],
       model_country: ["", Validators.required],
       model_license: ["", Validators.required]
@@ -49,7 +54,7 @@ export class Questionnaire1Page {
     this.loadBrands();
   }
   async loadBrands() {
-    this.presentLoadingDefault()
+    this.presentLoadingDefault();
     this.cars = await this.readBrands();
 
     if (this.auth.getcurrentUser()) {
@@ -82,13 +87,12 @@ export class Questionnaire1Page {
             this.car_profile = { ...docSnap };
             this.getModel(docSnap.brand);
             this.getYear(docSnap.model);
-            this.getEngine(docSnap.model_year);
             this.loading.dismiss();
           });
         });
-        setTimeout(() => {
-    this.loading.dismiss();
-  }, 5000);
+      setTimeout(() => {
+        this.loading.dismiss();
+      }, 5000);
     }
   }
 
@@ -104,18 +108,17 @@ export class Questionnaire1Page {
 
   getYear(model: string): void {
     this.model = model;
-    this.years = this.cars[this.brand].filter(x => x.model == model)[0].engine;
+    this.years = this.cars[this.brand].filter(x => x.model == model)[0].engine[
+      "year"
+    ];
+    this.engines = this.cars[this.brand].filter(
+      x => x.model == this.model
+    )[0].engine["CC"];
     this.questionnaireForm.controls["model_year"].enable();
   }
 
   getEngine(year: string): void {
     this.year = year;
-    let result = this.cars[this.brand].filter(x => x.model == this.model)[0]
-      .engine[year];
-    typeof result === "object"
-      ? (this.engines = result)
-      : (this.engines = [result]);
-    this.questionnaireForm.controls["model_engine"].enable();
   }
 
   readBrands(): Promise<any> {
@@ -177,11 +180,10 @@ export class Questionnaire1Page {
   }
 
   presentLoadingDefault() {
-      this.loading = this.loadingCtrl.create({
-        content: 'Please wait...'
-      });
+    this.loading = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
 
-      this.loading.present();
-
+    this.loading.present();
   }
 }

@@ -24,6 +24,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class Questionnaire3Page {
   questionnaireForm: FormGroup;
+  oil_engine = { "0": 7500, "1": 5000, "2": 10000 };
   public user: any;
   constructor(
     public navCtrl: NavController,
@@ -68,17 +69,26 @@ export class Questionnaire3Page {
     this.navCtrl.setRoot("MainPage");
   }
   createcarProfile(value) {
-    if (value["insurance"] === "ไม่สมัคร") {
-      delete value["insurance_expire"];
-    }
-    if (value.id) {
-      delete value["break"];
-      delete value["oil_gear"];
-      delete value["back_gear"];
-      delete value["car_tires"];
-      delete value["oil_power"];
-    }
-    if (!Object.keys(value).every(o => value[o] != null && value[o] != "")) {
+    const {
+      car_name,
+      model,
+      model_engine,
+      car_mile,
+      last_visit,
+      model_license,
+      model_year,
+      brand
+    } = value;
+    if (
+      car_name !== "" &&
+      model !== "" &&
+      model_engine !== "" &&
+      car_mile !== "" &&
+      last_visit !== "" &&
+      model_license !== "" &&
+      model_year !== "" &&
+      brand !== ""
+    ) {
       let alert = this.alertCtrl.create({
         title: "ERROR",
         subTitle: "กรุณากรอกข้อมูลให้ครบ",
@@ -106,6 +116,26 @@ export class Questionnaire3Page {
             err => reject(err)
           );
       } else {
+        if (value.car_mile) {
+          let mile = parseFloat(value.car_mile);
+          value["oil_engine"] =
+            Math.floor(mile / this.oil_engine[value.engine_oil]) *
+            this.oil_engine[value.engine_oil];
+          value["break"] = Math.floor(mile / 40000) * 40000;
+          value["oil_gear"] = Math.floor(mile / 40000) * 40000;
+          value["back_gear"] = Math.floor(mile / 40000) * 40000;
+          value["car_tires"] = Math.floor(mile / 50000) * 50000;
+          value["oil_power"] = Math.floor(mile / 80000) * 80000;
+        }
+        if (value.last_visit) {
+          let lastvisit = value.last_visit;
+          value["air_filter"] = lastvisit;
+          value["passenger_air_filter"] = lastvisit;
+          value["rain_rubber"] = lastvisit;
+          value["battery"] = lastvisit;
+          value["coolant_water"] = lastvisit;
+          value["tires"] = lastvisit;
+        }
         this.afs
           .collection("Users")
           .doc(currentUser.uid)

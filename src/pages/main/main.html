@@ -74,6 +74,7 @@
                     class="progress-inner"
                     [style.width]="alert_per[item] + '%'"
                     [ngClass]="{
+                      'red-txt': alert_per[item] < '0',
                       'green-bg':
                         alert_per[item] >= '0' && alert_per[item] < '40',
                       'yellow-bg':
@@ -81,8 +82,13 @@
                       'red-bg': alert_per[item] >= '80'
                     }"
                   >
-                    {{ alert[item.split("-")[0]] }}
-                    {{ alert_type[item.split("-")[0]] }}
+                    {{
+                      alert[item.split("-")[0]] == -1
+                        ? "กรุณากรอกข้อมูลให้ครบถ้วน"
+                        : alert[item.split("-")[0]] +
+                          " " +
+                          alert_type[item.split("-")[0]]
+                    }}
                   </div>
                 </div>
               </ion-col>
