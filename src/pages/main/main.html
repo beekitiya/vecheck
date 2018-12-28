@@ -83,7 +83,14 @@
                     }"
                   >
                     {{
-                      alert[item.split("-")[0]] == -1
+                      alert_type[item.split("-")[0]] === "กิโลเมตร"
+                        ? alert[item.split("-")[0]] == -1
+                          ? "กรุณากรอกข้อมูลให้ครบถ้วน"
+                          : mile -
+                            alert[item.split("-")[0]] +
+                            " " +
+                            alert_type[item.split("-")[0]]
+                        : alert[item.split("-")[0]] == -1
                         ? "กรุณากรอกข้อมูลให้ครบถ้วน"
                         : alert[item.split("-")[0]] +
                           " " +

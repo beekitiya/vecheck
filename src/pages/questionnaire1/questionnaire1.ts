@@ -72,17 +72,18 @@ export class Questionnaire1Page {
             return { id, ...data };
           });
         })
+        .take(1)
         .subscribe(querySnapshot => {
           querySnapshot.forEach((docSnap: any) => {
             this.questionnaireForm.patchValue({
-              brand: docSnap.brand,
-              model: docSnap.model,
-              model_year: docSnap.model_year,
-              model_color: docSnap.model_color,
-              model_engine: docSnap.model_engine,
-              model_gear: docSnap.model_gear,
-              model_country: docSnap.model_country,
-              model_license: docSnap.model_license
+              brand: docSnap.brand || "",
+              model: docSnap.model || "",
+              model_year: docSnap.model_year || "",
+              model_color: docSnap.model_color || "",
+              model_engine: docSnap.model_engine || "",
+              model_gear: docSnap.model_gear || "",
+              model_country: docSnap.model_country || "",
+              model_license: docSnap.model_license || ""
             });
             this.car_profile = { ...docSnap };
             this.getModel(docSnap.brand);

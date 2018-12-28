@@ -27,7 +27,8 @@
         required
         text-right
         formControlName="car_tax_expire"
-        max="2025-12-31"
+        min="2017"
+        max="2021"
       ></ion-datetime>
     </ion-item>
     <ion-item class="regis-input">
@@ -38,7 +39,8 @@
         required
         text-right
         formControlName="third_insurance_expire"
-        max="2025-12-31"
+        min="2017"
+        max="2021"
       ></ion-datetime>
     </ion-item>
     <ion-item class="regis-input">
@@ -47,6 +49,7 @@
         (ionChange)="selectInsurance($event)"
         formControlName="insurance"
       >
+        <ion-option value="ไม่สมัคร">ไม่สมัคร</ion-option>
         <ion-option value="กรุงเทพประกันภัย">กรุงเทพประกันภัย</ion-option>
         <ion-option value="กรุงไทยพานิชประกันภัย"
           >กรุงไทยพานิชประกันภัย</ion-option
@@ -73,10 +76,9 @@
         <ion-option value="แอกซ่าประกันภัย">แอกซ่าประกันภัย</ion-option>
         <ion-option value="แอลเอ็มจี ประกันภัย">แอลเอ็มจี ประกันภัย</ion-option>
         <ion-option value="โตเกียวมารีน">โตเกียวมารีน</ion-option>
-        <ion-option value="ทิไทยวิวัฒน์">ไทยวิวัฒน์</ion-option>
+        <ion-option value="ไทยวิวัฒน์">ไทยวิวัฒน์</ion-option>
         <ion-option value="ไทยศรี">ไทยศรี</ion-option>
         <ion-option value="ไทยเศรษฐ">ไทยเศรษฐ</ion-option>
-        <ion-option value="ไม่สมัคร">ไม่สมัคร</ion-option>
       </ion-select>
     </ion-item>
     <ion-item class="regis-input">
@@ -87,7 +89,8 @@
         required
         text-right
         formControlName="insurance_expire"
-        max="2025-12-31"
+        min="2017"
+        max="2021"
       ></ion-datetime>
     </ion-item>
     <img class="car-progress" src="../assets/imgs/car-3.png" />

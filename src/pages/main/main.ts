@@ -227,12 +227,17 @@ export class MainPage {
           this.oilEngine = docSnap.engine_oil || 0;
           this.carID = docSnap.id;
 
-          this.alert["oil_engine"] = docSnap.oil_engine || -1;
-          this.alert["break"] = docSnap.break || -1;
-          this.alert["oil_gear"] = docSnap.oil_gear || -1;
-          this.alert["back_gear"] = docSnap.back_gear || -1;
-          this.alert["car_tires"] = docSnap.car_tires || -1;
-          this.alert["oil_power"] = docSnap.oil_power || -1;
+          this.alert["oil_engine"] =
+            "oil_engine" in docSnap ? docSnap.oil_engine : -1;
+          this.alert["break"] = "break" in docSnap ? docSnap.break : -1;
+          this.alert["oil_gear"] =
+            "oil_gear" in docSnap ? docSnap.oil_gear : -1;
+          this.alert["back_gear"] =
+            "back_gear" in docSnap ? docSnap.back_gear : -1;
+          this.alert["car_tires"] =
+            "car_tires" in docSnap ? docSnap.car_tires : -1;
+          this.alert["oil_power"] =
+            "oil_power" in docSnap ? docSnap.oil_power : -1;
           this.alert["coolant_water"] = docSnap.coolant_water
             ? CurrentDate.diff(moment(docSnap.coolant_water), "days")
             : -1;
@@ -397,18 +402,22 @@ export class MainPage {
 
     this.alert_per["break"] =
       this.alert["break"] > -1
-        ? this.clamp((this.mile - this.alert["break"] / 40000) * 100, 0, 100)
+        ? this.clamp(((this.mile - this.alert["break"]) / 40000) * 100, 0, 100)
         : -1;
 
     this.alert_per["oil_gear"] =
       this.alert["oil_gear"] > -1
-        ? this.clamp((this.mile - this.alert["oil_gear"] / 40000) * 100, 0, 100)
+        ? this.clamp(
+            ((this.mile - this.alert["oil_gear"]) / 40000) * 100,
+            0,
+            100
+          )
         : -1;
 
     this.alert_per["back_gear"] =
       this.alert["back_gear"] > -1
         ? this.clamp(
-            (this.mile - this.alert["back_gear"] / 40000) * 100,
+            ((this.mile - this.alert["back_gear"]) / 40000) * 100,
             0,
             100
           )
@@ -417,7 +426,7 @@ export class MainPage {
     this.alert_per["car_tires"] =
       this.alert["car_tires"] > -1
         ? this.clamp(
-            (this.mile - this.alert["car_tires"] / 50000) * 100,
+            ((this.mile - this.alert["car_tires"]) / 50000) * 100,
             0,
             100
           )
@@ -426,7 +435,7 @@ export class MainPage {
     this.alert_per["oil_power"] =
       this.alert["oil_power"] > -1
         ? this.clamp(
-            (this.mile - this.alert["oil_power"] / 80000) * 100,
+            ((this.mile - this.alert["oil_power"]) / 80000) * 100,
             0,
             100
           )

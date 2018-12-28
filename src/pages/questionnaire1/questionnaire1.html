@@ -32,21 +32,30 @@
   <form class="car-questionnaire" [formGroup]="questionnaireForm">
     <h5 text-center>รถยนต์</h5>
     <ion-item class="regis-input">
-      <ion-label>ยี่ห้อ</ion-label>
+      <ion-label>ยี่ห้อ<span style="color:red">*</span></ion-label>
       <ion-select (ionChange)="getModel($event)" formControlName="brand">
-        <ion-option *ngFor="let item of (cars | keys)" value="{{item.key}}" on>{{ item.key }}</ion-option>
+        <ion-option
+          *ngFor="let item of (cars | keys)"
+          value="{{ item.key }}"
+          on
+          >{{ item.key }}</ion-option
+        >
       </ion-select>
     </ion-item>
     <ion-item class="regis-input">
-      <ion-label>รุ่น</ion-label>
+      <ion-label>รุ่น<span style="color:red">*</span></ion-label>
       <ion-select (ionChange)="getYear($event)" formControlName="model">
-        <ion-option *ngFor="let item of models" value="{{item}}">{{ item }}</ion-option>
+        <ion-option *ngFor="let item of models" value="{{ item }}">{{
+          item
+        }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item class="regis-input">
       <ion-label>ปี</ion-label>
       <ion-select (ionChange)="getEngine($event)" formControlName="model_year">
-        <ion-option *ngFor="let item of (years | keys)" value="{{item.key}}">{{ item.key }}</ion-option>
+        <ion-option *ngFor="let item of years" value="{{ item }}">{{
+          item
+        }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item class="regis-input">
@@ -89,7 +98,9 @@
     <ion-item class="regis-input">
       <ion-label>ขนาดเครื่องยนต์ (CC.)</ion-label>
       <ion-select formControlName="model_engine">
-        <ion-option *ngFor="let item of engines" value="{{item}}">{{ item.toFixed(1) }}</ion-option>
+        <ion-option *ngFor="let item of engines" value="{{ item }}">{{
+          item.toFixed(1)
+        }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item class="regis-input">
@@ -109,15 +120,19 @@
     </ion-item>
     <ion-item class="regis-input">
       <ion-label>ทะเบียนรถยนต์</ion-label>
-      <ion-input style="margin-bottom: -15px;" type="text" required text-right formControlName="model_license"></ion-input>
+      <ion-input
+        style="margin-bottom: -15px;"
+        type="text"
+        required
+        text-right
+        formControlName="model_license"
+      ></ion-input>
     </ion-item>
     <img class="car-progress" src="../assets/imgs/car-1.png" />
     <ion-row>
-        <div class="fix-button">
-          <button ion-button block (click)="goToQuestionnaire2()">
-            ถัดไป
-          </button>
-        </div>
+      <div class="fix-button">
+        <button ion-button block (click)="goToQuestionnaire2()">ถัดไป</button>
+      </div>
     </ion-row>
   </form>
 </ion-content>
