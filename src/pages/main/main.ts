@@ -134,7 +134,7 @@ export class MainPage {
 
       if (data.name && data.name == "vss") {
         if (data.value != null) {
-          const kph = Math.round(data.value); // convert to mph
+          let kph = Math.round(data.value); // convert to mph
           instance.ngZone.run(() => {
             instance.Speed = kph;
             instance.counter += kph / 3600;
@@ -142,7 +142,7 @@ export class MainPage {
             instance.Distance = instance.counter.toFixed(2);
             instance.mile += kph / 3600;
             instance.showmile = instance.mile.toFixed(1);
-            this.updateProgress();
+            //this.updateProgress();
           });
         } else {
           this.stop();
