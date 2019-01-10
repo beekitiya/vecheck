@@ -58,7 +58,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
   <ion-grid>
     <ion-row *ngFor="let item of alert_per_sorted" class="list-row">
       <ion-col col-12 class="list-col">
@@ -86,8 +85,7 @@
                       alert_type[item.split("-")[0]] === "กิโลเมตร"
                         ? alert[item.split("-")[0]] == -1
                           ? "กรุณากรอกข้อมูลให้ครบถ้วน"
-                          : mile -
-                            alert[item.split("-")[0]] +
+                          : number(mile, alert[item.split("-")[0]]) +
                             " " +
                             alert_type[item.split("-")[0]]
                         : alert[item.split("-")[0]] == -1

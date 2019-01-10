@@ -47,6 +47,7 @@ export class MainPage {
   oilEngine: any;
   carID: any;
   oil_engine = { "0": 7500, "1": 5000, "2": 10000 };
+  first: boolean = false;
   alert = {};
   alert_per = {};
   alert_per_sorted = [];
@@ -203,6 +204,7 @@ export class MainPage {
     if (!this.auth.getcurrentUser()) {
       return;
     }
+
     var doc = this.afs
       .collection("Users")
       .doc(this.auth.getcurrentUser().uid)
@@ -216,12 +218,14 @@ export class MainPage {
           return { id, ...data };
         });
       })
-      .take(1)
       .subscribe(querySnapshot => {
         querySnapshot.forEach((docSnap: any) => {
           var CurrentDate = moment(new Date());
-          this.mile = parseFloat(docSnap.car_mile || 0);
-          this.showmile = this.mile.toFixed(1);
+          if (!this.first) {
+            this.mile = parseFloat(docSnap.car_mile || 0);
+            this.showmile = this.mile.toFixed(1);
+          }
+          this.first = true;
           this.lastvisit = docSnap.last_visit || "0-0-0";
           this.last_visit = parseInt(this.lastvisit.split("-")[1]);
           this.oilEngine = docSnap.engine_oil || 0;
@@ -381,11 +385,21 @@ export class MainPage {
               )
             : -1;
 
-          this.alert_per_sorted = Object.keys(this.alert_per).sort(
-            (a, b) => this.alert_per[b] - this.alert_per[a]
-          );
+          this.ngZone.run(() => {
+            this.alert_per_sorted = Object.keys(this.alert_per).sort(
+              (a, b) => this.alert_per[b] - this.alert_per[a]
+            );
+          });
         });
       });
+  }
+
+  number(a, b) {
+    return (a - b).toFixed(0);
+  }
+
+  customTrackBy(index: number, item: any): any {
+    return index;
   }
 
   updateProgress() {
@@ -442,7 +456,15 @@ export class MainPage {
         : -1;
   }
 
-  ionViewDidLoad() {
+  doRefresh(refresher) {
+    this.loaduserProfile();
+    console.log("load user");
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
+
+  ionViewWillEnter() {
     console.log("ionViewDidLoad MainPage");
     setTimeout(() => {
       this.plt.ready().then(() => {
@@ -487,6 +509,8 @@ export class MainPage {
       .collection("Cars")
       .doc(this.carID);
     var updateSingle = colRef.update({ car_mile: Math.ceil(newValue) });
+    this.mile = Math.ceil(newValue);
+    this.showmile = this.mile.toFixed(1);
   }
 
   ionViewDidEnter() {
@@ -548,6 +572,8 @@ export class MainPage {
                   .collection("Cars")
                   .doc(this.carID);
                 var updateSingle = colRef.update({ car_mile: data.odemeter });
+                this.mile = data.odemeter;
+                this.showmile = this.mile.toFixed(1);
               } else {
                 let alert = this.alertCtrl.create({
                   title: "ERROR",
@@ -593,7 +619,7 @@ export class MainPage {
                   .doc(this.auth.getcurrentUser().uid)
                   .collection("Cars")
                   .doc(this.carID);
-                var updateSingle = colRef.update({ [field]: data.odemeter });
+                colRef.update({ [field]: data.odemeter });
               } else {
                 let alert = this.alertCtrl.create({
                   title: "ERROR",
