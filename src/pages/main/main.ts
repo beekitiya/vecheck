@@ -103,6 +103,10 @@ export class MainPage {
         this.plt.ready().then(() => {
           this.navCtrl.setRoot("LoginPage");
         });
+      } else {
+        this.plt.ready().then(() => {
+          this.loaduserProfile();
+        });
       }
     });
     this.getFormatDate();
@@ -199,8 +203,6 @@ export class MainPage {
   ionViewWillUnload() {
     //this.pauseSub.unsubscribe();
   }
-
-]
 
   loaduserProfile() {
     if (!this.auth.getcurrentUser()) {
@@ -453,42 +455,39 @@ export class MainPage {
     return (a - b).toFixed(0);
   }
 
-  ionViewWillEnter() {
-    console.log("ionViewDidLoad MainPage");
-    setTimeout(() => {
-      this.plt.ready().then(() => {
-        this.loaduserProfile();
-        bluetoothSerial.enable(
-          () => {
-            console.log("enable");
-            //this.start();
-          },
-          () => {
-            console.log("didnot enable");
-            let alert = this.alertCtrl.create({
-              title: "WARNING",
-              subTitle: "Please Enable Bluetooth",
-              buttons: ["Dismiss"]
-            });
-            alert.present();
-          }
-        );
+  ionViewDidLoad() {
+    this.plt.ready().then(() => {
+      //this.loaduserProfile();
+      bluetoothSerial.enable(
+        () => {
+          console.log("enable");
+          //this.start();
+        },
+        () => {
+          console.log("didnot enable");
+          let alert = this.alertCtrl.create({
+            title: "WARNING",
+            subTitle: "Please Enable Bluetooth",
+            buttons: ["Dismiss"]
+          });
+          alert.present();
+        }
+      );
 
-        this.pauseSub = this.plt.pause.subscribe(() => {
-          console.log("PAUSE WORKING!!!!");
-          if (this.counter_temp > 0) {
-            this.updateMile(parseFloat(this.mile) + this.counter_temp);
-            this.counter_temp = 0;
-          }
-        });
-        this.resumeSub = this.plt.resume.subscribe(() => {
-          console.log("RESUME WORKING!!!!");
-          if (this.connected === false) {
-            this.start();
-          }
-        });
+      this.pauseSub = this.plt.pause.subscribe(() => {
+        console.log("PAUSE WORKING!!!!");
+        if (this.counter_temp > 0) {
+          this.updateMile(parseFloat(this.mile) + this.counter_temp);
+          this.counter_temp = 0;
+        }
       });
-    }, 1000);
+      this.resumeSub = this.plt.resume.subscribe(() => {
+        console.log("RESUME WORKING!!!!");
+        if (this.connected === false) {
+          this.start();
+        }
+      });
+    });
   }
 
   updateMile(newValue: number) {
@@ -500,12 +499,6 @@ export class MainPage {
     var updateSingle = colRef.update({ car_mile: Math.ceil(newValue) });
     this.mile = Math.ceil(newValue);
     this.showmile = this.mile.toFixed(1);
-  }
-
-  ionViewDidEnter() {
-    /*this.connectInverval=setInterval(() => {
-                this.start();
-       }, 10000);*/
   }
 
   readMile(): Promise<any> {
@@ -561,7 +554,7 @@ export class MainPage {
                   .collection("Cars")
                   .doc(this.carID);
                 var updateSingle = colRef.update({ car_mile: data.odemeter });
-                this.mile = data.odemeter;
+                this.mile = parseFloat(data.odemeter);
                 this.showmile = this.mile.toFixed(1);
               } else {
                 let alert = this.alertCtrl.create({
