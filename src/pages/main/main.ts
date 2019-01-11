@@ -200,6 +200,8 @@ export class MainPage {
     //this.pauseSub.unsubscribe();
   }
 
+]
+
   loaduserProfile() {
     if (!this.auth.getcurrentUser()) {
       return;
@@ -272,7 +274,60 @@ export class MainPage {
               )
             : -1;
 
-          this.updateProgress();
+          this.alert_per["oil_engine"] =
+            this.alert["oil_engine"] > -1
+              ? this.clamp(
+                  ((this.mile - this.alert["oil_engine"]) /
+                    this.oil_engine[this.oilEngine]) *
+                    100,
+                  0,
+                  100
+                )
+              : -1;
+          this.alert_per["break"] =
+            this.alert["break"] > -1
+              ? this.clamp(
+                  ((this.mile - this.alert["break"]) / 40000) * 100,
+                  0,
+                  100
+                )
+              : -1;
+
+          this.alert_per["oil_gear"] =
+            this.alert["oil_gear"] > -1
+              ? this.clamp(
+                  ((this.mile - this.alert["oil_gear"]) / 40000) * 100,
+                  0,
+                  100
+                )
+              : -1;
+
+          this.alert_per["back_gear"] =
+            this.alert["back_gear"] > -1
+              ? this.clamp(
+                  ((this.mile - this.alert["back_gear"]) / 40000) * 100,
+                  0,
+                  100
+                )
+              : -1;
+
+          this.alert_per["car_tires"] =
+            this.alert["car_tires"] > -1
+              ? this.clamp(
+                  ((this.mile - this.alert["car_tires"]) / 50000) * 100,
+                  0,
+                  100
+                )
+              : -1;
+
+          this.alert_per["oil_power"] =
+            this.alert["oil_power"] > -1
+              ? this.clamp(
+                  ((this.mile - this.alert["oil_power"]) / 80000) * 100,
+                  0,
+                  100
+                )
+              : -1;
           this.alert["air_filter"] = docSnap.air_filter
             ? CurrentDate.diff(moment(docSnap.air_filter), "months")
             : -1;
@@ -396,72 +451,6 @@ export class MainPage {
 
   number(a, b) {
     return (a - b).toFixed(0);
-  }
-
-  customTrackBy(index: number, item: any): any {
-    return index;
-  }
-
-  updateProgress() {
-    this.alert_per["oil_engine"] =
-      this.alert["oil_engine"] > -1
-        ? this.clamp(
-            (this.mile -
-              this.alert["oil_engine"] / this.oil_engine[this.oilEngine]) *
-              100,
-            0,
-            100
-          )
-        : -1;
-
-    this.alert_per["break"] =
-      this.alert["break"] > -1
-        ? this.clamp(((this.mile - this.alert["break"]) / 40000) * 100, 0, 100)
-        : -1;
-
-    this.alert_per["oil_gear"] =
-      this.alert["oil_gear"] > -1
-        ? this.clamp(
-            ((this.mile - this.alert["oil_gear"]) / 40000) * 100,
-            0,
-            100
-          )
-        : -1;
-
-    this.alert_per["back_gear"] =
-      this.alert["back_gear"] > -1
-        ? this.clamp(
-            ((this.mile - this.alert["back_gear"]) / 40000) * 100,
-            0,
-            100
-          )
-        : -1;
-
-    this.alert_per["car_tires"] =
-      this.alert["car_tires"] > -1
-        ? this.clamp(
-            ((this.mile - this.alert["car_tires"]) / 50000) * 100,
-            0,
-            100
-          )
-        : -1;
-
-    this.alert_per["oil_power"] =
-      this.alert["oil_power"] > -1
-        ? this.clamp(
-            ((this.mile - this.alert["oil_power"]) / 80000) * 100,
-            0,
-            100
-          )
-        : -1;
-  }
-
-  doRefresh(refresher) {
-    this.loaduserProfile();
-    console.log("load user");
-    setTimeout(() => {
-      refresher.complete();
-    }, 2000);
   }
 
   ionViewWillEnter() {

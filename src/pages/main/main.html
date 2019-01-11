@@ -31,7 +31,7 @@
           <ion-card-content text-center>
             <img class="main-icon" src="../assets/imgs/speed.png" />
             <p style="margin-top:31px;color:#98999c">ความเร็ว</p>
-            <p style="margin-top:10px;font-size:17px;">{{ Speed }}</p>
+            <p style="margin-top:10px;font-size:16px;">{{ Speed }}</p>
             <p style="margin-bottom:-5px;color:#98999c">km/h</p>
           </ion-card-content>
         </ion-card>
@@ -41,7 +41,7 @@
           <ion-card-content text-center>
             <img class="main-icon" src="../assets/imgs/distance.png" />
             <p style="margin-top:31px;color:#98999c">ระยะทาง</p>
-            <p style="margin-top:10px;font-size:17px;">{{ Distance }}</p>
+            <p style="margin-top:10px;font-size:16px;">{{ Distance }}</p>
             <p style="margin-top:-5px;color:#98999c">km</p>
           </ion-card-content>
         </ion-card>
@@ -51,7 +51,7 @@
           <ion-card-content text-center>
             <img class="main-icon" src="../assets/imgs/odometer.png" />
             <p style="margin-top:31px;color:#98999c">เลขไมล์สะสม</p>
-            <p style="margin-top:10px;font-size:17px;">{{ showmile }}</p>
+            <p style="margin-top:10px;font-size:16px;">{{ showmile }}</p>
             <p style="margin-top:-5px;color:#98999c;margin-bottom:-17px;">km</p>
           </ion-card-content>
         </ion-card>
@@ -75,9 +75,9 @@
                     [ngClass]="{
                       'red-txt': alert_per[item] < '0',
                       'green-bg':
-                        alert_per[item] >= '0' && alert_per[item] < '40',
+                        alert_per[item] >= '0' && alert_per[item] < '60',
                       'yellow-bg':
-                        alert_per[item] >= '40' && alert_per[item] < '80',
+                        alert_per[item] >= '60' && alert_per[item] < '80',
                       'red-bg': alert_per[item] >= '80'
                     }"
                   >
