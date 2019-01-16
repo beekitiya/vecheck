@@ -38,7 +38,6 @@ export class MainPage {
   temp: string = "";
   Speed: number;
   counter: number;
-  counter_temp: number;
   Distance: string = "";
   last_visit: number;
   lastvisit: any;
@@ -115,19 +114,13 @@ export class MainPage {
     wifiOBDReader = new OBDReader();
     var instance = this;
     this.counter = 0;
-    this.counter_temp = 0;
     wifiOBDReader.on("debug", function(data) {
       console.log("=>APP DEBUG:" + data);
     });
     wifiOBDReader.on("error", function(data) {
       instance.ngZone.run(() => {
         instance.connected = false;
-        if (instance.counter_temp > 0) {
-          instance.updateMile(
-            parseFloat(instance.mile) + instance.counter_temp
-          );
-          instance.counter_temp = 0;
-        }
+        instance.updateMile(instance.mile);
       });
 
       console.log("=>APP ERROR:" + data);
@@ -143,10 +136,9 @@ export class MainPage {
           instance.ngZone.run(() => {
             instance.Speed = kph;
             instance.counter += kph / 3600;
-            instance.counter_temp += kph / 3600;
-            instance.Distance = instance.counter.toFixed(2);
+            instance.Distance = instance.roundTo(instance.counter, 2);
             instance.mile += kph / 3600;
-            instance.showmile = instance.mile.toFixed(1);
+            instance.showmile = instance.roundTo(instance.mile, 1);
             //this.updateProgress();
           });
         } else {
@@ -168,6 +160,29 @@ export class MainPage {
       );
       this.startPolling(1000); //Request  values every 1 second.
     }); // conneceted
+  }
+
+  roundTo(n, digits): string {
+    if (digits === undefined) {
+      digits = 0;
+    }
+
+    var multiplicator = Math.pow(10, digits);
+    n = parseFloat((n * multiplicator).toFixed(11));
+    var test = Math.round(n) / multiplicator;
+    return test.toFixed(digits);
+  }
+
+  simulate() {
+    let kph = 35; // convert to mph
+    this.ngZone.run(() => {
+      this.Speed = kph;
+      this.counter += kph / 3600;
+      this.Distance = this.roundTo(this.counter, 2);
+      this.mile += kph / 3600;
+      this.showmile = this.roundTo(this.mile, 1);
+      //this.updateProgress();
+    });
   }
 
   start() {
@@ -227,7 +242,7 @@ export class MainPage {
           var CurrentDate = moment(new Date());
           if (!this.first) {
             this.mile = parseFloat(docSnap.car_mile || 0);
-            this.showmile = this.mile.toFixed(1);
+            this.showmile = this.roundTo(this.mile, 1);
           }
           this.first = true;
           this.lastvisit = docSnap.last_visit || "0-0-0";
@@ -476,10 +491,7 @@ export class MainPage {
 
       this.pauseSub = this.plt.pause.subscribe(() => {
         console.log("PAUSE WORKING!!!!");
-        if (this.counter_temp > 0) {
-          this.updateMile(parseFloat(this.mile) + this.counter_temp);
-          this.counter_temp = 0;
-        }
+        this.updateMile(this.mile);
       });
       this.resumeSub = this.plt.resume.subscribe(() => {
         console.log("RESUME WORKING!!!!");
@@ -496,9 +508,9 @@ export class MainPage {
       .doc(this.auth.getcurrentUser().uid)
       .collection("Cars")
       .doc(this.carID);
-    var updateSingle = colRef.update({ car_mile: Math.ceil(newValue) });
-    this.mile = Math.ceil(newValue);
-    this.showmile = this.mile.toFixed(1);
+    var updateSingle = colRef.update({ car_mile: newValue });
+    this.mile = newValue;
+    this.showmile = this.roundTo(this.mile, 1);
   }
 
   readMile(): Promise<any> {
@@ -547,23 +559,14 @@ export class MainPage {
           text: "บันทึก",
           handler: data => {
             if (data.odemeter) {
-              if (data.odemeter >= this.mile) {
-                var colRef = this.afs
-                  .collection("Users")
-                  .doc(this.auth.getcurrentUser().uid)
-                  .collection("Cars")
-                  .doc(this.carID);
-                var updateSingle = colRef.update({ car_mile: data.odemeter });
-                this.mile = parseFloat(data.odemeter);
-                this.showmile = this.mile.toFixed(1);
-              } else {
-                let alert = this.alertCtrl.create({
-                  title: "ERROR",
-                  subTitle: "กรุณาใส่เลขไมล์สะสมที่มากขึ้น!",
-                  buttons: ["OK"]
-                });
-                alert.present();
-              }
+              var colRef = this.afs
+                .collection("Users")
+                .doc(this.auth.getcurrentUser().uid)
+                .collection("Cars")
+                .doc(this.carID);
+              var updateSingle = colRef.update({ car_mile: data.odemeter });
+              this.mile = parseFloat(data.odemeter);
+              this.showmile = this.roundTo(this.mile, 1);
             }
           }
         }
