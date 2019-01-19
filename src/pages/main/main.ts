@@ -97,6 +97,7 @@ export class MainPage {
     private auth: AuthService,
     public afAuth: AngularFireAuth
   ) {
+    //Check Login
     this.afAuth.authState.subscribe(user => {
       if (!user) {
         this.plt.ready().then(() => {
@@ -109,7 +110,7 @@ export class MainPage {
       }
     });
     this.getFormatDate();
-
+    //Connect OBD
     var OBDReader = require("obd-bluetooth-tcp");
     wifiOBDReader = new OBDReader();
     var instance = this;
@@ -126,10 +127,13 @@ export class MainPage {
       console.log("=>APP ERROR:" + data);
       wifiOBDReader.autoconnect("bluetooth", "OBD");
     });
+
+    //When Data Received from OBD
     wifiOBDReader.on("dataReceived", function(data) {
       //instance.stopClear();
       console.log("=>APP: Received Data=" + JSON.stringify(data));
 
+      //Update Mile, Speed, Distance Km
       if (data.name && data.name == "vss") {
         if (data.value != null) {
           let kph = Math.round(data.value); // convert to mph
@@ -154,6 +158,7 @@ export class MainPage {
       //clearInterval(this.connectInverval);
       this.stopPolling();
       this.removeAllPollers();
+      // SET DATA LISTENER
       this.addPoller("vss"); // 0,220 mph
       console.log(
         "=======>ON START WE HAVE " + this.getNumPollers() + " pollers"
@@ -190,13 +195,15 @@ export class MainPage {
     this.plt.ready().then(() => {
       console.log("Platform ready, instantiating OBD");
       wifiOBDReader.setProtocol(0);
-      //wifiOBDReader.autoconnect("TCP", this.host);
+
+      //connect obd by bluetooth, search bluetooth name contained OBD
       wifiOBDReader.autoconnect("bluetooth", "OBD");
     }); // ready
   }
 
   stop() {
     this.plt.ready().then(() => {
+      //remove listeners
       wifiOBDReader.removeAllPollers();
       wifiOBDReader.disconnect();
       this.connected = false;
@@ -220,6 +227,7 @@ export class MainPage {
   }
 
   loaduserProfile() {
+    //check if already login
     if (!this.auth.getcurrentUser()) {
       return;
     }
@@ -241,15 +249,19 @@ export class MainPage {
         querySnapshot.forEach((docSnap: any) => {
           var CurrentDate = moment(new Date());
           if (!this.first) {
+            //only update Mile once
+            //to prevent bug, double distance
             this.mile = parseFloat(docSnap.car_mile || 0);
             this.showmile = this.roundTo(this.mile, 1);
           }
           this.first = true;
           this.lastvisit = docSnap.last_visit || "0-0-0";
+          //get only number of month
           this.last_visit = parseInt(this.lastvisit.split("-")[1]);
+
           this.oilEngine = docSnap.engine_oil || 0;
           this.carID = docSnap.id;
-
+          //load default values to alert
           this.alert["oil_engine"] =
             "oil_engine" in docSnap ? docSnap.oil_engine : -1;
           this.alert["break"] = "break" in docSnap ? docSnap.break : -1;
@@ -268,6 +280,7 @@ export class MainPage {
             ? CurrentDate.diff(moment(docSnap.tires), "days")
             : -1;
 
+          //calculate percent from given formula
           this.alert_per["coolant_water"] = docSnap.coolant_water
             ? this.clamp(
                 (CurrentDate.diff(moment(docSnap.coolant_water), "days") /
@@ -279,6 +292,7 @@ export class MainPage {
                 100
               )
             : -1;
+          //calculate percent from given formula
           this.alert_per["tires"] = docSnap.tires
             ? this.clamp(
                 (CurrentDate.diff(moment(docSnap.tires), "days") /
@@ -290,7 +304,7 @@ export class MainPage {
                 100
               )
             : -1;
-
+          //calculate percent from given formula
           this.alert_per["oil_engine"] =
             this.alert["oil_engine"] > -1
               ? this.clamp(
@@ -301,6 +315,7 @@ export class MainPage {
                   100
                 )
               : -1;
+          //calculate percent from given formula
           this.alert_per["break"] =
             this.alert["break"] > -1
               ? this.clamp(
@@ -309,7 +324,7 @@ export class MainPage {
                   100
                 )
               : -1;
-
+          //calculate percent from given formula
           this.alert_per["oil_gear"] =
             this.alert["oil_gear"] > -1
               ? this.clamp(
@@ -319,6 +334,7 @@ export class MainPage {
                 )
               : -1;
 
+          //calculate percent from given formula
           this.alert_per["back_gear"] =
             this.alert["back_gear"] > -1
               ? this.clamp(
@@ -327,7 +343,7 @@ export class MainPage {
                   100
                 )
               : -1;
-
+          //calculate percent from given formula
           this.alert_per["car_tires"] =
             this.alert["car_tires"] > -1
               ? this.clamp(
@@ -336,7 +352,7 @@ export class MainPage {
                   100
                 )
               : -1;
-
+          //calculate percent from given formula
           this.alert_per["oil_power"] =
             this.alert["oil_power"] > -1
               ? this.clamp(
@@ -345,6 +361,8 @@ export class MainPage {
                   100
                 )
               : -1;
+
+          //load default values to alert
           this.alert["air_filter"] = docSnap.air_filter
             ? CurrentDate.diff(moment(docSnap.air_filter), "months")
             : -1;
@@ -358,6 +376,7 @@ export class MainPage {
             ? CurrentDate.diff(moment(docSnap.battery), "months")
             : -1;
 
+          //calculate percent from given formula
           this.alert_per["air_filter"] = docSnap.air_filter
             ? this.clamp(
                 (CurrentDate.diff(moment(docSnap.air_filter), "months") /
@@ -369,7 +388,7 @@ export class MainPage {
                 100
               )
             : -1;
-
+          //calculate percent from given formula
           this.alert_per["passenger_air_filter"] = docSnap.passenger_air_filter
             ? this.clamp(
                 (CurrentDate.diff(
@@ -384,6 +403,7 @@ export class MainPage {
                 100
               )
             : -1;
+          //calculate percent from given formula
           this.alert_per["rain_rubber"] = docSnap.rain_rubber
             ? this.clamp(
                 (CurrentDate.diff(moment(docSnap.rain_rubber), "months") /
@@ -395,6 +415,8 @@ export class MainPage {
                 100
               )
             : -1;
+
+          //calculate percent from given formula
 
           this.alert_per["battery"] = docSnap.battery
             ? this.clamp(
@@ -408,12 +430,15 @@ export class MainPage {
               )
             : -1;
 
+          //load
+
           this.alert["third_insurance_expire"] = docSnap.third_insurance_expire
             ? CurrentDate.diff(
                 moment(docSnap.third_insurance_expire).subtract(12, "M"),
                 "months"
               )
             : -1;
+          //calculate percent from given formula
           this.alert_per[
             "third_insurance_expire"
           ] = docSnap.third_insurance_expire
@@ -431,7 +456,7 @@ export class MainPage {
                 100
               )
             : -1;
-
+          //load
           this.alert["insurance_expire"] =
             docSnap.insurance !== "ไม่สมัคร"
               ? docSnap.insurance_expire
@@ -441,6 +466,7 @@ export class MainPage {
                   )
                 : -1
               : 0;
+          //calculate percent from given formula
           this.alert_per["insurance_expire"] = docSnap.insurance_expire
             ? this.clamp(
                 (CurrentDate.diff(
@@ -456,7 +482,7 @@ export class MainPage {
                 100
               )
             : -1;
-
+          //update check lists
           this.ngZone.run(() => {
             this.alert_per_sorted = Object.keys(this.alert_per).sort(
               (a, b) => this.alert_per[b] - this.alert_per[a]
@@ -471,8 +497,11 @@ export class MainPage {
   }
 
   ionViewDidLoad() {
+    //execute when main page landing
     this.plt.ready().then(() => {
       //this.loaduserProfile();
+
+      //ask to enable bluetooth (only works for android to popup 'enable' button)
       bluetoothSerial.enable(
         () => {
           console.log("enable");
@@ -490,11 +519,14 @@ export class MainPage {
       );
 
       this.pauseSub = this.plt.pause.subscribe(() => {
+        //update Mile to databse after leaving app
         console.log("PAUSE WORKING!!!!");
         this.updateMile(this.mile);
       });
       this.resumeSub = this.plt.resume.subscribe(() => {
         console.log("RESUME WORKING!!!!");
+        //after back to the app
+        //try to connect obd again if not connected
         if (this.connected === false) {
           this.start();
         }
@@ -503,6 +535,7 @@ export class MainPage {
   }
 
   updateMile(newValue: number) {
+    //update Mile to database
     var colRef = this.afs
       .collection("Users")
       .doc(this.auth.getcurrentUser().uid)
@@ -513,32 +546,8 @@ export class MainPage {
     this.showmile = this.roundTo(this.mile, 1);
   }
 
-  readMile(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.afs
-        .collection("Users")
-        .doc(this.auth.getcurrentUser().uid)
-        .collection("Cars")
-        .ref.get()
-        .then(docs => {
-          docs.forEach(x => {
-            let data = x.data();
-            resolve({
-              mile: data.car_mile,
-              last_visit: data.last_visit,
-              engine_oil: data.engine_oil,
-              third_insurance_expire: data.third_insurance_expire,
-              insurance_expire: data.insurance_expire
-            });
-          });
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
-
   editOdoAlert() {
+    //edit Mile
     let alert = this.alertCtrl.create({
       title: "แก้ไขเลขไมล์สะสม",
       inputs: [
@@ -577,6 +586,7 @@ export class MainPage {
   }
 
   editkmAlert(field) {
+    //edit alert about KM
     let alert = this.alertCtrl.create({
       title: `แก้ไขเลขไมล์ที่เปลี่ยน ${this.alert_name[field]}`,
       inputs: [
@@ -648,6 +658,7 @@ export class MainPage {
   }
 
   updateData(name) {
+    //update alert about date
     if (this.alert_type[name] != "กิโลเมตร") {
       let alert = this.alertCtrl.create({
         title:
